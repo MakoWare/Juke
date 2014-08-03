@@ -1,0 +1,19 @@
+<div class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://makowaredev.com">MakoWare</a>
+    </div>
+    <div class="navbar-collapse collapse navbar-inverse-collapse">
+      <form name="loginForm" class="navbar-form navbar-right ng-pristine ng-invalid-required ng-invalid" novalidate="">
+	<input type="text" class="form-control col-lg-8 ng-pristine ng-invalid-required ng-invalid" style="margin: 5px;" placeholder="username" ng-model="login.username" required="">
+	<input type="password" class="form-control col-lg-8 ng-pristine ng-invalid-required ng-invalid" style="margin: 5px;" placeholder="password" ng-model="login.password" required="">
+	<button type="submit" class="btn btn-default" ng-click="login()" ng-disabled="loginForm.$invalid" style="margin: 5px;" disabled="disabled">Login</button>
+      </form>
+    </div>
+  </div>
+</div>

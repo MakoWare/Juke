@@ -52,8 +52,8 @@ var LoginCtrl = function($scope, $location, ParseService){
 
     //Init
     $scope.init = function(){
-	$scope.logout()
+	$scope.logout();
     };
 
     $scope.init();
-}
+};

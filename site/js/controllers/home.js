@@ -11,8 +11,7 @@ var HomeCtrl = function($scope, $location, ParseService){
         if($scope.currentUser == undefined){
             $location.path('/');
         }
-
-    }
+    };
 
     $scope.init();
-}
+};

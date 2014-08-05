@@ -1,7 +1,7 @@
 'use strict';
 
 //Hub Controller
-var HubCtrl = function($rootScope, $scope, $location, $modal, $log, $http, $q, $timeout, ParseService){
+var HubCtrl = function($location, $modal, $http, $q, ParseService){
 
     //Get color for rows
     $scope.getColor = function(index){
@@ -257,4 +257,4 @@ var HubCtrl = function($rootScope, $scope, $location, $modal, $log, $http, $q, $
 
     //Init
     $scope.init();
-}
+};

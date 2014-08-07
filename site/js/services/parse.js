@@ -1,5 +1,5 @@
 //Parse Service
-angular.module('parseService')
+angular.module('parseService', [])
     .factory('ParseService', function(){
 
         var loaded = false;

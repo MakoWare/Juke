@@ -1,7 +1,7 @@
 'use strict';
 
 //Login Controller
-var LoginCtrl = function($scope, $location, ParseService){
+var LoginCtrl = function($scope, $location, GlobalService, ParseService){
     //Sign Up
     $scope.signUp = function(){
         var user = new Parse.User();
@@ -53,6 +53,7 @@ var LoginCtrl = function($scope, $location, ParseService){
     //Init
     $scope.init = function(){
 	$scope.logout();
+        console.log(GlobalService.isMobile());
     };
 
     $scope.init();

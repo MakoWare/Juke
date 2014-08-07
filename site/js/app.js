@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('juke', [
-    'parseService'
+    'globalService',
+    'parseService',
+    'ngRoute'
 ])
-    .config(['$routeProvider', function($routeProvider) {
+    .config(function($routeProvider) {
 	$routeProvider.
 	    when('/', {
 		templateUrl: 'partials/login.html',
@@ -21,4 +23,4 @@ angular.module('juke', [
 		templateUrl: 'partials/player.html',
 		controller: PlayerCtrl}).
 	    otherwise({redirectTo: '/'});
-    }]);
+    });

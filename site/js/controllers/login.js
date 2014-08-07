@@ -2,30 +2,20 @@
 
 //Login Controller
 var LoginCtrl = function($scope, $location, GlobalService, ParseService){
+
     //Sign Up
     $scope.signUp = function(){
-        var user = new Parse.User();
-        user.set('username', $scope.signUp_username);
-        user.set('email', $scope.signUp_email);
-        user.set('password', $scope.signUp_password);
-        user.signUp(null, {
-            success: function(user){
-	        if(user != undefined){
-		    $location.path('/hubs');
-		    $scope.$apply();
-	        }
-            },
-            error: function(user, error){
-                alert("Error: " + error.message);
-            }
-	});
+        ParseService.signUp($scope.signUp.username, $scope.signUp.password, function(results){
+            if(results != undefined){
+		$location.path('/hubs');
+		$scope.$apply();
+	    }
+        });
     };
 
     //Login
     $scope.login = function(){
-	var username = $scope.login.username;
-	var password = $scope.login.password;
-	ParseService.login(username, password, function(user){
+	ParseService.login($scope.login.username, $scope.login.password, function(user){
 	    if(user != undefined){
 		$location.path('/hubs');
 		$scope.$apply();
@@ -35,14 +25,7 @@ var LoginCtrl = function($scope, $location, GlobalService, ParseService){
 
     //Reset Password
     $scope.resetPassword = function(){
-        Parse.User.requestPasswordReset($scope.emailReset, {
-            success: function() {
-                alert("An email was sent to you");
-            },
-            error: function(error) {
-                alert("Error: " + error.message);
-            }
-        });
+        ParseService.resetPassword();
     };
 
     //Logout
@@ -53,7 +36,7 @@ var LoginCtrl = function($scope, $location, GlobalService, ParseService){
     //Init
     $scope.init = function(){
 	$scope.logout();
-        console.log(GlobalService.isMobile());
+	$scope.isMobile = GlobalService.isMobile;
     };
 
     $scope.init();

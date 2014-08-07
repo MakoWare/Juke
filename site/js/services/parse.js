@@ -7,8 +7,6 @@ angular.module('parseService', [])
 	//Init Parse
 	Parse.initialize("GU8DuOP6RzlnFFNBNOVnB5qrf6HCqxpJXSbDyN3W", "Wf6t36hyN7aPbkQzIxN6bXPMZGlr4xpdZgK1ljwG");
 
-	//Cash current User
-	var currentUser;
 
 	//Cash current Queued Songs
 	var queuedSongs = [];
@@ -26,7 +24,7 @@ angular.module('parseService', [])
         var ParseService = {
 	    name: "Parse",
 
-            getPlayer : function getPlayer(callback){
+            getPlayer: function(callback){
                 if(loaded){
                     var player = new YT.Player('player', {
                         videoId: '0gl8UKAYI7k'
@@ -45,7 +43,7 @@ angular.module('parseService', [])
 
 	    //User
 	    //Login
-	    login : function login(username, password, callback) {
+	    login: function(username, password, callback) {
 		Parse.User.logIn(username, password, {
 		    success: function(user) {
 			currentUser = user;
@@ -58,12 +56,12 @@ angular.module('parseService', [])
 	    },
 
 	    //Logout
-	    logout : function logout(callback) {
+	    logout: function(callback) {
 		Parse.User.logOut();
 	    },
 
 	    //Sign up
-	    signUp : function signUp(username, password, callback) {
+	    signUp: function(username, password, callback) {
 		var acl = new Parse.ACL();
 		acl.setPublicReadAccess(true);
 		Parse.User.signUp(username, password, { ACL: acl }, {
@@ -77,13 +75,23 @@ angular.module('parseService', [])
 		});
 	    },
 
-	    //Get Current User
-	    getCurrentUser : function getCurrentUser() {
-		currentUser = Parse.User.current();
-		if(currentUser){
-		    return currentUser;
-		}
+            //Reset Password
+	    resetPassword: function(email) {
+                Parse.User.requestPasswordReset(email, {
+                    success: function() {
+                        alert("An email was sent to you");
+                    },
+                    error: function(error) {
+                        alert("Error: " + error.message);
+                    }
+                });
 	    },
+
+            //Get current User
+            getCurrentUser: function(){
+                return Parse.User.current();
+            },
+
 
 	    //Hubs
 	    //Get a Hub by its objectId
@@ -215,8 +223,6 @@ angular.module('parseService', [])
 		    }
 		});
 	    }
-
-
 	};
 	return ParseService;
     });

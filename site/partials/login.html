@@ -1,0 +1,51 @@
+<div ng-include="'partials/nav.html'"></div>
+
+<div class="container">
+  <div class="row" id="mobileContent">
+    <div class="alert alert-warning" style="text-align: center">Try our mobile version in the app stores</div>
+  </div>
+
+  <div class="jumbotron">
+    <div class="row">
+      <div class="col-xs-4">
+        <h1>Juke</h1>
+        <p>Democratic Playlists</p>
+        <p><a href="#/about"><button class="btn btn-primary btn-lg">Learn more</button></a></p>
+      </div>
+      <div class="col-xs-3 col-xs-offset-2" id="desktopContent">
+        <img src="../images/screenshotHubView.png" alt="screenshot" class="img-responsive ">
+      </div>
+      <div class="col-xs-2" id="desktopContent">
+        <br>
+        <br>
+        <br>
+        <a href="https://itunes.apple.com/us/app/juke-democratic-playlists/id852959492?ls=1&amp;mt=8"><img src="../images/appStore.png" alt="appStore" width="100%"></a>
+        <br>
+        <br>
+        <img src="../images/playStore.png" alt="playStore" width="100%">
+        <h5 style="margin-left: 13px;">comming soon!</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="well">
+    <form name="signUpForm" class="form-inline ng-pristine ng-invalid-required ng-invalid" novalidate="">
+	<legend>Sign Up</legend>
+	<div class="row">
+	  <div class="form-group">
+	    <input type="username" ng-model="signUp_username" class="form-control ng-pristine ng-invalid-required ng-invalid" id="username" placeholder="Username" name="username" required="">
+	  </div>
+	  <div class="form-group">
+	    <input type="text" class="form-control ng-pristine ng-invalid ng-invalid-required" id="email" placeholder="Email" name="email" ng-model="signUp_email" required="">
+	  </div>
+	  <div class="form-group">
+	    <input type="password" class="form-control ng-pristine ng-invalid ng-invalid-required" id="password" placeholder="Password" name="password" ng-model="signUp_password" required="">
+	  </div>
+	  <button ng-click="signUp()" type="submit" class="btn btn-primary" ng-disabled="signUpForm.$invalid" disabled="disabled">Submit</button>
+
+          <button data-toggle="modal" data-target="#myModal" class="btn btn-link">forget your password?</button>
+	</div>
+        <br>
+    </form>
+  </div>
+</div>

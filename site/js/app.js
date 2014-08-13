@@ -8,8 +8,8 @@ angular.module('juke', [
     .config(function($routeProvider) {
 	$routeProvider.
 	    when('/', {
-		templateUrl: 'partials/login.html',
-		controller: LoginCtrl}).
+		templateUrl: 'partials/home.html',
+		controller: HomeCtrl}).
 	    when('/about', {
 		templateUrl: 'partials/about.html',
 		controller: LoginCtrl}).

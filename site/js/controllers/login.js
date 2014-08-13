@@ -35,7 +35,6 @@ var LoginCtrl = function($scope, $location, GlobalService, ParseService){
 
     //Init
     $scope.init = function(){
-	$scope.logout();
 	$scope.isMobile = GlobalService.isMobile;
     };
 

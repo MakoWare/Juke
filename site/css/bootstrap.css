@@ -292,8 +292,8 @@ th {
 html {
   font-size: 62.5%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  background-image: url("../images/noise.png"), -webkit-gradient(radial, 50% 0%, 0, 50% 0%, 750, color-stop(0%, #4CCCF5), color-stop(100%, #4C96F5));
-  background-image: url("../images/noise.png"), -webkit-radial-gradient(center center, #4CCCF5, #4C96F5 750px);
+  background-image: url("../images/noise.png"), -webkit-gradient(radial, 50% 0%, 0, 50% 0%, 750, color-stop(0%, #F5E34C), color-stop(100%, #F5964C));
+  background-image: url("../images/noise.png"), -webkit-radial-gradient(center center, #F5E34C, #F5964C 750px);
   background-image: url("../images/noise.png"), -moz-radial-gradient(center center, #4CCCF5, #4C96F5 750px);
   background-image: url("../images/noise.png"), -o-radial-gradient(center center, #4CCCF5, #4C96F5 750px);
   background-image: url("../images/noise.png"), -ms-radial-gradient(center center, #4CCCF5, #4C96F5 750px);

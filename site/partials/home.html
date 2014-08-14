@@ -5,26 +5,8 @@
     <div class="alert alert-warning" style="text-align: center">Try our mobile version in the app stores</div>
   </div>
 
-  <div class="jumbotron" style="padding-top: 15px;">
-    <div class="row">
-      <div class="col-xs-4">
-        <h1>Juke</h1>
-        <p>Democratic Playlists</p>
-      </div>
-      <div class="col-xs-8">
-        <h3>Popular Jukes</h3>
-        <table class="table table-stripped">
-          <thead>
-            <tr>
-              <td>Name</td>
-              <td>Location</td>
-              <td>Currently Playing</td>
-            </tr>
-          </thead>
-        </table>
-      </div>
-    </div>
-  </div>
+  <div ng-include="'partials/hubsTable.html'"></div>
+
 
   <div class="well">
     <form name="signUpForm" class="form-inline ng-pristine ng-invalid-required ng-invalid" novalidate="">

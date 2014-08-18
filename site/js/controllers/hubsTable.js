@@ -12,7 +12,7 @@ var HubsTableCtrl = function($scope, $location, ParseService){
         });
     },
 
-    //Find Hubs  ***Add Query***
+    //Find Hubs  *** Add Query ***
     $scope.findHubs = function(){
         $scope.$apply(function(){
             ParseService.getGetHubs(function(results){
@@ -20,8 +20,6 @@ var HubsTableCtrl = function($scope, $location, ParseService){
             });
         });
     },
-
-
 
     //Init Controller
     $scope.init = function(){

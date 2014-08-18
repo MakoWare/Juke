@@ -7,7 +7,6 @@ angular.module('parseService', [])
 	//Init Parse
 	Parse.initialize("GU8DuOP6RzlnFFNBNOVnB5qrf6HCqxpJXSbDyN3W", "Wf6t36hyN7aPbkQzIxN6bXPMZGlr4xpdZgK1ljwG");
 
-
 	//Cash current Queued Songs
 	var queuedSongs = [];
 
@@ -43,11 +42,10 @@ angular.module('parseService', [])
 
 	    //User
 	    //Login
-	    login: function(username, password, callback) {
+	    login: function(username, password) {
 		Parse.User.logIn(username, password, {
 		    success: function(user) {
-			currentUser = user;
-			callback(user);
+
 		    },
 		    error: function(user, error) {
 			alert("Error: " + error.message);
@@ -61,13 +59,12 @@ angular.module('parseService', [])
 	    },
 
 	    //Sign up
-	    signUp: function(username, password, callback) {
+	    signUp: function(username, password) {
 		var acl = new Parse.ACL();
 		acl.setPublicReadAccess(true);
 		Parse.User.signUp(username, password, { ACL: acl }, {
 		    success: function(user) {
-			currentUser = user;
-			callback(user);
+                        alert("Sign Up Successful, welcome!");
 		    },
 		    error: function(user, error) {
 			alert("Error: " + error.message);

@@ -3,7 +3,6 @@
 //Home Controller
 var HomeCtrl = function($scope, $location, ParseService){
 
-
     //Login
     $scope.login = function(){
         ParseService.login($scope.login.username, $scope.login.password);

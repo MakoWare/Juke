@@ -1,31 +1,42 @@
 'use strict';
 
 //Hubs Table Controller
-var HubsTableCtrl = function($scope, $location, ParseService){
+var HubsTableCtrl = BaseController.extend({
 
-    //Get Popular Hubs
-    $scope.getPopularHubs = function(){
-        $scope.$apply(function(){
-            ParseService.getPopularHubs(function(results){
-                $scope.hubs = results;
-            });
-        });
-    },
+    _notifications: null,
+    hubs: {},
 
-    //Find Hubs  *** Add Query ***
-    $scope.findHubs = function(){
-        $scope.$apply(function(){
-            ParseService.getGetHubs(function(results){
-                $scope.hubs = results;
-            });
-        });
-    },
 
     //Init Controller
-    $scope.init = function(){
-        $scope.hubs = {};
-        $scope.getPopularHubs();
-    };
+    init: function($scope, Notifications){
+        this._notifications = Notifications;
+        this._super($scope);
+    },
 
-    $scope.init();
-};
+    defineScope:function(){
+	//Useless... for demo purpose
+	this.$scope.instance="HubsTable";
+    },
+
+    //@Override
+    defineListeners:function(){
+	this._super();
+
+//	this._notifications.addEventListener(ui.navigation.events.NEXT,this._handleNavigationEvents.bind(this));
+    },
+
+
+
+
+
+    //@Override
+    destroy:function(){
+	//this._notifications.removeEventListener(notes.slide.events.TRANSITION_END,this._handleTransitionEnd.bind(this));
+    }
+
+
+
+
+});
+
+HubsTableCtrl.$inject = ['$scope','ParseService'];

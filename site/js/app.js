@@ -3,6 +3,7 @@
 angular.module('juke', [
     'globalService',
     'parseService',
+    'notifications',
     'ngRoute'
 ])
     .config(function($routeProvider) {

@@ -6,11 +6,12 @@ var HubsTableCtrl = BaseController.extend({
     _notifications: null,
     hubs: {},
 
-
     //Init Controller
     init: function($scope, Notifications){
+        console.log("HubsTableCtrl Init");
         this._notifications = Notifications;
         this._super($scope);
+
     },
 
     defineScope:function(){
@@ -25,18 +26,11 @@ var HubsTableCtrl = BaseController.extend({
 //	this._notifications.addEventListener(ui.navigation.events.NEXT,this._handleNavigationEvents.bind(this));
     },
 
-
-
-
-
     //@Override
     destroy:function(){
 	//this._notifications.removeEventListener(notes.slide.events.TRANSITION_END,this._handleTransitionEnd.bind(this));
     }
 
-
-
-
 });
 
-HubsTableCtrl.$inject = ['$scope','ParseService'];
+HubsTableCtrl.$inject = ['$scope','ParseService', 'Notifications'];

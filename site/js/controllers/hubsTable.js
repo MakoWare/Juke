@@ -22,15 +22,13 @@ var HubsTableCtrl = BaseController.extend({
     //@Override
     defineListeners:function(){
 	this._super();
-
-//	this._notifications.addEventListener(ui.navigation.events.NEXT,this._handleNavigationEvents.bind(this));
+//	this._notifications.addEventListener("event string", handler().bind(this);
     },
 
     //@Override
     destroy:function(){
-	//this._notifications.removeEventListener(notes.slide.events.TRANSITION_END,this._handleTransitionEnd.bind(this));
-    }
 
+    }
 });
 
 HubsTableCtrl.$inject = ['$scope','ParseService', 'Notifications'];

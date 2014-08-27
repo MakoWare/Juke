@@ -13,7 +13,6 @@ var HomeCtrl = BaseController.extend({
     },
 
     defineScope:function(){
-	//Useless... for demo purpose
 	this.$scope.instance="Home";
     },
 
@@ -21,12 +20,11 @@ var HomeCtrl = BaseController.extend({
     defineListeners:function(){
 	this._super();
 
-//	this._notifications.addEventListener(ui.navigation.events.NEXT,this._handleNavigationEvents.bind(this));
     },
 
     //@Override
     destroy:function(){
-	//this._notifications.removeEventListener(notes.slide.events.TRANSITION_END,this._handleTransitionEnd.bind(this));
+
     }
 });
 

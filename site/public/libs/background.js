@@ -1,36 +1,54 @@
 //Slowly change the background gradient
 window.onload = function(){
-    var innerColor = "#F5E34C";
-    var outerColor = "#F5964C";
+    var innerColor;
+    var outerColor;
+    var frequency = .01;
+    var i = 0;
+    var j = 50;
 
-
-    function addHexColor(c1, c2) {
-        var hexStr = (parseInt(c1, 16) + parseInt(c2, 16)).toString(16);
-        while (hexStr.length < 6) { hexStr = '0' + hexStr; } // Zero pad.
-        return hexStr;
+    function RGB2Color(r,g,b){
+        return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
     }
 
-    function shadeColor(color, shade) {
-        var colorInt = parseInt(color.substring(1),16);
-
-        var R = (colorInt & 0xFF0000) >> 16;
-        var G = (colorInt & 0x00FF00) >> 8;
-        var B = (colorInt & 0x0000FF) >> 0;
-
-        R = R + Math.floor((shade/255)*R);
-        G = G + Math.floor((shade/255)*G);
-        B = B + Math.floor((shade/255)*B);
-
-        var newColorInt = (R<<16) + (G<<8) + (B);
-        var newColorStr = "#"+newColorInt.toString(16);
-
-        return newColorStr;
+    function byte2Hex(n){
+        var nybHexString = "0123456789ABCDEF";
+        return String(nybHexString.substr((n >> 4) & 0x0F,1)) + nybHexString.substr(n & 0x0F,1);
     }
+
+    function generateColor(frequency, interval){
+        red   = Math.sin(frequency * interval + 0) * 127 + 128;
+        green = Math.sin(frequency * interval + 2) * 127 + 128;
+        blue  = Math.sin(frequency * interval + 4) * 127 + 128;
+
+        return RGB2Color(red, green, blue);
+    }
+
+    //Radial Gradient in the Center
+    function setBackgroundRadialGradient(color1, color2){
+        document.getElementsByTagName('html')[0].setAttribute('style', 'background-image: ' + 'url(images/noise.png)' + ', -webkit-radial-gradient(center center, ' + color1 + ', ' + color2 + ' 750px');
+    }
+
+    //Linear Gradient
+    function setBackgroundLinearGradient(color1, color2, degree){
+        document.getElementsByTagName('html')[0].setAttribute('style', 'background-image: ' + 'url(images/noise.png)' + ', -webkit-linear-gradient(' + degree + ', ' + color1 + ', ' + color2);
+    }
+
+
+
+    //Init BackgroundColor
+    setBackgroundLinearGradient(generateColor(frequency, i), generateColor(frequency, j), "90deg");
+    //setBackgroundRadialGradient(generateColor(frequency, i), generateColor(frequency, j));
 
     window.setInterval(function(){
-        innerColor = addHexColor(innerColor, "000010");
-        outerColor = addHexColor(outerColor, "000010");
+        i++;
+        j++;
 
-        document.getElementsByTagName('html')[0].setAttribute('style', 'background-image: ' + 'url(images/noise.png)' + ', -webkit-radial-gradient(center center, ' + innerColor + ', ' + outerColor + ' 750px');
-    }, 500);
+        innerColor = generateColor(frequency, i);
+        outerColor = generateColor(frequency, j);
+
+//        setBackgroundRadialGradient(innerColor, outerColor);
+        setBackgroundLinearGradient(outerColor, innerColor, "90deg");
+  }, 50);
+
+
 };

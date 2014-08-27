@@ -1,19 +1,19 @@
 'use strict';
 
 //Home Controller
-var HomeCtrl = BaseController.extend({
+var MainCtrl = BaseController.extend({
     _notifications: null,
 
     //Init Controller
     init: function($scope, Notifications){
-        console.log("HomeCtrl Init");
+        console.log("MainCtrl Init");
         this._notifications = Notifications;
         this._super($scope);
 
     },
 
     defineScope:function(){
-	this.$scope.instance="Home";
+	this.$scope.instance="Main";
     },
 
     //@Override
@@ -28,4 +28,4 @@ var HomeCtrl = BaseController.extend({
     }
 });
 
-HomeCtrl.$inject = ['$scope', 'ParseService', 'Notifications'];
+MainCtrl.$inject = ['$scope', 'ParseService', 'Notifications'];

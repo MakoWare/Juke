@@ -325,33 +325,6 @@ Parse.Cloud.define("ytUrl", function(req, res) {
  *
  * https://www.youtube.com/get_video_info?&video_id=_ovdm2yX4MA&el=detailpage&ps=default&eurl=&gl=US&hl=en
  */ 
-
-var YT = require('cloud/parsev4.js');
-
-var yt = function(req, res){
-    Parse.Cloud.httpRequest({
-        method: 'GET',
-//        url:'https://www.youtube.com/get_video_info',
-        url:'https://www.youtube.com/watch',
-        params:{
-            v:req.params.id
-//            el      :'vevo',
-//            ps      :'default',
-//            eurl    :'',
-//            gl      :'US',
-//            hl      :'en'
-        }
-    }).then(function(obj){
-        var data = obj.text;
-//        console.log(obj);
-        var url = YT.parse(data,'hd1080');
-        res.success({'url':url});
-//        res.success({'obj':data});
-    },function(err){
-        res.error({'err':'failed to get url'});
-    });
-};
-
 var yt2 = function(req, res){
     
     // pull the parsev4 file
@@ -379,35 +352,11 @@ var yt2 = function(req, res){
     },function(err){
         res.error({'err':'failed to get parsev4'});
     });
-    
-    
-    
-    /*
-    Parse.Cloud.httpRequest({
-        method: 'GET',
-        //        url:'https://www.youtube.com/get_video_info',
-        url:'https://www.youtube.com/watch',
-        params:{
-            v:req.params.id
-            //            el      :'vevo',
-            //            ps      :'default',
-            //            eurl    :'',
-            //            gl      :'US',
-            //            hl      :'en'
-        }
-    }).then(function(obj){
-        var data = obj.text;
-        //        console.log(obj);
-        var url = YT.parse(data,'hd1080');
-        res.success({'url':url});
-        //        res.success({'obj':data});
-    },function(err){
-        res.error({'err':'failed to get url'});
-    });
-    */
 };
 
 Parse.Cloud.define("yt", yt2);
+
+
 
 /**
  *

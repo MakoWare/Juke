@@ -7,15 +7,21 @@ var HubsTableCtrl = BaseController.extend({
     hubsModel: null,
 
     //Init Controller
-    init: function($scope, Notifications){
+    init: function($scope, HubsModel, Notifications){
         console.log("HubsTableCtrl Init");
         this._super($scope);
+        this.hubsModel = HubsModel;
         this.notifications = Notifications;
+        this.$scope.$watch('this.hubsModel.hubs', function(){
+            console.log("hubs changed");
+        });
+
+
         this.hubsModel.getHubs();
+        console.log(this.hubsModel);
     },
 
     defineScope:function(){
-	//Useless... for demo purpose
 	this.$scope.instance="HubsTable";
     },
 
@@ -27,8 +33,12 @@ var HubsTableCtrl = BaseController.extend({
 
     //@Override
     destroy:function(){
-
+//	this._notifications.removeEventListener("event string", handler().bind(this);
     }
+
+
+
+
 });
 
 HubsTableCtrl.$inject = ['$scope','HubsModel', 'Notifications'];

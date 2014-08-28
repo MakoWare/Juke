@@ -2,23 +2,13 @@
 angular.module('parseService', [])
     .factory('ParseService', function(){
 
-        var loaded = false;
-
 	//Init Parse
 	Parse.initialize("GU8DuOP6RzlnFFNBNOVnB5qrf6HCqxpJXSbDyN3W", "Wf6t36hyN7aPbkQzIxN6bXPMZGlr4xpdZgK1ljwG");
-
-	//Cash current Queued Songs
-	var queuedSongs = [];
-
-	//Cash current Hub
-	var currentHub;
-
-	//$ Hubs
-	var hubs = [];
 
 	//Define Parse Objects
 	var Hub = Parse.Object.extend("Hub");
 	var QueuedSong = Parse.Object.extend("QueuedSong");
+
 
         var ParseService = {
 	    name: "Parse",
@@ -106,12 +96,12 @@ angular.module('parseService', [])
 	    },
 
 	    //Get All Hubs
-	    getHubs : function getHubs(callback){
+	    getHubs : function(callback){
 		var query = new Parse.Query(Hub);
 		query.include('owner');
+                query.limit(1000);
 		query.find({
 		    success: function(hubs){
-			hubs = hubs;
 			callback(hubs);
 		    },
 		    error: function(object, error){

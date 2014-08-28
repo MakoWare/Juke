@@ -1,5 +1,5 @@
 //Events
-namespace('notes.events').SLIDES_LOADED = "ActivityModel.SLIDES_LOADED";
+//namespace('notes.events').HUBS_LOADED = "ActivityModel.HUBS_LOADED";
 
 
 //Hubs model, store hubs
@@ -15,7 +15,10 @@ var HubsModel = EventDispatcher.extend({
 
     //Load Hubs via Parse service
     getHubs: function(){
-	this._notesService.loadSlides().then(this._handleLoadSlidesSuccess.bind(this),this._handleLoadSlidesError.bind(this));
+	this.ParseService.getHubs(function(results){
+            console.log(results);
+            this.hubs = results;
+        });
     },
 
     //Get a Hub
@@ -25,14 +28,8 @@ var HubsModel = EventDispatcher.extend({
 	}else{
 	    this._currentSlide = 0;
 	}
-    },
-
-
-
-
+    }
 });
-
-
 
 /**
  * Activity model, provider since all activities
@@ -51,6 +48,6 @@ var HubsModel = EventDispatcher.extend({
 	}]
     });
 
-    angular.module('hubs.HubsModel',[])
+    angular.module('juke.HubsModel',[])
 	.provider('HubsModel',HubsModelProvider);
 }());

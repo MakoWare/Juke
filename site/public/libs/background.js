@@ -30,10 +30,8 @@ window.onload = function(){
 
     //Linear Gradient
     function setBackgroundLinearGradient(color1, color2, degree){
-        document.getElementsByTagName('html')[0].setAttribute('style', 'background-image: ' + 'url(images/noise.png)' + ', -webkit-linear-gradient(' + degree + ', ' + color1 + ', ' + color2);
+        document.documentElement.style.backgroundImage = 'url(images/noise.png)' + ', -webkit-linear-gradient(' + degree + ', ' + color1 + ', ' + color2;
     }
-
-
 
     //Init BackgroundColor
     setBackgroundLinearGradient(generateColor(frequency, i), generateColor(frequency, j), "135deg");

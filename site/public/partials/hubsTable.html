@@ -1,27 +1,26 @@
-<div ng-controller="HubsTableCtrl">
+<div ng-controller="HubsTableCtrl" id="hubsTable">
   <div class="well" style="background-color: #FEFEFE">
-    <div id="hubsTable">
-      <div class="row">
-        <div class="col-xs-3 col-md-1">
-          <h2>Hubs</h2>
-        </div>
-        <div class="col-xs-3 col-xs-offset-3 col col-md-1 col-md-offset-8">
-          <button class="btn btn-md btn-info" style="margin-top: 22px;">Create a new Hub</button>
-        </div>
+    <div class="row">
+      <div class="col-xs-1 col-md-1">
+        <h2>Hubs</h2>
       </div>
-      <table class="table table-stripped table-hover">
-        <thead>
-            <th><a href="" ng-click="predicate = 'attributes.name'; reverse=!reverse">Name</a></th>
-            <th>Join</th>
-	  </tr>
-        </thead>
-        <tbody>
-	  <tr ng-repeat="hub in this.hubsModel.hubs | filter:searchParam.$ | orderBy:predicate:reverse">
-            <td>{{hub.attributes.name}}</td>
-            <td>join</td>
-	  </tr>
-        </tbody>
-      </table>
+      <div class="col-xs-1 col-xs-offset-1 col col-md-1 col-md-offset-8">
+        <button class="btn btn-md btn-info" style="margin-top: 22px;">Create a new Hub</button>
+      </div>
     </div>
+    <table class="table table-stripped table-hover">
+      <thead>
+        <tr>
+          <th><a href="" ng-click="predicate = 'attributes.name'; reverse=!reverse">Name</a></th>
+          <th>Join</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="hub in this.hubsModel.hubs | filter:searchParam.$ | orderBy:predicate:reverse">
+          <td>{{hub.attributes.name}}</td>
+          <td>join</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

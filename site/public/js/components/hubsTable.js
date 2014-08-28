@@ -36,9 +36,6 @@ var HubsTableCtrl = BaseController.extend({
 //	this._notifications.removeEventListener("event string", handler().bind(this);
     }
 
-
-
-
 });
 
 HubsTableCtrl.$inject = ['$scope','HubsModel', 'Notifications'];

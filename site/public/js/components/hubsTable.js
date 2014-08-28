@@ -3,15 +3,15 @@
 //Hubs Table Controller
 var HubsTableCtrl = BaseController.extend({
 
-    _notifications: null,
-    hubs: {},
+    notifications: null,
+    hubsModel: null,
 
     //Init Controller
     init: function($scope, Notifications){
         console.log("HubsTableCtrl Init");
-        this._notifications = Notifications;
         this._super($scope);
-
+        this.notifications = Notifications;
+        this.hubsModel.getHubs();
     },
 
     defineScope:function(){
@@ -31,4 +31,4 @@ var HubsTableCtrl = BaseController.extend({
     }
 });
 
-HubsTableCtrl.$inject = ['$scope','ParseService', 'Notifications'];
+HubsTableCtrl.$inject = ['$scope','HubsModel', 'Notifications'];

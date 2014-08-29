@@ -12,11 +12,6 @@ var HubsTableCtrl = BaseController.extend({
         this._super($scope);
         this.hubsModel = HubsModel;
         this.notifications = Notifications;
-        this.$scope.$watch('this.hubsModel.hubs', function(){
-            console.log("hubs changed");
-        });
-
-
         this.hubsModel.getHubs();
         console.log(this.hubsModel);
     },

@@ -16,8 +16,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="hub in hubsModel.hubs | filter:searchParam.$ | orderBy:predicate:reverse">
-          <td>{{hub.attributes.name}}</td>
+        <tr ng-repeat="hub in hubs | filter:searchParam.$ | orderBy:predicate:reverse">
+          <td>{{hub.attributes.title}}</td>
           <td>join</td>
         </tr>
       </tbody>

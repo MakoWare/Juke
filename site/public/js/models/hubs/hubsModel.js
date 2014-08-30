@@ -3,7 +3,6 @@
 
 //Hubs model, holds hubs
 var HubsModel = EventDispatcher.extend({
-    TAG:"HubsModel",
     currentHub: null,
     hubs:null,
 
@@ -12,8 +11,8 @@ var HubsModel = EventDispatcher.extend({
 
     //Load Hubs via Parse service
     getHubs: function(){
-	this.ParseService.getHubs(function(results){
-            console.log(TAG + " Got Hubs:");
+	this.ParseService.getHubs().then(function(results){
+            console.log("Got Hubs:");
             console.log(results);
             this.hubs = results;
         });

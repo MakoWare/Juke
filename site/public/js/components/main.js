@@ -6,14 +6,13 @@ var MainCtrl = BaseController.extend({
 
     //Init Controller
     init: function($scope, Notifications){
-        console.log("MainCtrl Init");
         this._notifications = Notifications;
         this._super($scope);
 
     },
 
     defineScope:function(){
-	this.$scope.instance="Main";
+	this.$scope.instance="MainController";
     },
 
     //@Override

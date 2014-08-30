@@ -96,25 +96,19 @@ angular.module('parseService', [])
 	    },
 
 	    //Get All Hubs
-	    getHubs : function(callback){
+	    getHubs : function(){
 		var query = new Parse.Query(Hub);
 		query.include('owner');
                 query.limit(1000);
-		query.find({
+		var promise = query.find({
 		    success: function(hubs){
-			callback(hubs);
+			return(hubs);
 		    },
 		    error: function(object, error){
 			alert("Error: " + error.message);
 		    }
 		});
-	    },
-
-	    //Get Current Hub
-	    getCurrentHub : function getCurrentHub(){
-		if(currentHub){
-		    return currentHub;
-		}
+                return promise;
 	    },
 
 	    //Create Hub

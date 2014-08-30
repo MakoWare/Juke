@@ -5,6 +5,7 @@ angular.module('juke', [
     'parseService',
     'notifications',
     'juke.HubsModel',
+    'juke.HubsTable',
     'ngRoute'
 ])
     .config(function($routeProvider) {

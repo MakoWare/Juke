@@ -15,26 +15,16 @@ var HubsModel = EventDispatcher.extend({
             console.log("Got Hubs:");
             console.log(results);
             this.hubs = results;
-
-            //Let'em know
-            console.log("Hey, I got new Hubs yo");
         });
     },
 
     //Get a Hub
     getHub: function(){
-	if(this._currentSlide<this._slides.length-1){
-	    this._currentSlide++;
-	}else{
-	    this._currentSlide = 0;
-	}
+
     }
 });
 
-/**
- * Activity model provider, all components
- * in the application will use the same model
- */
+//Provider, as all components will use the same HubsModel instance, $inject will init once, then pull the same object from Instance Cache for all other $injects
 (function (){
     var HubsModelProvider = Class.extend({
 	instance: new HubsModel(),

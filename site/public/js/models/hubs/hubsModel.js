@@ -1,5 +1,5 @@
 //Events
-//namespace('notes.events').HUBS_LOADED = "ActivityModel.HUBS_LOADED";
+namespace('juke.events').HUBS_LOADED = "ActivityModel.HUBS_LOADED";
 
 //Hubs model, holds hubs
 var HubsModel = EventDispatcher.extend({
@@ -15,6 +15,9 @@ var HubsModel = EventDispatcher.extend({
             console.log("Got Hubs:");
             console.log(results);
             this.hubs = results;
+
+            //Let'em know
+            console.log("Hey, I got new Hubs yo");
         });
     },
 

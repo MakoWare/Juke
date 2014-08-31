@@ -14,12 +14,12 @@ var EventDispatcher = Class.extend({
     * Add a listener on the object
     * @param type : Event type
     * @param listener : Listener callback
-    */  
+    */
     addEventListener:function(type,listener){
         if(!this._listeners[type]){
             this._listeners[type] = [];
         }
-        this._listeners[type].push(listener)
+        this._listeners[type].push(listener);
     },
 
 
@@ -27,7 +27,7 @@ var EventDispatcher = Class.extend({
        * Remove a listener on the object
        * @param type : Event type
        * @param listener : Listener callback
-       */  
+       */
     removeEventListener:function(type,listener){
       if(this._listeners[type]){
         var index = this._listeners[type].indexOf(listener);
@@ -42,12 +42,13 @@ var EventDispatcher = Class.extend({
     /**
     * Dispatch an event to all registered listener
     * @param Mutiple params available, first must be string
-    */ 
+    */
     dispatchEvent:function(){
+        console.log("dispatching event: " + arguments[0]);
         var listeners;
 
         if(typeof arguments[0] !== 'string'){
-            console.warn('EventDispatcher','First params must be an event type (String)')
+            console.warn('EventDispatcher','First params must be an event type (String)');
         }else{
             listeners = this._listeners[arguments[0]];
 
@@ -57,6 +58,4 @@ var EventDispatcher = Class.extend({
             }
         }
     }
-})
-
-
+});

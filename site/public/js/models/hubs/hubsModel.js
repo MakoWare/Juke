@@ -8,13 +8,17 @@ var HubsModel = EventDispatcher.extend({
 
     //Injected by the provider
     ParseService:null,
+    notifications: null,
 
     //Load Hubs via Parse service
     getHubs: function(){
+        var self = this;
+
 	this.ParseService.getHubs().then(function(results){
-            console.log("Got Hubs:");
+            console.log("HubsModel " + "Got Hubs:");
             console.log(results);
             this.hubs = results;
+            self.notifications.notify(juke.events.HUBS_LOADED);
         });
     },
 
@@ -30,8 +34,9 @@ var HubsModel = EventDispatcher.extend({
 	instance: new HubsModel(),
 
         //Init HubsModel
-	$get:['ParseService',function(ParseService){
+	$get:['ParseService', 'Notifications', function(ParseService, Notifications){
 	    this.instance.ParseService = ParseService;
+            this.instance.notifications = Notifications;
 	    return this.instance;
 	}]
     });

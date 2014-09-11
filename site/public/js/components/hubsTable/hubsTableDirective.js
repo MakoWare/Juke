@@ -8,6 +8,8 @@ var HubsTableDirective = BaseController.extend({
 	this._notifications = notifications;
 	this._elm = $elm;
 	this._super($scope);
+
+        console.log($scope);
     },
 
     defineListeners:function(){
@@ -28,7 +30,7 @@ angular.module('juke.hubsTable',[])
     .directive('hubsTable',['Notifications',function(Notifications){
         console.log("hubsTableDirective");
 	return {
-	    restrict:'C',
+	    restrict:'A',
 	    isolate:true,
 	    link: function($scope,$elm,$attrs){
 		new HubsTableDirective($scope,$elm,Notifications);

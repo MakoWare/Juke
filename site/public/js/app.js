@@ -19,10 +19,10 @@ angular.module('juke', [
 	    otherwise({redirectTo: '/'});
 
 */
-	    when('/', {
-		templateUrl: 'partials/main.html',
+	    when('/hubs', {
+		templateUrl: 'partials/hubsTable.html',
 		controller: HubsTableCtrl}).
-	    otherwise({redirectTo: '/'});
+	    otherwise({redirectTo: '/hubs'});
 
 
     });

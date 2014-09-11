@@ -22,11 +22,13 @@ var HubsTableCtrl = BaseController.extend({
     },
 
     destroy:function(){
-	this.notifications.removeEventListener("newHubs", this.handleNewHubs.bind(this));
+	this.notifications.removeEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
     },
 
+    //Handle HubsModel getting new Hubs
     handleNewHubs:function(event){
-        console.log("So I hear you got new Hubs");
+        console.log("So I hear you got new Hubs:");
+        console.log(this.HubsModel.hubs);
     },
 
     createHub:function(){

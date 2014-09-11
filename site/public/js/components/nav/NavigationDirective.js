@@ -4,8 +4,8 @@ var NavigationDirective = BaseController.extend({
 
     init:function(scope,notifications){
         console.log("NavigationDirective init");
-	this._super(scope);
 	this._notifications = notifications;
+	this._super(scope);
     },
 
     defineListeners:function(){

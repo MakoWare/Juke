@@ -8,8 +8,6 @@ var HubsTableDirective = BaseController.extend({
 	this._notifications = notifications;
 	this._elm = $elm;
 	this._super($scope);
-
-        console.log($scope);
     },
 
     defineListeners:function(){

@@ -17,7 +17,7 @@ var HubsModel = EventDispatcher.extend({
 	this.ParseService.getHubs().then(function(results){
             console.log("HubsModel " + "Got Hubs:");
             console.log(results);
-            this.hubs = results;
+            self.hubs = results;
             self.notifications.notify(juke.events.HUBS_LOADED);
         });
     },

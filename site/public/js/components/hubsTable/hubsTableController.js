@@ -1,10 +1,9 @@
-'use strict';
-
 var HubsTableCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
 
     init:function($scope, HubsModel, Notifications){
+        console.log("HubsTableCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this._super($scope);

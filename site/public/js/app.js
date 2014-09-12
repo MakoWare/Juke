@@ -3,7 +3,6 @@
 angular.module('juke', [
     'navigation',
     'notifications',
-    'juke.hubsTable',
     'globalService',
     'parseService',
     'juke.HubsModel',

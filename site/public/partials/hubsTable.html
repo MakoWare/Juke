@@ -1,4 +1,4 @@
-<div class="container-fluid" style="color: white">
+<div class="container-fluid" style="color: white; overflow: auto">
   <div class="well" style="background-color: rgba(0,0,0,0)" >
     <div class="row">
       <div class="col-xs-1 col-md-1">
@@ -11,14 +11,14 @@
     <table class="table table-stripped table-hover">
       <thead>
         <tr>
-          <th></th>
+          <th>Currently Playing</th>
           <th ng-click="predicate = 'attributes.name'; reverse=!reverse">Name</th>
           <th>Join</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="hub in hubs | filter:predicate.attributes.$" >
-          <td>Picture here</td>
+          <td><img src="http://static.metacritic.com/images/products/music/7/364e8dd6b0f235e24ada40c54cb2efd8-98.jpg"/></td>
           <td>{{hub.attributes.title}}</td>
           <td>join</td>
         </tr>

@@ -111,6 +111,19 @@ angular.module('parseService', [])
                 return promise;
 	    },
 
+	    //Get Hubs for the Hubs Table
+	    getHubsForTable : function(){
+                console.log("ParseService.getHubsForTable()");
+                return Parse.Cloud.run('getHubsForTable', {}, {
+		    success: function(results){
+                        return results;
+		    },
+		    error: function(error){
+                        return error;
+		    }
+		});
+	    },
+
 	    //Create Hub
 	    createHub : function createHub(hub, callback){
 		currentUser = Parse.User.current();

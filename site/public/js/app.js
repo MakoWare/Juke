@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('juke', [
-    'navigation',
     'notifications',
     'globalService',
     'parseService',
+    'navigation',
     'juke.HubsModel',
-
     'ngRoute'
 ])
     .config(function($routeProvider) {

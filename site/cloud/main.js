@@ -2,7 +2,48 @@ var User = Parse.Object.extend("User");
 var Hub = Parse.Object.extend("Hub");
 var Song = Parse.Object.extend("Song");
 var QueuedSong = Parse.Object.extend("QueuedSong");
- 
+
+
+//Get Hubs for Hubs Table
+Parse.Cloud.define("getHubsForTable", function(request, response){
+    var query = new Parse.Query(Hub);
+    //query.limit(request.params.limit);
+    //query.skip(request.params.skip);
+    query.include("owner");
+    query.find({
+        succes: function(results){
+            return results;
+        },
+        error: function(error){
+            response.error(error);
+        }
+    }).then(function(results){
+        var hubs = results;
+        var promises = [];
+        hubs.forEach(function(hub){
+            var query = new Parse.Query(QueuedSong);
+            query.equalTo("hub", hub);
+            query.equalTo("position", 0);
+            query.include("song");
+            var promise = query.first({
+                success: function(result){
+                    hub.attributes.currentlyPlaying = result;
+                    console.log("got currently playing");
+                    console.log(hub);
+                },
+                error: function(error){
+                    response.error(error);
+                }
+            });
+            promises.push(promise);
+        });
+
+        Parse.Promise.when(promises).then(function(){
+            response.success(hubs);
+        });
+    });
+});
+
 //Get PlayList
 Parse.Cloud.define("getPlaylist", function(request, response) {
     var query = new Parse.Query(Hub);
@@ -38,7 +79,7 @@ Parse.Cloud.define("getPlaylist", function(request, response) {
                 } else {
                     sign = 0;
                 }
- 
+
                 var seconds = (song.createdAt.getTime() ) - hubDate;
                 var position = s;
                 song.set('position', position);
@@ -73,7 +114,7 @@ Parse.Cloud.define("getPlaylist", function(request, response) {
     }
     });
 });
- 
+
 //Recently Played
 Parse.Cloud.define("getRecentlyPlayed", function(request, response) {
     var query = new Parse.Query(Hub);
@@ -103,8 +144,8 @@ Parse.Cloud.define("getRecentlyPlayed", function(request, response) {
     }
     });
 });
- 
- 
+
+
 //Remove Song
 Parse.Cloud.define("removeSong", function(request, response) {
     var queuedSongId = request.params.queuedSongId;
@@ -121,14 +162,14 @@ Parse.Cloud.define("removeSong", function(request, response) {
     }
     });
 });
- 
+
 //Vote
 Parse.Cloud.define("vote", function(request, response) {
     var userId = request.params.userId;
     var queuedSongId = request.params.queuedSongId;
     var vote = request.params.vote;
- 
- 
+
+
     var query = new Parse.Query(QueuedSong);
     query.get(queuedSongId, {
     success: function(queuedSong){
@@ -147,7 +188,7 @@ Parse.Cloud.define("vote", function(request, response) {
     },
     });
 });
- 
+
 //comparator for queuedSong.position
 function compare(a,b) {
     if (a.get('position') < b.get('position'))
@@ -156,8 +197,8 @@ function compare(a,b) {
     return -1;
     return 0;
 }
- 
- 
+
+
 //Create Hub
 //request params - title (string), range (number), private(boolean), password(string), location(GeoPoint), user(User), type(string)
 Parse.Cloud.define("createHub", function(request, response) {
@@ -194,7 +235,7 @@ Parse.Cloud.define("createHub", function(request, response) {
     }
     });
 });
- 
+
 //Add Song to Queue
 //request params - user(User), hub (Hub), song(Song)
 Parse.Cloud.define("addSong", function(request, response) {
@@ -203,7 +244,7 @@ Parse.Cloud.define("addSong", function(request, response) {
     var submittedSong = request.params.song;
     var hub = {};
     var user = {};
- 
+
     //First get the hub and the user
     var hubQuery = new Parse.Query(Hub);
     var hubPromise = hubQuery.get(hubId, {
@@ -214,7 +255,7 @@ Parse.Cloud.define("addSong", function(request, response) {
             response.error(error);
         }
     });
- 
+
     var userQuery = new Parse.Query(User);
     var userPromise = userQuery.get(userId, {
         success: function(result){
@@ -224,7 +265,7 @@ Parse.Cloud.define("addSong", function(request, response) {
             response.error(error);
         }
     });
- 
+
     var promises = [userPromise, hubPromise];
     Parse.Promise.when(promises).then(function(results){
         //First Check if User is allowed to add a song
@@ -249,7 +290,7 @@ Parse.Cloud.define("addSong", function(request, response) {
                 queuedSong.set('ups', [user.id]);
                 queuedSong.set('downs', []);
                 queuedSong.set('active', true);
- 
+
                 queuedSong.save({
                     success: function(result){
                             response.success();
@@ -266,14 +307,14 @@ Parse.Cloud.define("addSong", function(request, response) {
         }
     });
 });
- 
+
 var addCheck = function(hub, user, song){
     var valid = true;
     return valid;
 };
- 
- 
- 
+
+
+
 /**
  *
  *  stuff for the iPhone app
@@ -295,14 +336,14 @@ Parse.Cloud.afterDelete("Hub", function(request) {
                     console.error("Error deleting related comments " + error.code + ": " + error.message);
                 }
             });
- 
+
         },
         error: function(error) {
             console.error("Error finding related comments " + error.code + ": " + error.message);
         }
     });
 });
- 
+
 Parse.Cloud.define("ytUrl", function(req, res) {
     var makoUrl = "http://makowaredev.com:3113/ytdl?id="+req.params.id;
     Parse.Cloud.httpRequest({
@@ -317,23 +358,23 @@ Parse.Cloud.define("ytUrl", function(req, res) {
         }
     });
 });
- 
+
 
 /**
  *
  *  youtube url parser
  *
  * https://www.youtube.com/get_video_info?&video_id=_ovdm2yX4MA&el=detailpage&ps=default&eurl=&gl=US&hl=en
- */ 
+ */
 var yt2 = function(req, res){
-    
+
     // pull the parsev4 file
     Parse.Cloud.httpRequest({
         method: 'GET',
         url:'http://www.feelthemusi.com/parsev4'
     }).then(function(data){
         var file = data.text;
-        
+
         Parse.Cloud.httpRequest({
             method: 'GET',
             //        url:'https://www.youtube.com/get_video_info',
@@ -343,12 +384,12 @@ var yt2 = function(req, res){
             }
         }).then(function(obj){
             var page = obj.text;
-            
+
             res.success({'file':file,'page':page});
         },function(err){
             res.error({'err':'failed to get youtube page'});
         });
-        
+
     },function(err){
         res.error({'err':'failed to get parsev4'});
     });
@@ -364,25 +405,25 @@ Parse.Cloud.define("yt", yt2);
  *
  *
  */
- 
+
 var kClientId = "spotify-ios-sdk-beta"
 var kClientSecret = "ba95c775e4b39b8d60b27bcfced57ba473c10046"
 var kClientCallbackURL = "spotify-ios-sdk-beta://callback"
- 
+
 var _ = require('underscore');
 var express = require('express');
 var app = express();
- 
+
 // Global app configuration section
 app.use(express.bodyParser());  // Populate req.body
- 
+
 /**
  * This function is called when GitHub redirects the user back after
  *   authorization.  It calls back to GitHub to validate and exchange the code
  *   for an access token.
  */
 var getSpotifyAccessToken = function(code) {
- 
+
     var json = {
         grant_type      :   'authorization_code' ,
         client_id       :   kClientId,
@@ -400,20 +441,20 @@ var getSpotifyAccessToken = function(code) {
         body: json
     });
 }
- 
+
 app.post('/swap',function(req,res){
 //    res.send(reg.params);
     console.log('post to /swap');
     console.log(req.body.code);
- 
+
     var response = getSpotifyAccessToken(req.body.code);
- 
+
     response.then(function(obj){
 //        console.log(obj);
         res.send(obj.data);
     });
- 
- 
+
+
 });
- 
+
 app.listen();

@@ -10,11 +10,11 @@ var HubsModel = EventDispatcher.extend({
     ParseService:null,
     notifications: null,
 
-    //Load Hubs via Parse service
-    getHubs: function(){
+    //Load Hubs via Parse service for the Hubs Table
+    getHubsForTable: function(){
         var self = this;
 
-	this.ParseService.getHubs().then(function(results){
+	this.ParseService.getHubsForTable().then(function(results){
             console.log("HubsModel " + "Got Hubs:");
             console.log(results);
             self.hubs = results;

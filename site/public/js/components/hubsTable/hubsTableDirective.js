@@ -1,17 +1,31 @@
 var HubsTableDirective = BaseController.extend({
 
-    _notifications:null,
-    _elm:null,
+    notifications:null,
+    elm:null,
 
     init:function($scope,$elm,notifications){
         console.log("HubsTableDirective init()");
-	this._notifications = notifications;
-	this._elm = $elm;
+	this.notifications = notifications;
+	this.elm = $elm;
 	this._super($scope);
     },
 
     defineListeners:function(){
+        $('.table > tr').click(this.hubSelected.bind(this));
 
+        $('#createHubButton').click(this.createHub.bind(this));
+
+    },
+
+    //Handle User Clicking the Create new Hub button
+    createHub:function(){
+        this.notifications.notify(juke.events.CREATE_HUB_INTENT);
+    },
+
+    //Handle User selecting a Hub from the Hubs Table
+    hubSelected:function(){
+        console.log("hubSelected");
+        this.notifications.notify(juke.events.HUB_SELECTED);
     },
 
     defineScope:function(){
@@ -27,14 +41,13 @@ var HubsTableDirective = BaseController.extend({
 angular.module('juke.hubsTable',[])
     .directive('hubsTable',['Notifications',function(Notifications){
         console.log("hubsTableDirective");
-	return {
-	    restrict:'A',
+        return {
+	    restrict:'C',
 	    isolate:true,
 	    link: function($scope,$elm,$attrs){
 		new HubsTableDirective($scope,$elm,Notifications);
 	    },
 	    scope:true,
-            templateUrl: 'partials/hubsTablePartial.html'
-
+            templateUrl: "partials/hubsTablePartial.html"
 	};
     }]);

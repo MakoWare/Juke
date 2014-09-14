@@ -113,7 +113,6 @@ angular.module('parseService', [])
 
 	    //Get Hubs for the Hubs Table
 	    getHubsForTable : function(){
-                console.log("ParseService.getHubsForTable()");
                 return Parse.Cloud.run('getHubsForTable', {}, {
 		    success: function(results){
                         return results;

@@ -1,5 +1,6 @@
 //Events
 namespace('juke.events').CREATE_HUB_INTENT = "ActivityModel.CREATE_HUB_INTENT";
+namespace('juke.events').HUB_SELECTED = "ActivityModel.HUB_SELECTED";
 
 
 var HubsTableCtrl = BaseController.extend({
@@ -22,6 +23,8 @@ var HubsTableCtrl = BaseController.extend({
     defineListeners:function(){
 	this._super();
 	this.notifications.addEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
+        this.notifications.addEventListener(juke.events.CREATE_HUB_INTENT, this.createHub.bind(this));
+        this.notifications.addEventListener(juke.events.HUB_SELECTED, this.hubSelected.bind(this));
     },
 
     destroy:function(){
@@ -40,8 +43,15 @@ var HubsTableCtrl = BaseController.extend({
     //Handle User Clicking Create Hub Button
     createHub:function(){
         console.log("create new hub");
-        this.notifications.notify(juke.events.CREATE_HUB_INTENT);
+    },
+
+    //Handle User Selecting a Hub from the HubsTable
+    hubSelected:function(hub){
+        console.log("Here is the Hub selected:");
+        console.log(hub);
     }
+
+
 });
 
 HubsTableCtrl.$inject = ['$scope','HubsModel', 'Notifications'];

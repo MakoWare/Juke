@@ -6,18 +6,12 @@ angular.module('juke', [
     'parseService',
     'navigation',
     'juke.HubsModel',
+    'juke.hubsTable',
     'ngRoute'
 ])
     .config(function($routeProvider) {
 	$routeProvider.
-            /*
-	    when('/', {
-		templateUrl: 'partials/main.html',
-		controller: MainCtrl}).
-	    otherwise({redirectTo: '/'});
-
-*/
-	    when('/hubs', {
+            when('/hubs', {
 		templateUrl: 'partials/hubsTable.html',
 		controller: HubsTableCtrl}).
 	    otherwise({redirectTo: '/hubs'});

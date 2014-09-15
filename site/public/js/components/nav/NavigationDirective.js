@@ -1,26 +1,19 @@
-var NavigationDirective = BaseController.extend({
+var NavigationDirective = BaseDirective.extend({
 
-    _notifications:null,
+    notifications:null,
 
-    init:function(scope,notifications){
-        console.log("NavigationDirective init");
-	this._notifications = notifications;
-	this._super(scope);
+    init:function($scope,notifications){
+	this.notifications = notifications;
+	this._super($scope);
     },
 
     defineListeners:function(){
 
-    },
-
-    defineScope:function(){
-	this.$scope.instance="NavigationDirective";
     }
 });
 
-
 angular.module('navigation',[])
     .directive('navigation',['Notifications',function(Notifications){
-        console.log('navdir');
 	return {
 	    restrict:'A',
 	    isolate:true,

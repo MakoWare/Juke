@@ -11,13 +11,13 @@ var HubsTableCtrl = BaseController.extend({
         console.log("HubsTableCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
+        this.$location = $location;
         this._super($scope);
         this.hubsModel.getHubsForTable();
     },
 
     defineScope:function(){
 	this.$scope.instance="HubsTableController";
-        this.$scope.createHub = this.createHub;
     },
 
     defineListeners:function(){
@@ -29,6 +29,8 @@ var HubsTableCtrl = BaseController.extend({
 
     destroy:function(){
 	this.notifications.removeEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
+	this.notifications.removeEventListener(juke.events.CREATE_HUB_INTENT, this.handleNewHubs.bind(this));
+	this.notifications.removeEventListener(juke.events.HUB_SELECTED, this.handleNewHubs.bind(this));
     },
 
     //Handle HubsModel getting new Hubs
@@ -48,11 +50,11 @@ var HubsTableCtrl = BaseController.extend({
     //Handle User Selecting a Hub from the HubsTable
     hubSelected:function(hub){
         console.log("Here is the Hub selected:");
-        console.log(hub);
 
+        console.log(hub);
+	//this.$location.path().replace();
 
     }
-
 
 });
 

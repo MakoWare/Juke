@@ -1,4 +1,4 @@
-var HubsTableDirective = BaseController.extend({
+var HubsTableDirective = BaseDirective.extend({
 
     notifications:null,
     elm:null,
@@ -26,10 +26,6 @@ var HubsTableDirective = BaseController.extend({
     //Handle User selecting a Hub from the Hubs Table
     hubSelected:function(){
         this.notifications.notify(juke.events.HUB_SELECTED);
-    },
-
-    defineScope:function(){
-	this.$scope.instance="HubsTableDirective";
     },
 
     destroy:function(event){

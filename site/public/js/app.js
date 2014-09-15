@@ -14,7 +14,8 @@ angular.module('juke', [
             when('/hubs', {
 		templateUrl: 'partials/hubsTable.html',
 		controller: HubsTableCtrl}).
+            when('/hubs/:id', {
+		templateUrl: 'partials/hubsTable.html',
+		controller: PlayerController}).
 	    otherwise({redirectTo: '/hubs'});
-
-
     });

@@ -7,7 +7,7 @@ var HubsTableCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
 
-    init:function($scope, HubsModel, Notifications){
+    init:function($scope, $location, HubsModel, Notifications){
         console.log("HubsTableCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
@@ -40,7 +40,7 @@ var HubsTableCtrl = BaseController.extend({
 
     },
 
-    //Handle User Clicking Create Hub Button
+    //Handle User Creating new Hub
     createHub:function(){
         console.log("create new hub");
     },
@@ -49,9 +49,11 @@ var HubsTableCtrl = BaseController.extend({
     hubSelected:function(hub){
         console.log("Here is the Hub selected:");
         console.log(hub);
+
+
     }
 
 
 });
 
-HubsTableCtrl.$inject = ['$scope','HubsModel', 'Notifications'];
+HubsTableCtrl.$inject = ['$scope', '$location', 'HubsModel', 'Notifications'];

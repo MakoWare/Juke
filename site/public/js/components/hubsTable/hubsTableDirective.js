@@ -11,6 +11,7 @@ var HubsTableDirective = BaseController.extend({
     },
 
     defineListeners:function(){
+        //Broken, not picking up click or table row
         $('.table > tr').click(this.hubSelected.bind(this));
 
         $('#createHubButton').click(this.createHub.bind(this));
@@ -24,7 +25,6 @@ var HubsTableDirective = BaseController.extend({
 
     //Handle User selecting a Hub from the Hubs Table
     hubSelected:function(){
-        console.log("hubSelected");
         this.notifications.notify(juke.events.HUB_SELECTED);
     },
 
@@ -36,7 +36,6 @@ var HubsTableDirective = BaseController.extend({
 
     }
 });
-
 
 angular.module('juke.hubsTable',[])
     .directive('hubsTable',['Notifications',function(Notifications){

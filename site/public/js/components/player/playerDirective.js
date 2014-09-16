@@ -1,10 +1,10 @@
-var HubsTableDirective = BaseDirective.extend({
+var PlayerDirective = BaseDirective.extend({
 
     notifications:null,
     elm:null,
 
     init:function($scope,$elm,notifications){
-        console.log("HubsTableDirective init()");
+        console.log("PlayerDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
 	this._super($scope);
@@ -33,16 +33,15 @@ var HubsTableDirective = BaseDirective.extend({
     }
 });
 
-angular.module('juke.hubsTable',[])
-    .directive('hubsTable',['Notifications',function(Notifications){
-        console.log("hubsTableDirective");
+angular.module('juke.player',[])
+    .directive('player',['Notifications',function(Notifications){
+        console.log("player");
         return {
 	    restrict:'C',
 	    isolate:true,
 	    link: function($scope,$elm,$attrs){
-		new HubsTableDirective($scope,$elm,Notifications);
+		new PlayerDirective($scope,$elm,Notifications);
 	    },
-	    scope:true,
-            templateUrl: "partials/hubsTablePartial.html"
+	    scope:true
 	};
     }]);

@@ -11,14 +11,15 @@ var HubsTableDirective = BaseDirective.extend({
     },
 
     defineListeners:function(){
-        //Broken, not picking up click or table row
-        $('.table > tr').click(this.hubSelected.bind(this));
-        $('.table-hover > tr').click(this.hubSelected.bind(this));
-        $('.table-stripped > tr').click(this.hubSelected.bind(this));
-
+        this.notifications.addEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
         $('#createHubButton').click(this.createHub.bind(this));
-
     },
+
+      //Handle HubsModel getting new Hubs
+    handleNewHubs:function(event){
+        $('.table > tbody > tr').click(this.hubSelected.bind(this));
+    },
+
 
     //Handle User Clicking the Create new Hub button
     createHub:function(){
@@ -26,8 +27,9 @@ var HubsTableDirective = BaseDirective.extend({
     },
 
     //Handle User selecting a Hub from the Hubs Table
-    hubSelected:function(){
-        this.notifications.notify(juke.events.HUB_SELECTED);
+    hubSelected:function(event){
+        var hubId = event.currentTarget.getAttribute('id');
+        this.notifications.notify(juke.events.HUB_SELECTED, hubId);
     },
 
     destroy:function(event){
@@ -43,7 +45,7 @@ angular.module('juke.hubsTable',[])
 	    link: function($scope,$elm,$attrs){
 		new HubsTableDirective($scope,$elm,Notifications);
 	    },
-	    scope:true
-            //templateUrl: "partials/hubsTablePartial.html?i=333"
+	    scope:true,
+            templateUrl: "partials/hubsTablePartial.html?i=333"
 	};
     }]);

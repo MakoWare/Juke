@@ -11,7 +11,7 @@ var HubsTableCtrl = BaseController.extend({
         console.log("HubsTableCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
-        this.$location = $location;
+        this.location = $location;
         this._super($scope);
         this.hubsModel.getHubsForTable();
     },
@@ -48,12 +48,10 @@ var HubsTableCtrl = BaseController.extend({
     },
 
     //Handle User Selecting a Hub from the HubsTable
-    hubSelected:function(hub){
-        console.log("Here is the Hub selected:");
-        console.log(hub);
-        this.hubsModel.currentHub = hub;
-	//this.$location.path().replace();
-
+    hubSelected:function(event, hubId){
+        this.hubsModel.currentHub = hubId;
+	this.location.path("hubs/" + hubId).replace();
+        this.$scope.$apply();
     }
 
 });

@@ -1,6 +1,9 @@
 //Events
+namespace('juke.events').PLAYER_PLAY = "ActivityModel.PLAYER_PLAY";
+namespace('juke.events').PLAYER_STOP = "ActivityModel.PLAYER_STOP";
+namespace('juke.events').PLAYER_NEXTSONG = "ActivityModel.PLAYER_NEXTSONG";
 
-var PlayerContreller = BaseController.extend({
+var PlayerController = BaseController.extend({
     notifications: null,
     hubsModel: null,
 

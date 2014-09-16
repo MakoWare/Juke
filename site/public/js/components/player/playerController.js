@@ -28,4 +28,4 @@ var PlayerController = BaseController.extend({
 
 });
 
-PlayerContreller.$inject = ['$scope', 'HubsModel', 'Notifications'];
+PlayerController.$inject = ['$scope', 'HubsModel', 'Notifications'];

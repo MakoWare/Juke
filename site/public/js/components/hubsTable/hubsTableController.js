@@ -50,7 +50,6 @@ var HubsTableCtrl = BaseController.extend({
     //Handle User Selecting a Hub from the HubsTable
     hubSelected:function(hub){
         console.log("Here is the Hub selected:");
-
         console.log(hub);
         this.hubsModel.currentHub = hub;
 	//this.$location.path().replace();

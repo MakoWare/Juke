@@ -4,7 +4,7 @@ var HubsTableDirective = BaseDirective.extend({
     elm:null,
 
     init:function($scope,$elm,notifications){
-        console.log("HubsTableDirective init()");
+        console.log("HubsTableDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
 	this._super($scope);
@@ -13,6 +13,8 @@ var HubsTableDirective = BaseDirective.extend({
     defineListeners:function(){
         //Broken, not picking up click or table row
         $('.table > tr').click(this.hubSelected.bind(this));
+        $('.table-hover > tr').click(this.hubSelected.bind(this));
+        $('.table-stripped > tr').click(this.hubSelected.bind(this));
 
         $('#createHubButton').click(this.createHub.bind(this));
 
@@ -35,14 +37,13 @@ var HubsTableDirective = BaseDirective.extend({
 
 angular.module('juke.hubsTable',[])
     .directive('hubsTable',['Notifications',function(Notifications){
-        console.log("hubsTableDirective");
         return {
 	    restrict:'C',
 	    isolate:true,
 	    link: function($scope,$elm,$attrs){
 		new HubsTableDirective($scope,$elm,Notifications);
 	    },
-	    scope:true,
-            templateUrl: "partials/hubsTablePartial.html"
+	    scope:true
+            //templateUrl: "partials/hubsTablePartial.html?i=333"
 	};
     }]);

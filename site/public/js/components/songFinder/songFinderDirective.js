@@ -29,6 +29,6 @@ angular.module('juke.songFinder',[])
 		new SongFinderDirective($scope,$elm,Notifications);
 	    },
 	    scope:true,
-            templateUrl: "partials/songFinderDirective.html"
+            templateUrl: "partials/songFinder.html"
 	};
     }]);

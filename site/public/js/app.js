@@ -8,6 +8,7 @@ angular.module('juke', [
     'juke.HubsModel',
     'juke.hubsTable',
     'juke.player',
+    'juke.songFinder',
     'ngRoute'
 ])
     .config(function($routeProvider) {

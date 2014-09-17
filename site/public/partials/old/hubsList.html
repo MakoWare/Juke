@@ -1,0 +1,51 @@
+<div ng-include="'partials/nav.html'"></div>
+
+<div class="container">
+  <div class="well">
+    <div class="row" align="center">
+      <h1>Hubs</h1>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+	<label for="query">Search:</label>
+	<input type="text" ng-model="query" class="form-control col-sm-3 ng-pristine ng-valid" placeholder="Search" id="query">
+      </div>
+      <div class="col-xs-6">
+	<button type="button" class="btn btn-primary btn-sm" id="createHubButton" style="margin: 30px" ng-click="open()">Create New Hub</button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="table-responsive">
+	<table class="table table-stripped table-hover">
+	  <thead>
+	    <tr>
+	      <th>Name</th>
+	      <th>Owner</th>
+	      <th>Location</th>
+	      <th>Permissions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	   <tr ng-repeat="hub in hubs | filter:query" ng-click="connectToHub(hub)" class="success">
+	      <td><h5 class="ng-binding">hsj</h5></td>
+	      <td><h5 class="ng-binding">dylan</h5></td>
+	      <td class="ng-binding"></td>
+	      <td class="ng-binding"></td>
+	    </tr><!-- end ngRepeat: hub in hubs | filter:query --><tr ng-repeat="hub in hubs | filter:query" ng-click="connectToHub(hub)" class="success">
+	      <td><h5 class="ng-binding">Party</h5></td>
+	      <td><h5 class="ng-binding">dylan</h5></td>
+	      <td class="ng-binding"></td>
+	      <td class="ng-binding"></td>
+	    </tr><!-- end ngRepeat: hub in hubs | filter:query --><tr ng-repeat="hub in hubs | filter:query" ng-click="connectToHub(hub)" class="info">
+	      <td><h5 class="ng-binding">dylan's hub</h5></td>
+	      <td><h5 class="ng-binding">dylan</h5></td>
+	      <td class="ng-binding"></td>
+	      <td class="ng-binding"></td>
+	    </tr><!-- end ngRepeat: hub in hubs | filter:query -->
+	  </tbody>
+	</table>
+      </div>
+    </div>
+  </div>
+</div>

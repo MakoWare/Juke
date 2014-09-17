@@ -46,6 +46,6 @@ angular.module('juke.hubsTable',[])
 		new HubsTableDirective($scope,$elm,Notifications);
 	    },
 	    scope:true,
-            templateUrl: "partials/hubsTablePartial.html?i=333"
+            templateUrl: "partials/hubsTable.html?i=333"
 	};
     }]);

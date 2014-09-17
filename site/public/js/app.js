@@ -7,15 +7,16 @@ angular.module('juke', [
     'navigation',
     'juke.HubsModel',
     'juke.hubsTable',
+    'juke.player',
     'ngRoute'
 ])
     .config(function($routeProvider) {
 	$routeProvider.
             when('/hubs', {
-		templateUrl: 'partials/hubsTable.html',
+		templateUrl: 'partials/hubs.html',
 		controller: HubsTableCtrl}).
             when('/hubs/:id', {
-		templateUrl: 'partials/hubsTable.html',
+		templateUrl: 'partials/hub.html',
 		controller: PlayerController}).
 	    otherwise({redirectTo: '/hubs'});
     });

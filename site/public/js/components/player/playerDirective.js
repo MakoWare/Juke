@@ -42,6 +42,7 @@ angular.module('juke.player',[])
 	    link: function($scope,$elm,$attrs){
 		new PlayerDirective($scope,$elm,Notifications);
 	    },
-	    scope:true
+	    scope:true,
+            templateUrl: "partials/playerPartial.html"
 	};
     }]);

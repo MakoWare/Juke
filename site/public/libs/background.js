@@ -25,12 +25,12 @@ window.onload = function(){
 
     //Radial Gradient in the Center
     function setBackgroundRadialGradient(color1, color2){
-        document.getElementsByTagName('html')[0].setAttribute('style', 'background-image: ' + 'url(images/noise.png)' + ', -webkit-radial-gradient(center center, ' + color1 + ', ' + color2 + ' 750px');
+        document.getElementsByTagName('body')[0].setAttribute('style', 'background-image: ' + 'url(images/noise.png)' + ', -webkit-radial-gradient(center center, ' + color1 + ', ' + color2 + ' 750px');
     }
 
     //Linear Gradient
     function setBackgroundLinearGradient(color1, color2, degree){
-        document.documentElement.style.backgroundImage = 'url(images/noise.png)' + ', -webkit-linear-gradient(' + degree + ', ' + color1 + ', ' + color2;
+        document.body.style.backgroundImage = 'url(images/noise.png)' + ', -webkit-linear-gradient(' + degree + ', ' + color1 + ', ' + color2;
     }
 
     //Init BackgroundColor

@@ -1,11 +1,9 @@
 //Events
-namespace('juke.events').HUBS_LOADED = "ActivityModel.HUBS_LOADED";
-namespace('juke.events').HUB_CREATED = "ActivityModel.HUB_CREATED";
+namespace('juke.events').USER_LOGGED_IN = "ActivityModel.USER_LOGGED_IN";
 
-//Hubs model, holds hubs
-var HubsModel = EventDispatcher.extend({
-    currentHub: null,
-    hubs:null,
+//User model, holds Current User
+var UserModel = EventDispatcher.extend({
+    currentUser: null,
 
     //Injected by the provider
     ParseService:null,
@@ -26,16 +24,6 @@ var HubsModel = EventDispatcher.extend({
     //Get a Hub
     getHub: function(){
 
-    },
-
-    //Create a new Hub
-    createHub: function(){
-        this.ParseService.createHub().then(function(result){
-            console.log("Hub Created: ");
-            console.log(result);
-            self.currentHub = result.id;
-            self.notifications.notify(juke.events.HUB_CREATED);
-        });
     }
 });
 

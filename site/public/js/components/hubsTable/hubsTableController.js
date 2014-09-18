@@ -25,6 +25,7 @@ var HubsTableCtrl = BaseController.extend({
     defineListeners:function(){
 	this._super();
 	this.notifications.addEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
+        this.notifications.addEventListener(juke.events.HUB_CREATED, this.hubCreated.bind(this));
         this.notifications.addEventListener(juke.events.CREATE_HUB_INTENT, this.createHub.bind(this));
         this.notifications.addEventListener(juke.events.HUB_SELECTED, this.hubSelected.bind(this));
     },
@@ -71,6 +72,13 @@ var HubsTableCtrl = BaseController.extend({
 
     //Handle User Selecting a Hub from the HubsTable
     hubSelected:function(event, hubId){
+        this.hubsModel.currentHub = hubId;
+	this.location.path("hubs/" + hubId).replace();
+        this.$scope.$apply();
+    },
+
+    //Handle User Createing a new Hub
+    hubCreated:function(event, hubId){
         this.hubsModel.currentHub = hubId;
 	this.location.path("hubs/" + hubId).replace();
         this.$scope.$apply();

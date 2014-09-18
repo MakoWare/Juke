@@ -26,14 +26,15 @@ var HubsTableCtrl = BaseController.extend({
 	this._super();
 	this.notifications.addEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
         this.notifications.addEventListener(juke.events.HUB_CREATED, this.hubCreated.bind(this));
-        this.notifications.addEventListener(juke.events.CREATE_HUB_INTENT, this.createHub.bind(this));
+        this.notifications.addEventListener(juke.events.CREATE_HUB_INTENT, this.createNewHubModal.bind(this));
         this.notifications.addEventListener(juke.events.HUB_SELECTED, this.hubSelected.bind(this));
     },
 
     destroy:function(){
 	this.notifications.removeEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
-	this.notifications.removeEventListener(juke.events.CREATE_HUB_INTENT, this.handleNewHubs.bind(this));
-	this.notifications.removeEventListener(juke.events.HUB_SELECTED, this.handleNewHubs.bind(this));
+        this.notifications.removeEventListener(juke.events.HUB_CREATED, this.hubCreated.bind(this));
+	this.notifications.removeEventListener(juke.events.CREATE_HUB_INTENT, this.createNewHubModal.bind(this));
+	this.notifications.removeEventListener(juke.events.HUB_SELECTED, this.hubSelected.bind(this));
     },
 
     //Handle HubsModel getting new Hubs
@@ -46,7 +47,7 @@ var HubsTableCtrl = BaseController.extend({
     },
 
     //Handle User Creating new Hub
-    createHub:function(){
+    createNewHubModal:function(){
         console.log("create new hub");
         var self = this;
         var open = function (size) {

@@ -13,15 +13,16 @@ var HubModalCtrl = BaseController.extend({
 
     defineScope: function(){
         this.$scope.hub = {};
-
+        this.$scope.hub.capabilities = {};
     },
 
     defineListeners:function(){
-        $('#createHubButton').click(this.createHub.bind(this));
+        $('#createHubButton').click(this.createNewHub.bind(this));
     },
 
     //Handle User Createing a new Hub
-    createHub:function(){
+    createNewHub:function(){
+        console.log("creating new Hub");
         //this.hubsModel.createNewHub();
     }
 

@@ -12,7 +12,7 @@ var HubsTableDirective = BaseDirective.extend({
 
     defineListeners:function(){
         this.notifications.addEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
-        $('#createHubButton').click(this.createHub.bind(this));
+        $('#openModalButton').click(this.createHub.bind(this));
     },
 
       //Handle HubsModel getting new Hubs
@@ -23,6 +23,7 @@ var HubsTableDirective = BaseDirective.extend({
 
     //Handle User Clicking the Create new Hub button
     createHub:function(){
+        console.log("yo");
         this.notifications.notify(juke.events.CREATE_HUB_INTENT);
     },
 
@@ -46,6 +47,6 @@ angular.module('juke.hubsTable',[])
 		new HubsTableDirective($scope,$elm,Notifications);
 	    },
 	    scope:true,
-            templateUrl: "partials/hubsTable.html?i=333"
+            templateUrl: "partials/hubsTable.html?i=334"
 	};
     }]);

@@ -7,11 +7,13 @@ var HubsTableCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
 
-    init:function($scope, $location, HubsModel, Notifications){
+    init:function($scope, $location, $modal, HubsModel, Notifications){
         console.log("HubsTableCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this.location = $location;
+        this.modal = $modal;
+
         this._super($scope);
         this.hubsModel.getHubsForTable();
     },
@@ -45,6 +47,26 @@ var HubsTableCtrl = BaseController.extend({
     //Handle User Creating new Hub
     createHub:function(){
         console.log("create new hub");
+        var self = this;
+        var open = function (size) {
+            var modalInstance = self.modal.open({
+                templateUrl: 'partials/hubModal.html',
+                controller: HubModalCtrl,
+                size: size,
+                resolve: {
+                    items: function () {
+                        return self.$scope.items;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                self.$scope.selected = selectedItem;
+            }, function () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        };
+        open();
     },
 
     //Handle User Selecting a Hub from the HubsTable
@@ -56,4 +78,4 @@ var HubsTableCtrl = BaseController.extend({
 
 });
 
-HubsTableCtrl.$inject = ['$scope', '$location', 'HubsModel', 'Notifications'];
+HubsTableCtrl.$inject = ['$scope', '$location', '$modal', 'HubsModel', 'Notifications'];

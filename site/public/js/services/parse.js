@@ -124,19 +124,21 @@ angular.module('parseService', [])
 	    },
 
 	    //Create Hub
-	    createHub : function createHub(hub, callback){
-		currentUser = Parse.User.current();
-		var newHub = new Hub();
-		newHub.set("title", hub.title);
-		newHub.set("range", hub.range);
-		newHub.set("owner", currentUser);
-		newHub.save({
-		    success: function(hub){
-			currentHub = hub;
-			callback(hub);
+	    createHub : function(name, password, capabilities){
+		var currentUser = Parse.User.current();
+		var hub = new Hub();
+		hub.set("title", name);
+                hub.set("passcode", password);
+                hub.set("capabilities", capabilities);
+                hub.set("owner", currentUser);
+                hub.set("allowedUsers", [currentUser]);
+                hub.set("type", "web");
+		return hub.save({
+		    success: function(result){
+			return(hub);
 		    },
-		    error: function(object, error){
-			alert("Error: " + error.message);
+		    error: function(error){
+			return error;
 		    }
 		});
 	    },

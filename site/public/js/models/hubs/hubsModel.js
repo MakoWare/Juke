@@ -14,10 +14,7 @@ var HubsModel = EventDispatcher.extend({
     //Load Hubs via Parse service for the Hubs Table
     getHubsForTable: function(){
         var self = this;
-
 	this.ParseService.getHubsForTable().then(function(results){
-            console.log("HubsModel " + "Got Hubs:");
-            console.log(results);
             self.hubs = results;
             self.notifications.notify(juke.events.HUBS_LOADED);
         });
@@ -29,8 +26,9 @@ var HubsModel = EventDispatcher.extend({
     },
 
     //Create a new Hub
-    createHub: function(){
-        this.ParseService.createHub().then(function(result){
+    createHub: function(name, password, capabilities){
+        var self = this;
+        this.ParseService.createHub(name, password, capabilities).then(function(result){
             console.log("Hub Created: ");
             console.log(result);
             self.currentHub = result.id;

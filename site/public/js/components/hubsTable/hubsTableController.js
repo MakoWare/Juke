@@ -39,16 +39,12 @@ var HubsTableCtrl = BaseController.extend({
 
     //Handle HubsModel getting new Hubs
     handleNewHubs:function(event){
-        console.log("So I hear you got new Hubs:");
-        console.log(this.hubsModel.hubs);
         this.$scope.hubs = this.hubsModel.hubs;
         this.$scope.$apply();
-
     },
 
     //Handle User Creating new Hub
     createNewHubModal:function(){
-        console.log("create new hub");
         var self = this;
         var open = function (size) {
             var modalInstance = self.modal.open({
@@ -56,16 +52,10 @@ var HubsTableCtrl = BaseController.extend({
                 controller: HubModalCtrl,
                 size: size,
                 resolve: {
-                    items: function () {
-                        return self.$scope.items;
+                    HubsModel: function () {
+                        return self.hubsModel;
                     }
                 }
-            });
-
-            modalInstance.result.then(function (selectedItem) {
-                self.$scope.selected = selectedItem;
-            }, function () {
-                console.log('Modal dismissed at: ' + new Date());
             });
         };
         open();
@@ -79,9 +69,8 @@ var HubsTableCtrl = BaseController.extend({
     },
 
     //Handle User Createing a new Hub
-    hubCreated:function(event, hubId){
-        this.hubsModel.currentHub = hubId;
-	this.location.path("hubs/" + hubId).replace();
+    hubCreated:function(event){
+	this.location.path("hubs/" + this.hubsModel.currentHub).replace();
         this.$scope.$apply();
     }
 

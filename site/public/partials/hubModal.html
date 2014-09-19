@@ -1,4 +1,4 @@
-<div>
+<div id="hubModal">
   <div class="modal-header">
     <h3 class="modal-title">New Hub!</h3>
   </div>
@@ -24,24 +24,25 @@
         <div class="controls form-inline">
           <div class="checkbox">
             <label>
-              <input type="checkbox" ng-checked="(!hub.capabilities.youtube && !hub.capabilities.spotify)" ng-model="hub.capabilities.all">All
+              <input type="checkbox" ng-checked="!(hub.capabilities.youtube || hub.capabilities.spotify)" ng-model="hub.capabilities.all">All
             </label>
           </div>
           <div class="checkbox" style="padding-left: 5px">
             <label>
-              <input type="checkbox" ng-model="hub.capabilities.youtube">Youtube
+              <input type="checkbox" ng-checked="!hub.capabilities.all" ng-model="hub.capabilities.youtube">Youtube
             </label>
           </div>
           <div class="checkbox" style="padding-left: 5px">
             <label>
-              <input type="checkbox" ng-model="hub.capabilities.spotify">Spotify
+              <input type="checkbox" ng-checked="!hub.capabilities.all" ng-model="hub.capabilities.spotify">Spotify
             </label>
           </div>
         </div>
       </div>
-      <p>* required</p>
+      <br>
+      <p>* = required</p>
       <div class="modal-footer">
-        <button ng-disabled="form.$invalid" id="createHubButton" type="submit" class="btn btn-primary">Create</button>
+        <button ng-disabled="form.$invalid" id="createHubButton" type="submit" class="btn btn-primary" data-dismiss="modal" data-target="#hubModal">Create</button>
       </div>
     </form>
   </div>

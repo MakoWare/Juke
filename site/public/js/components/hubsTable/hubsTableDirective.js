@@ -15,15 +15,13 @@ var HubsTableDirective = BaseDirective.extend({
         $('#openModalButton').click(this.createHub.bind(this));
     },
 
-      //Handle HubsModel getting new Hubs
+    //Handle HubsModel getting new Hubs
     handleNewHubs:function(event){
         $('.table > tbody > tr').click(this.hubSelected.bind(this));
     },
 
-
     //Handle User Clicking the Create new Hub button
     createHub:function(){
-        console.log("yo");
         this.notifications.notify(juke.events.CREATE_HUB_INTENT);
     },
 

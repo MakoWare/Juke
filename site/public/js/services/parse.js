@@ -132,6 +132,7 @@ angular.module('parseService', [])
                 hub.set("capabilities", capabilities);
                 hub.set("owner", currentUser);
                 hub.set("allowedUsers", [currentUser]);
+                hub.set("blockedUsers", []);
                 hub.set("type", "web");
 		return hub.save({
 		    success: function(result){

@@ -8,11 +8,24 @@ var HubsTableDirective = BaseDirective.extend({
 	this.notifications = notifications;
 	this.elm = $elm;
 	this._super($scope);
+
+        //Initial Table Height
+        this.setTableHeight();
     },
 
     defineListeners:function(){
         this.notifications.addEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
         $('#openModalButton').click(this.createHub.bind(this));
+        $(window).resize(this.setTableHeight);
+    },
+
+    setTableHeight: function(){
+        var windowHeight = $(window).height();
+        var tableHeight = (windowHeight - 110) * .8;
+        console.log(tableHeight);
+
+        $('#hubsTableDiv').height(tableHeight);
+
     },
 
     //Handle HubsModel getting new Hubs

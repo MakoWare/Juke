@@ -1,5 +1,4 @@
 var HubModalCtrl = function($scope, $modalInstance, HubsModel){
-    console.log(HubsModel);
 
     $scope.init = function(){
         $scope.modal = $modalInstance;
@@ -9,16 +8,24 @@ var HubModalCtrl = function($scope, $modalInstance, HubsModel){
         $scope.hub.name = "";
         $scope.hub.password = "";
         $scope.hub.capabilities = {};
-        $scope.hub.capabilities.all = true;
+        $scope.all = true;
         $scope.hub.capabilities.youtube = false;
         $scope.hub.capabilities.spotify = false;
+        $scope.hub.capabilities.local = false;
 
         $(document).on('click','#createHubButton', this.createNewHub.bind(this));
+        $(document).on('click','#closeModalButton', this.createNewHub.bind(this));
 
     },
 
     $scope.createNewHub = function(){
         var hub = $scope.hub;
+
+        if($scope.all){
+            hub.capabilities.youtube = true;
+            hub.capabilities.spotify = true;
+        }
+
         $scope.modal.close();
         $scope.hubsModel.createHub(hub.name, hub.password, hub.capabilities);
     },

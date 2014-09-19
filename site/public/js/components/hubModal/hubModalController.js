@@ -14,9 +14,12 @@ var HubModalCtrl = function($scope, $modalInstance, HubsModel){
         $scope.hub.capabilities.local = false;
 
         $(document).on('click','#createHubButton', this.createNewHub.bind(this));
-        $(document).on('click','#closeModalButton', this.createNewHub.bind(this));
+        $(document).on('click','#closeModalButton',function(){
+            $scope.modal.close();
+        });
 
     },
+
 
     $scope.createNewHub = function(){
         var hub = $scope.hub;
@@ -31,5 +34,4 @@ var HubModalCtrl = function($scope, $modalInstance, HubsModel){
     },
 
     $scope.init();
-
 };

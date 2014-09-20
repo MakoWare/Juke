@@ -21,11 +21,8 @@ var HubsTableDirective = BaseDirective.extend({
 
     setTableHeight: function(){
         var windowHeight = $(window).height();
-        var tableHeight = (windowHeight - 110) * .8;
-        console.log(tableHeight);
-
-        $('#hubsTableDiv').height(tableHeight);
-
+        var tableHeight = (windowHeight - 150) * .70;
+        $('#hubsTableContent').height(tableHeight);
     },
 
     //Handle HubsModel getting new Hubs

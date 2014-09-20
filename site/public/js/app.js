@@ -16,7 +16,7 @@ angular.module('juke', [
 	$routeProvider.
             when('/hubs', {
 		templateUrl: 'partials/hubs.html',
-		controller: HubsTableCtrl}).
+		controller: HubsCtrl}).
             when('/hubs/:id', {
 		templateUrl: 'partials/hub.html',
 		controller: PlayerController}).

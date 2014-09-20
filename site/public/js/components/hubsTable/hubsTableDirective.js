@@ -15,7 +15,7 @@ var HubsTableDirective = BaseDirective.extend({
 
     defineListeners:function(){
         this.notifications.addEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
-        $('#openModalButton').click(this.createHub.bind(this));
+        //$('#openModalButton').click(this.createHub.bind(this));
         $(window).resize(this.setTableHeight);
     },
 

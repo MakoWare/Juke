@@ -8,14 +8,14 @@
   </thead>
 </table>
   <div id="hubsTableContent" style="overflow-y: auto; height: 300px">
-    <table>
+    <table class="table table-stripped table-hover">
       <tbody>
         <tr id="{{hub.id}}" ng-repeat="hub in hubs | filter:predicate.attributes.$" >
-          <td class="col-xs-4 col-md-4">
+          <td class="col-xs-8 col-md-4">
             <img class="img-responsive" alt="No Album Art" ng-src="{{hub.get('currentlyPlaying').get('song').get('thumbnail')}}"  width="150"/>
           </td>
-          <td class="col-xs-4 col-md-4"><h3>{{hub.attributes.title}}</h3></td>
-          <td class="col-xs-4 col-md-4"><h4>{{hub.get('currentlyPlaying').get('song').get('title')}}</h4></td>
+          <td class="col-xs-2 col-md-4"><h3>{{hub.attributes.title}}</h3></td>
+          <td class="col-xs-2 col-md-4"><h4>{{hub.get('currentlyPlaying').get('song').get('title')}}</h4></td>
         </tr>
       </tbody>
     </table>

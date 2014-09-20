@@ -40,7 +40,7 @@ var HubsTableCtrl = BaseController.extend({
 
     //Handle User Selecting a Hub from the HubsTable
     hubSelected:function(event, hubId){
-        this.hubsModel.currentHub = hubId;
+        this.hubsModel.currentHubID = hubId;
 	this.location.path("hubs/" + hubId);
         this.$scope.$apply();
     }

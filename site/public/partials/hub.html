@@ -1,4 +1,18 @@
-<div class="container-fluid">
-  <div class="player"></div>
-  <div class="songFinder"></div>
+<div class="container">
+  <div class="well" style="background-color:rgba(255,255,255,.20); color:white;" >
+    <div class="row">
+      <div class="col-xs-3 col-md-3">
+        <h2>{{currentHub.attributes.title}}</h2>
+      </div>
+    </div>
+
+    <div ng-controller="PlayerCtrl">
+      <div class="player"></div>
+    </div>
+
+    <div ng-controller="SongFinderCtrl">
+      <div class="songFinder"></div>
+    </div>
+
+  </div>
 </div>

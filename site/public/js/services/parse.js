@@ -82,15 +82,14 @@ angular.module('parseService', [])
 
 	    //Hubs
 	    //Get a Hub by its objectId
-	    getHubById : function getHubById(hubId,callback){
+	    getHubById : function getHubById(hubId){
 		var query = new Parse.Query(Hub);
-		query.get(hubId, {
-		    success: function(hub){
-			currentHub = hub;
-			callback(hub);
+		return query.get(hubId, {
+		    success: function(result){
+                        return result;
 		    },
-		    error: function(object, error){
-			alert("Error: " + error.message);
+		    error: function(error){
+			return error;
 		    }
 		});
 	    },

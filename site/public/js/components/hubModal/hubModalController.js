@@ -1,6 +1,7 @@
 var HubModalCtrl = function($scope, $modalInstance, HubsModel){
 
     $scope.init = function(){
+        console.log("HubModalCtrl");
         $scope.modal = $modalInstance;
         $scope.hubsModel = HubsModel;
 
@@ -12,6 +13,7 @@ var HubModalCtrl = function($scope, $modalInstance, HubsModel){
         $scope.hub.capabilities.youtube = false;
         $scope.hub.capabilities.spotify = false;
         $scope.hub.capabilities.local = false;
+
 
         $(document).on('click','#createHubButton', this.createNewHub.bind(this));
         $(document).on('click','#closeModalButton',function(){

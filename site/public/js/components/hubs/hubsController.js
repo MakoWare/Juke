@@ -34,24 +34,22 @@ var HubsCtrl = BaseController.extend({
     //Handle User Creating new Hub
     createNewHubModal:function(){
         var self = this;
-        var open = function (size) {
-            var modalInstance = self.modal.open({
-                templateUrl: 'partials/hubModal.html',
-                controller: HubModalCtrl,
-                size: size,
-                resolve: {
-                    HubsModel: function () {
-                        return self.hubsModel;
-                    }
+        console.log(this.modal);
+
+        var modalInstance = self.modal.open({
+            templateUrl: 'partials/hubModal.html',
+            controller: HubModalCtrl,
+            resolve: {
+                HubsModel: function () {
+                    return self.hubsModel;
                 }
-            });
-        };
-        open();
+            }
+        });
     },
 
     //Handle User Createing a new Hub
     hubCreated:function(event){
-	this.location.path("hubs/" + this.hubsModel.currentHub);
+	this.location.path("hubs/" + this.hubsModel.currentHub.id);
         this.$scope.$apply();
     }
 

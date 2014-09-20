@@ -1,11 +1,11 @@
 //Events
 
-var SongFinderController = BaseController.extend({
+var SongFinderCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
 
     init:function($scope, HubsModel, Notifications){
-        console.log("SongFinderController.init()");
+        console.log("SongFinderCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this._super($scope);
@@ -25,4 +25,4 @@ var SongFinderController = BaseController.extend({
 
 });
 
-SongFinderController.$inject = ['$scope', 'HubsModel', 'Notifications'];
+SongFinderCtrl.$inject = ['$scope', 'HubsModel', 'Notifications'];

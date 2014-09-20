@@ -2,9 +2,9 @@
 window.onload = function(){
     var innerColor;
     var outerColor;
-    var frequency = .01;
+    var frequency = .05;
     var i = 0;
-    var j = 70;
+    var j = 20;
 
     function RGB2Color(r,g,b){
         return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);
@@ -46,7 +46,7 @@ window.onload = function(){
 
 //        setBackgroundRadialGradient(innerColor, outerColor);
         setBackgroundLinearGradient(outerColor, innerColor, "135deg");
-  }, 50);
+  }, 200);
 
 
 };

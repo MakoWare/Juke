@@ -1,5 +1,36 @@
-<div class="well" style="background-color: rgba(255,255,255,.20); color: white;" >
-  <div class="row">
-    <h2>Song Finder</h2>
+<div class="well" style="background-color: rgba(255,255,255,.20); color: white; padding-top: 0px">
+  <div class="row" style="padding-left: 5px; padding-right: 5px">
+    <h3>Add Songs</h3>
+  </div>
+
+  <div class="row" style="padding-left: 5px; padding-right: 5px">
+    <input type="text" class="form-control placeholderChange" placeholder="Search" style="background-color: rgba(255,255,255,.40); color: white" />
+  </div>
+
+
+  <div id="songFinderTable" class="row">
+    <table class="table table-stripped table-hover" style="table-layout: fixed">
+      <thead>
+        <tr>
+          <th class="col-xs-4 col-md-4">Album Art</th>
+          <th class="col-xs-4 col-md-4">Artist</th>
+          <th class="col-xs-4 col-md-4">Name</th>
+        </tr>
+      </thead>
+    </table>
+    <div id="songFinderContent" style="overflow-y: auto; height: 300px">
+      <table class="table table-stripped table-hover">
+        <tbody>
+          <tr id="{{song.id}}" ng-repeat="song in foundSongs">
+            <td class="col-xs-4 col-md-4">
+              <img class="img-responsive" alt="No Album Art" ng-src="{{song.get('thumbnail')}}"  width="150"/>
+            </td>
+            <td class="col-xs-4 col-md-4"><h3>{{song.artist}}</h3></td>
+            <td class="col-xs-4 col-md-4"><h4>{{song.title)}}</h4></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </div>

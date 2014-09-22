@@ -10,6 +10,10 @@ var NavigationDirective = BaseDirective.extend({
     },
 
     defineListeners:function(){
+        $('#loginButton').onClick(function(){
+            console.log("login");
+        });
+
 
     }
 });
@@ -23,6 +27,6 @@ angular.module('navigation',[])
 		new NavigationDirective($scope, $location, Notifications);
 	    },
 	    scope:true,
-            templateUrl: 'partials/nav.html'
+            templateUrl: 'partials/nav.html?e=335'
 	};
     }]);

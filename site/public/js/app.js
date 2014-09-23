@@ -6,6 +6,7 @@ angular.module('juke', [
     'parseService',
     'navigation',
     'juke.HubsModel',
+    'juke.UserModel',
     'juke.hubsTable',
     'juke.player',
     'juke.songFinder',

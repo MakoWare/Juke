@@ -33,12 +33,12 @@ angular.module('parseService', [])
 	    //User
 	    //Login
 	    login: function(username, password) {
-		Parse.User.logIn(username, password, {
+		return Parse.User.logIn(username, password, {
 		    success: function(user) {
-
+                        return user;
 		    },
-		    error: function(user, error) {
-			alert("Error: " + error.message);
+		    error: function(error) {
+                        alert("Error: " + error.message);
 		    }
 		});
 	    },

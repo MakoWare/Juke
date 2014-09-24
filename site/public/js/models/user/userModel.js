@@ -22,8 +22,8 @@ var UserModel = EventDispatcher.extend({
     //Logout
     logout:function(){
 	this.ParseService.logout();
-        self.currentUser = null;
-        self.notifications.notify(juke.events.USER_LOGGED_OUT);
+        this.currentUser = null;
+        this.notifications.notify(juke.events.USER_LOGGED_OUT);
     },
 
     //Sign Up

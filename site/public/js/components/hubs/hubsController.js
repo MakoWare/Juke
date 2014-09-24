@@ -4,11 +4,13 @@ namespace('juke.events').CREATE_HUB_INTENT = "ActivityModel.CREATE_HUB_INTENT";
 var HubsCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
+    userModel: null,
 
-    init:function($scope, $location, $modal, HubsModel, Notifications){
+    init:function($scope, $location, $modal, HubsModel, UserModel, Notifications){
         console.log("HubsCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
+        this.userModel = UserModel;
         this.location = $location;
         this.modal = $modal;
         this._super($scope);
@@ -33,18 +35,22 @@ var HubsCtrl = BaseController.extend({
 
     //Handle User Creating new Hub
     createNewHubModal:function(){
-        var self = this;
-        console.log(this.modal);
+        if(this.userModel.currentUser == null){
+            alert("Sorry, but you  must be signed in to create a Hub");
+        } else {
+            var self = this;
+            console.log(this.modal);
 
-        var modalInstance = self.modal.open({
-            templateUrl: 'partials/hubModal.html',
-            controller: HubModalCtrl,
-            resolve: {
-                HubsModel: function () {
-                    return self.hubsModel;
+            var modalInstance = self.modal.open({
+                templateUrl: 'partials/hubModal.html',
+                controller: HubModalCtrl,
+                resolve: {
+                    HubsModel: function () {
+                        return self.hubsModel;
+                    }
                 }
-            }
-        });
+            });
+        }
     },
 
     //Handle User Createing a new Hub
@@ -55,4 +61,4 @@ var HubsCtrl = BaseController.extend({
 
 });
 
-HubsCtrl.$inject = ['$scope', '$location', '$modal', 'HubsModel', 'Notifications'];
+HubsCtrl.$inject = ['$scope', '$location', '$modal', 'HubsModel', 'UserModel', 'Notifications'];

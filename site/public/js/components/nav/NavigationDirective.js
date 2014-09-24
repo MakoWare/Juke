@@ -4,7 +4,6 @@ var NavigationDirective = BaseDirective.extend({
     userModel: null,
 
     init:function($scope, $location, notifications, userModel){
-        console.log("NavigationDirective.init()");
 	this.notifications = notifications;
         this.userModel = userModel;
         this.location = $location;
@@ -45,7 +44,6 @@ var NavigationDirective = BaseDirective.extend({
         this.$scope.currentUser = this.userModel.currentUser;
         this.$scope.$apply(); //may not need this
     }
-
 
 });
 

@@ -44,7 +44,7 @@ angular.module('parseService', [])
 	    },
 
 	    //Logout
-	    logout: function(callback) {
+	    logout: function(){
 		Parse.User.logOut();
 	    },
 
@@ -52,9 +52,9 @@ angular.module('parseService', [])
 	    signUp: function(username, password) {
 		var acl = new Parse.ACL();
 		acl.setPublicReadAccess(true);
-		Parse.User.signUp(username, password, { ACL: acl }, {
+		return Parse.User.signUp(username, password, { ACL: acl }, {
 		    success: function(user) {
-                        alert("Sign Up Successful, welcome!");
+                        return user;
 		    },
 		    error: function(user, error) {
 			alert("Error: " + error.message);

@@ -12,16 +12,28 @@ var UserModel = EventDispatcher.extend({
 
     //Attempt Login
     login:function(username, password){
-        console.log(username + password);
         var self = this;
 	this.ParseService.login(username, password).then(function(result){
-            console.log("User logged in");
+            self.currentUser = result;
+            self.notifications.notify(juke.events.USER_LOGGED_IN);
+        });
+    },
+
+    //Logout
+    logout:function(){
+	this.ParseService.logout();
+        self.currentUser = null;
+        self.notifications.notify(juke.events.USER_LOGGED_OUT);
+    },
+
+    //Sign Up
+    signUp:function(username, password){
+        var self = this;
+	this.ParseService.signUp(username, password).then(function(result){
             self.currentUser = result;
             self.notifications.notify(juke.events.USER_LOGGED_IN);
         });
     }
-
-
 });
 
 

@@ -27,6 +27,7 @@ var HubsTableDirective = BaseDirective.extend({
     //Handle HubsModel getting new Hubs
     handleNewHubs:function(event){
         $('.table > tbody > tr').click(this.hubSelected.bind(this));
+        $('.thumbnail').click(this.hubSelected.bind(this));
     },
 
     //Handle User Clicking the Create new Hub button
@@ -54,6 +55,6 @@ angular.module('juke.hubsTable',[])
 		new HubsTableDirective($scope,$elm,Notifications);
 	    },
 	    scope:true,
-            templateUrl: "partials/hubsGrid.html?i=334"
+            templateUrl: "partials/hubsTable.html?i=334"
 	};
     }]);

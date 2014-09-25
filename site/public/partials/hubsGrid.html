@@ -13,8 +13,8 @@
 <div id="hubsTableContent" style="overflow-y: auto; height: 300px">
   <div class="row">
     <div class="col-sm-6 col-md-4" ng-repeat="hub in hubs">
-      <div class="thumbnail" style="background-color:rgba(255,255,255,.40); color:white; min-height:330px" >
-        <img class="img-responsive" alt="No Album Art" ng-src="{{(hub.get('currentlyPlaying').get('song').get('thumbnail')) || 'images/defaultAlbumArt.jpg'}}"  width="200"/>
+      <div class="thumbnail" id="{{hub.id}}" style="background-color:rgba(255,255,255,.40); color:white; min-height:330px" >
+        <img class="img-responsive" alt="No Album Art" ng-src="{{(hub.get('currentlyPlaying').get('song').get('thumbnail')) || 'images/defaultAlbumArt.jpg'}}"  width="200" height="150"/>
         <div class="caption" style="color: white">
           <h3>{{hub.get('title')}}</h3>
           <p>{{hub.get('currentlyPlaying').get('song').get('title')}}</p>

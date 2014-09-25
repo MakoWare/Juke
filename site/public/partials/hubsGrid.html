@@ -1,0 +1,26 @@
+<table id="hubsTable" class="table table-stripped table-hover" style="table-layout: fixed">
+  <thead>
+    <tr>
+      <div class="row">
+        <div class="col-xs-12">
+          <input type="text" class="form-control placeholderChange" placeholder="Search" style="background-color: rgba(255,255,255,.40); color: white" />
+        </div>
+      </div>
+
+    </tr>
+  </thead>
+</table>
+<div id="hubsTableContent" style="overflow-y: auto; height: 300px">
+  <div class="row">
+    <div class="col-sm-6 col-md-4" ng-repeat="hub in hubs">
+      <div class="thumbnail" style="background-color:rgba(255,255,255,.40); color:white; min-height:200px" >
+        <img class="img-responsive" alt="No Album Art" ng-src="{{hub.get('currentlyPlaying').get('song').get('thumbnail')}}"  width="200"/>
+        <div class="caption" style="color: white">
+          <h3>{{hub.get('title')}}</h3>
+          <p>{{hub.get('currentlyPlaying').get('song').get('title')}}</p>
+          <p><a style="color: white">{{hub.get('owner').get('username')}}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

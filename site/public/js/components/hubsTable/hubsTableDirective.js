@@ -54,6 +54,6 @@ angular.module('juke.hubsTable',[])
 		new HubsTableDirective($scope,$elm,Notifications);
 	    },
 	    scope:true,
-            templateUrl: "partials/hubsTable.html?i=334"
+            templateUrl: "partials/hubsGrid.html?i=334"
 	};
     }]);

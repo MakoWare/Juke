@@ -19,8 +19,8 @@ var HubsTableDirective = BaseDirective.extend({
     },
 
     setTableHeight: function(){
-        var windowHeight = $(window).height();
-        var tableHeight = (windowHeight - 150) * .70;
+        var space = window.innerHeight - $('#hubsTableContent').offset().top;
+        var tableHeight = (space - 50);
         $('#hubsTableContent').height(tableHeight);
     },
 

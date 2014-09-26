@@ -33,7 +33,6 @@ var HubsTableCtrl = BaseController.extend({
 
     //Handle HubsModel getting new Hubs
     handleNewHubs:function(event){
-        console.log(this.hubsModel.hubs);
         this.$scope.hubs = this.hubsModel.hubs;
         this.$scope.$apply();
     },

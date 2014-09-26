@@ -3,14 +3,14 @@ var NavigationDirective = BaseDirective.extend({
     notifications:null,
     userModel: null,
 
-    init:function($scope, $location, notifications, userModel){
+    init:function($scope, $location, notifications, usersModel){
 	this.notifications = notifications;
-        this.userModel = userModel;
+        this.userModel = usersModel;
         this.location = $location;
 	this._super($scope);
         this.$scope.login = {};
         this.$scope.signUp = {};
-        this.$scope.currentUser = userModel.currentUser;
+        this.$scope.currentUser = usersModel.currentUser;
     },
 
     defineListeners:function(){
@@ -48,12 +48,12 @@ var NavigationDirective = BaseDirective.extend({
 });
 
 angular.module('navigation',[])
-    .directive('navigation',['$location', 'Notifications', 'UserModel', function($location, Notifications, UserModel){
+    .directive('navigation',['$location', 'Notifications', 'UsersModel', function($location, Notifications, UsersModel){
 	return {
 	    restrict:'A',
 	    isolate:true,
 	    link: function($scope,$elm,$attrs){
-		new NavigationDirective($scope, $location, Notifications, UserModel);
+		new NavigationDirective($scope, $location, Notifications, UsersModel);
 	    },
 	    scope:true,
             templateUrl: 'partials/nav.html?e=335'

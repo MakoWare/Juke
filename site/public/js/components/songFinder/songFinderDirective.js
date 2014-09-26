@@ -1,3 +1,6 @@
+//Events
+namespace('juke.events').SONGS_SEARCH = "ActivityModel.SONGS_SEARCH";
+
 var SongFinderDirective = BaseDirective.extend({
 
     notifications:null,
@@ -11,26 +14,20 @@ var SongFinderDirective = BaseDirective.extend({
     },
 
     defineListeners:function(){
-        // After the API loads, call a function to enable the search box.
+        // After the API loads, call a function to enable the search button.
         function handleAPILoaded() {
-            $('#search-button').attr('disabled', false);
+            $('#findSongsButton').attr('disabled', false);
+            console.log("API loaded?");
         }
 
-        // Search for a specified string.
-        function search() {
-            var q = $('#query').val();
-            var request = gapi.client.youtube.search.list({
-                q: q,
-                part: 'snippet'
-            });
+        $('#findSongsButton').click(this.findSongs.bind(this));
 
-            request.execute(function(response) {
-                var str = JSON.stringify(response.result);
-                $('#search-container').html('<pre>' + str + '</pre>');
-            });
-        }
+    },
 
-
+    findSongs:function(){
+        var query = $('#songSearchQuery').val();
+        //For now Just pass query, easy to extend params for Service type, i.e, spotify
+        this.notifications.notify(juke.events.SONGS_SEARCH, query);
     },
 
     destroy:function(event){

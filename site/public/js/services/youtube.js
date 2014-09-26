@@ -1,20 +1,21 @@
-//Global Service
+//YouTube Service
 angular.module('youtubeService', [])
-    .factory('YoutubeService', function(){
+    .factory('YouTubeService', function(){
 
-        var YoutubeService = {
-            search:function(query){
+
+        var YouTubeService = {
+            search:function(query, callback){
                 var request = gapi.client.youtube.search.list({
                     q: query,
                     part: 'snippet'
                 });
 
-                return request.execute(function(response) {
+                request.execute(function(response) {
                     //var str = JSON.stringify(response.result);
-                    return response;
+                    callback(response);
                 });
             }
         };
 
-        return YoutubeService;
+        return YouTubeService;
     });

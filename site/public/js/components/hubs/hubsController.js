@@ -6,11 +6,11 @@ var HubsCtrl = BaseController.extend({
     hubsModel: null,
     userModel: null,
 
-    init:function($scope, $location, $modal, HubsModel, UserModel, Notifications){
+    init:function($scope, $location, $modal, HubsModel, UsersModel, Notifications){
         console.log("HubsCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
-        this.userModel = UserModel;
+        this.userModel = UsersModel;
         this.location = $location;
         this.modal = $modal;
         this._super($scope);
@@ -61,4 +61,4 @@ var HubsCtrl = BaseController.extend({
 
 });
 
-HubsCtrl.$inject = ['$scope', '$location', '$modal', 'HubsModel', 'UserModel', 'Notifications'];
+HubsCtrl.$inject = ['$scope', '$location', '$modal', 'HubsModel', 'UsersModel', 'Notifications'];

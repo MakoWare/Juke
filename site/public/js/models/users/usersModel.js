@@ -2,8 +2,8 @@
 namespace('juke.events').USER_LOGGED_IN = "ActivityModel.USER_LOGGED_IN";
 namespace('juke.events').USER_LOGGED_OUT = "ActivityModel.USER_LOGGED_OUT";
 
-//User model, holds Current User
-var UserModel = EventDispatcher.extend({
+//Users model
+var UsersModel = EventDispatcher.extend({
 
     //Injected by the provider
     ParseService:null,
@@ -38,8 +38,8 @@ var UserModel = EventDispatcher.extend({
 
 
 (function (){
-    var UserModelProvider = Class.extend({
-	instance: new UserModel(),
+    var UsersModelProvider = Class.extend({
+	instance: new UsersModel(),
 
         //Init UserModel, Should I attempt to pull Parse.User.current() here?
 	$get:['ParseService', 'Notifications', function(ParseService, Notifications){
@@ -50,6 +50,6 @@ var UserModel = EventDispatcher.extend({
 	}]
     });
 
-    angular.module('juke.UserModel',[])
-	.provider('UserModel' , UserModelProvider);
+    angular.module('juke.UsersModel',[])
+	.provider('UsersModel' , UsersModelProvider);
 }());

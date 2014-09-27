@@ -11,22 +11,9 @@ var PlayerDirective = BaseDirective.extend({
     },
 
     defineListeners:function(){
-        //Broken, not picking up click or table row
-        $('.table > tr').click(this.hubSelected.bind(this));
-
-        $('#createHubButton').click(this.createHub.bind(this));
 
     },
 
-    //Handle User Clicking the Create new Hub button
-    createHub:function(){
-        this.notifications.notify(juke.events.CREATE_HUB_INTENT);
-    },
-
-    //Handle User selecting a Hub from the Hubs Table
-    hubSelected:function(){
-        this.notifications.notify(juke.events.HUB_SELECTED);
-    },
 
     destroy:function(event){
 
@@ -43,6 +30,6 @@ angular.module('juke.player',[])
 		new PlayerDirective($scope,$elm,Notifications);
 	    },
 	    scope:true,
-            templateUrl: "partials/playerPartial.html"
+            templateUrl: "partials/player.html"
 	};
     }]);

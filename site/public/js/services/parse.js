@@ -208,10 +208,10 @@ angular.module('parseService', [])
 
 
 	    //Get the Current Playlist
-	    getPlaylist : function getPlaylist(hubId, callback){
+	    getPlaylist : function getPlaylist(hubId){
 		return	Parse.Cloud.run('getPlaylist', {'hubId' : hubId}, {
 		    success: function(results){
-			callback(results);
+			return results;
 		    },
 		    error: function(error){
 			alert("Error: " + error.message);

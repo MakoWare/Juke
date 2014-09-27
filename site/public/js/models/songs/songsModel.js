@@ -31,8 +31,9 @@ var SongsModel = EventDispatcher.extend({
         var canAdd = this.canAddSong();
         if(typeof canAdd != "string"){
             var submittedSong = jQuery.parseJSON(song);
-            this.ParseService.addYouTubeSong(this.hubsModel.currentHub, submittedSong).then(function(result){
-                self.playList = result;
+            this.ParseService.addYouTubeSong(this.hubsModel.currentHub, submittedSong).then(function(results){
+                self.playList = results;
+                self.currentSong = results[0]; //Not Sure if this is a good idea
                 self.notifications.notify(juke.events.PLAYLIST_LOADED);
             });
         } else {
@@ -49,8 +50,17 @@ var SongsModel = EventDispatcher.extend({
         if(this.hubsModel.currentHub.get('rate') ){
 
         }
-
         return true;
+    },
+
+    //Get Playlist
+    getPlaylist:function(){
+        var self = this;
+        this.ParseService.getPlaylist(this.hubsModel.currentHub.id).then(function(results){
+            self.playList = results;
+            self.currentSong = results[0]; //Not Sure if this is a good idea
+            self.notifications.notify(juke.events.PLAYLIST_LOADED);
+        });
     }
 
 });

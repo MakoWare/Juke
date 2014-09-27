@@ -308,6 +308,83 @@ Parse.Cloud.define("addSong", function(request, response) {
     });
 });
 
+//Add YouTubeSong to Queue
+//request params - user.id, hub.id, YouTubeSong (actual result from api request)
+Parse.Cloud.define("addYouTubeSong", function(request, response) {
+    var hubId =  request.params.hubId;
+    var userId = request.params.userId;
+    var submittedSong = request.params.song;
+    var hub = {};
+    var user = {};
+
+    //First get the hub and the user
+    var hubQuery = new Parse.Query(Hub);
+    var hubPromise = hubQuery.get(hubId, {
+        success: function(result){
+            hub = result;
+        },
+        error: function(error){
+            response.error(error);
+        }
+    });
+
+    var userQuery = new Parse.Query(User);
+    var userPromise = userQuery.get(userId, {
+        success: function(result){
+            user = result;
+        },
+        error: function(error){
+            response.error(error);
+        }
+    });
+
+    var promises = [userPromise, hubPromise];
+    Parse.Promise.when(promises).then(function(results){
+        //First Check if User is allowed to add a song
+        if(addCheck(hub, user, song)){
+            var song = new Song();
+            song.set('title',submittedSong.snippet.title);
+            song.set('description',submittedSong.snippet.description);
+            song.set('thumbnail',submittedSong.snippet.thumbnails.default.url);
+            song.set('type', "YouTube");
+            song.set('pId', submittedSong.id.videoId);
+            song.set('videoId', submittedSong.id.videoId);
+            song.set('owner', user);
+            song.set('hub', hub);
+            song.save({
+                success: function(song){
+                var queuedSong = new QueuedSong();
+                queuedSong.set('hub', hub);
+                queuedSong.set('song', song);
+                queuedSong.set('addedBy', user);
+                queuedSong.set('score', 1);
+                queuedSong.set('ups', [user.id]);
+                queuedSong.set('downs', []);
+                queuedSong.set('active', true);
+                queuedSong.save({
+                    success: function(result){
+                        response.success();
+                    },
+                    error: function(object, error){
+                        response.error(error);
+                    }
+                });
+                },
+                error: function(object, error){
+                    response.error(error);
+                }
+            });
+        }
+    });
+});
+
+
+
+
+
+
+
+
 var addCheck = function(hub, user, song){
     var valid = true;
     return valid;
@@ -406,9 +483,9 @@ Parse.Cloud.define("yt", yt2);
  *
  */
 
-var kClientId = "spotify-ios-sdk-beta"
-var kClientSecret = "ba95c775e4b39b8d60b27bcfced57ba473c10046"
-var kClientCallbackURL = "spotify-ios-sdk-beta://callback"
+var kClientId = "spotify-ios-sdk-beta";
+var kClientSecret = "ba95c775e4b39b8d60b27bcfced57ba473c10046";
+var kClientCallbackURL = "spotify-ios-sdk-beta://callback";
 
 var _ = require('underscore');
 var express = require('express');
@@ -430,7 +507,7 @@ var getSpotifyAccessToken = function(code) {
         client_secret   :   kClientSecret,
         redirect_uri    :   kClientCallbackURL,
         code            :   code
-    }
+    };
     return Parse.Cloud.httpRequest({
         method: 'POST',
         url: "https://ws.spotify.com/oauth/token",
@@ -440,7 +517,7 @@ var getSpotifyAccessToken = function(code) {
         },
         body: json
     });
-}
+};
 
 app.post('/swap',function(req,res){
 //    res.send(reg.params);

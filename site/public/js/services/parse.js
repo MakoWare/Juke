@@ -8,6 +8,7 @@ angular.module('parseService', [])
 	//Define Parse Objects
 	var Hub = Parse.Object.extend("Hub");
 	var QueuedSong = Parse.Object.extend("QueuedSong");
+	var Song = Parse.Object.extend("Song");
 
 
         var ParseService = {
@@ -158,9 +159,19 @@ angular.module('parseService', [])
 		});
 	    },
 
-	    //Remove a song from the current playlist
-	    addSong : function addSong(userId, hubId, song){
-		return Parse.Cloud.run('addSong', {'userId' : userId, 'hubId' : hubId, 'song' : song}, {
+	    //add a song to the current Hub
+	    addSong : function(hub, song, type){
+                if(type == "YouTube"){
+                    ParseService.addYouTubeSong(hub, song);
+                }
+	    },
+
+            //Add a song from YouTube
+            addYouTubeSong:function(hub, song){
+                var hubId = hub.id;
+                var userId = Parse.User.current().id;
+
+		return Parse.Cloud.run('addYouTubeSong', {'userId' : userId, 'hubId' : hubId, 'song' : song}, {
 		    success: function(result){
                         alert("Song successfully added");
 		    },
@@ -168,7 +179,8 @@ angular.module('parseService', [])
                         alert("Error: " + error.message);
 		    }
 		});
-	    },
+            },
+
 
 	    //Remove a song from the current playlist
 	    removeSong : function removeSong(queuedSongId){

@@ -34,9 +34,11 @@ var SongFinderCtrl = BaseController.extend({
         this.$scope.$apply();
     },
 
-    handleSongAdd:function(event, songId){
-        console.log("adding song " + songId);
-        this.songsModel.addSong(songId);
+    handleSongAdd:function(event, song){
+        console.log("adding song " + song);
+
+        //Just add YouTubeSong for now
+        this.songsModel.addYouTubeSong(song);
     },
 
 

@@ -12,6 +12,7 @@ var SongsModel = EventDispatcher.extend({
     YouTubeService:null,
     notifications: null,
     usersModel: null,
+    hubsModel: null,
 
     //Search YouTube for songs
     findYoutubeSongs:function(query){
@@ -23,12 +24,16 @@ var SongsModel = EventDispatcher.extend({
         });
     },
 
-    //Add a song to the current Hub
-    addSong:function(songId){
+    //Add a YouTubeSong to the current Hub
+    addYouTubeSong:function(song){
         var canAdd = this.canAddSong();
-        if(canAdd && typeof canAdd != "string"){
+        if(typeof canAdd != "string"){
+            console.log(song);
+            var submittedSong = jQuery.parseJSON(song);
+            console.log(submittedSong);
+            this.ParseService.addYouTubeSong(this.hubsModel.currentHub, submittedSong).then(function(result){
 
-
+            });
         } else {
             alert("Sorry, you can't add a song because " + canAdd);
         }
@@ -40,6 +45,9 @@ var SongsModel = EventDispatcher.extend({
             return "you must log in to add songs to this Hub.";
         }
 
+        if(this.hubsModel.currentHub.get('rate') ){
+
+        }
 
         return true;
     }
@@ -52,11 +60,12 @@ var SongsModel = EventDispatcher.extend({
 	instance: new SongsModel(),
 
         //Init HubsModel
-	$get:['ParseService', 'YouTubeService', 'Notifications', 'UsersModel', function(ParseService, YouTubeService, Notifications, UsersModel){
+	$get:['ParseService', 'YouTubeService', 'Notifications', 'UsersModel', 'HubsModel', function(ParseService, YouTubeService, Notifications, UsersModel, HubsModel){
 	    this.instance.ParseService = ParseService;
 	    this.instance.YouTubeService = YouTubeService;
             this.instance.notifications = Notifications;
             this.instance.usersModel = UsersModel;
+            this.instance.hubsModel = HubsModel;
 	    return this.instance;
 	}]
     });

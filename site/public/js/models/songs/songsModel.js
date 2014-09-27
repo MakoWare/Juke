@@ -11,15 +11,37 @@ var SongsModel = EventDispatcher.extend({
     ParseService:null,
     YouTubeService:null,
     notifications: null,
+    usersModel: null,
 
     //Search YouTube for songs
-    findYoutubeSongs: function(query){
+    findYoutubeSongs:function(query){
         var self = this;
 	this.YouTubeService.search(query, function(results){
-            self.foundSongs = results;
-            console.log(results);
+            self.foundSongs = results.items;
+            console.log(self.foundSongs);
             self.notifications.notify(juke.events.SONGS_FOUND);
         });
+    },
+
+    //Add a song to the current Hub
+    addSong:function(songId){
+        var canAdd = this.canAddSong();
+        if(canAdd && typeof canAdd != "string"){
+
+
+        } else {
+            alert("Sorry, you can't add a song because " + canAdd);
+        }
+    },
+
+    //Check to see if the User can add a song to the current Hub
+    canAddSong:function(){
+        if(!this.usersModel.currentUser){
+            return "you must log in to add songs to this Hub.";
+        }
+
+
+        return true;
     }
 
 });
@@ -30,10 +52,11 @@ var SongsModel = EventDispatcher.extend({
 	instance: new SongsModel(),
 
         //Init HubsModel
-	$get:['ParseService', 'YouTubeService', 'Notifications', function(ParseService, YouTubeService, Notifications){
+	$get:['ParseService', 'YouTubeService', 'Notifications', 'UsersModel', function(ParseService, YouTubeService, Notifications, UsersModel){
 	    this.instance.ParseService = ParseService;
 	    this.instance.YouTubeService = YouTubeService;
             this.instance.notifications = Notifications;
+            this.instance.usersModel = UsersModel;
 	    return this.instance;
 	}]
     });

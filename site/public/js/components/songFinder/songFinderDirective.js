@@ -1,5 +1,6 @@
 //Events
 namespace('juke.events').SONGS_SEARCH = "ActivityModel.SONGS_SEARCH";
+namespace('juke.events').SONGS_ADD = "ActivityModel.SONGS_ADD";
 
 var SongFinderDirective = BaseDirective.extend({
 
@@ -11,17 +12,31 @@ var SongFinderDirective = BaseDirective.extend({
 	this.notifications = notifications;
 	this.elm = $elm;
 	this._super($scope);
+
+        //Init Table Height
+        this.setTableHeight();
     },
 
     defineListeners:function(){
-        // After the API loads, call a function to enable the search button.
-        function handleAPILoaded() {
-            $('#findSongsButton').attr('disabled', false);
-            console.log("API loaded?");
-        }
-
         $('#findSongsButton').click(this.findSongs.bind(this));
+        this.notifications.addEventListener(juke.events.SONGS_FOUND, this.handleSongsFound.bind(this));
+        $(window).resize(this.setTableHeight);
+    },
 
+    handleSongsFound:function(){
+        $('.table > tbody > tr').click(this.songSelected.bind(this));
+    },
+
+    songSelected:function(){
+        var songId = event.currentTarget.getAttribute('id');
+        this.notifications.notify(juke.events.SONGS_ADD, songId);
+    },
+
+    setTableHeight: function(){
+        var space = window.innerHeight - $('#foundSongsTable').offset().top;
+        var tableHeight = (space - 100);
+        console.log(tableHeight);
+        $('#foundSongsTable').height(tableHeight);
     },
 
     findSongs:function(){

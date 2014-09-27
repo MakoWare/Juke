@@ -9,7 +9,7 @@ var HubsTableDirective = BaseDirective.extend({
 	this.elm = $elm;
 	this._super($scope);
 
-        //Initial Table Height
+        //Init Table Height
         this.setTableHeight();
     },
 

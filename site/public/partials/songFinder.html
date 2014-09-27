@@ -13,32 +13,23 @@
   </div>
 
 
-
-
-<!--
-  <div id="songFinderTable" class="row">
-    <table class="table table-stripped table-hover" style="table-layout: fixed">
-      <thead>
-        <tr>
-          <th class="col-xs-4 col-md-4">Album Art</th>
-          <th class="col-xs-4 col-md-4">Artist</th>
-          <th class="col-xs-4 col-md-4">Name</th>
+  <div id="foundSongsTable" style="overflow-y: auto; height: 100px; margin: 5px;">
+    <table class="table table-stripped table-hover">
+      <tbody>
+        <tr id="{{song.id}}" ng-repeat="song in foundSongs">
+          <td>
+            <div class="row">
+              <div class="col-xs-5 col-md-2">
+                <img class="img-responsive" alt="No Album Art" ng-src="{{song.snippet.thumbnails.default.url || 'images/defaultAlbumArt.jpg'}}"  width="200"/>
+              </div>
+              <div class="col-xs-7 col-md-10">
+                <h3 style="margin-top: 0px">{{song.snippet.title}}</h3>
+                <p>{{song.snippet.description}}</p>
+              </div>
+            </div>
+          </td>
         </tr>
-      </thead>
+      </tbody>
     </table>
-    <div id="songFinderContent" style="overflow-y: auto; height: 300px">
-      <table class="table table-stripped table-hover">
-        <tbody>
-          <tr id="{{song.id}}" ng-repeat="song in foundSongs">
-            <td class="col-xs-4 col-md-4">
-              <img class="img-responsive" alt="No Album Art" ng-src="{{song.get('thumbnail')}}"  width="150"/>
-            </td>
-            <td class="col-xs-4 col-md-4"><h3>{{song.artist}}</h3></td>
-            <td class="col-xs-4 col-md-4"><h4>{{song.title)}}</h4></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
--->
 </div>

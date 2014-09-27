@@ -13,6 +13,7 @@ var SongFinderCtrl = BaseController.extend({
 
     defineScope:function(){
 	this.$scope.instance="SongFinderController";
+        this.$scope.foundSongs = [];
     },
 
     defineListeners:function(){
@@ -20,7 +21,7 @@ var SongFinderCtrl = BaseController.extend({
 
 	this.notifications.addEventListener(juke.events.SONGS_SEARCH, this.handleSongsSearch.bind(this));
 	this.notifications.addEventListener(juke.events.SONGS_FOUND, this.handleSongsFound.bind(this));
-
+	this.notifications.addEventListener(juke.events.SONGS_ADD, this.handleSongAdd.bind(this));
     },
 
     handleSongsSearch:function(event, query){
@@ -29,8 +30,15 @@ var SongFinderCtrl = BaseController.extend({
     },
 
     handleSongsFound:function(){
-
+        this.$scope.foundSongs = this.songsModel.foundSongs;
+        this.$scope.$apply();
     },
+
+    handleSongAdd:function(event, songId){
+        console.log("adding song " + songId);
+        this.songsModel.addSong(songId);
+    },
+
 
     destroy:function(){
 

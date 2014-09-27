@@ -115,6 +115,86 @@ Parse.Cloud.define("getPlaylist", function(request, response) {
     });
 });
 
+
+var getPlaylist = function(hubId){
+    var query = new Parse.Query(Hub);
+    return query.get(hubId, {
+        success: function(hub){
+            return hub;
+        },
+        error: function(object, error){
+            return error;
+        }
+    }).then(function(results){
+        var hub = results;
+        var QueuedSong = Parse.Object.extend("QueuedSong");
+        var query = new Parse.Query(QueuedSong);
+        query.limit(1000);
+        query.include('song');
+        query.include('hub');
+        query.include('addedBy');
+        query.equalTo('hub', hub);
+        query.equalTo('active', true);
+        query.ascending('updatedAt');
+        return query.find({
+            success: function(results){
+                return results;
+            },
+            error: function(error){
+                console.error(error.message);
+                response.error("Error :" + error.message);
+            }
+        });
+    }).then(function(results){
+        if(results.length > 0){
+            var currentlyPlaying = results[0];
+            results.shift();
+            if(results.length > 0){
+                var hubDate = results[0].get('hub').createdAt.getTime();
+                var songs = [];
+                results.forEach(function(song){
+                    var ups = song.get('ups').length;
+                    var downs = song.get('downs').length;
+                    var s = ups - downs;
+                    var sign = 0;
+                    var order = Math.log(Math.max(Math.abs(s) ,1));
+                    if(s > 0){
+                        sign = 1;
+                    } else if(s < 0){
+                        sign = -1;
+                    } else {
+                        sign = 0;
+                    }
+
+                    var seconds = (song.createdAt.getTime() ) - hubDate;
+                    var position = s;
+                    song.set('position', position);
+                    song.set('score', s);
+                });
+                results.sort(compare);
+                results.unshift(currentlyPlaying);
+            } else {
+                results.push(currentlyPlaying);
+            }
+            return Parse.Object.saveAll(results, {
+                success: function(results){
+                    return results;
+                },
+                error: function(error){
+                    return error;
+                }
+            });
+        } else {
+            return results;
+        }
+    }).then(function(results){
+        return results;
+    });
+};
+
+
+
+
 //Recently Played
 Parse.Cloud.define("getRecentlyPlayed", function(request, response) {
     var query = new Parse.Query(Hub);
@@ -363,7 +443,9 @@ Parse.Cloud.define("addYouTubeSong", function(request, response) {
                 queuedSong.set('active', true);
                 queuedSong.save({
                     success: function(result){
-                        response.success();
+                        getPlaylist(hub.id).then(function(results){
+                            response.success(results);
+                        });
                     },
                     error: function(object, error){
                         response.error(error);
@@ -378,18 +460,10 @@ Parse.Cloud.define("addYouTubeSong", function(request, response) {
     });
 });
 
-
-
-
-
-
-
-
 var addCheck = function(hub, user, song){
     var valid = true;
     return valid;
 };
-
 
 
 /**

@@ -1,11 +1,13 @@
 //Events
 namespace('juke.events').SONGS_FOUND = "ActivityModel.SONGS_FOUND";
+namespace('juke.events').PLAYLIST_LOADED = "ActivityModel.PLAYLIST_LOADED";
 
 //Hubs model, holds hubs
 var SongsModel = EventDispatcher.extend({
     currentSong: null,
     songs: null,
     foundSongs:null,
+    playList:null,
 
     //Injected by the provider
     ParseService:null,
@@ -19,20 +21,19 @@ var SongsModel = EventDispatcher.extend({
         var self = this;
 	this.YouTubeService.search(query, function(results){
             self.foundSongs = results.items;
-            console.log(self.foundSongs);
             self.notifications.notify(juke.events.SONGS_FOUND);
         });
     },
 
     //Add a YouTubeSong to the current Hub
     addYouTubeSong:function(song){
+        var self = this;
         var canAdd = this.canAddSong();
         if(typeof canAdd != "string"){
-            console.log(song);
             var submittedSong = jQuery.parseJSON(song);
-            console.log(submittedSong);
             this.ParseService.addYouTubeSong(this.hubsModel.currentHub, submittedSong).then(function(result){
-
+                self.playList = result;
+                self.notifications.notify(juke.events.PLAYLIST_LOADED);
             });
         } else {
             alert("Sorry, you can't add a song because " + canAdd);

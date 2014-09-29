@@ -25,10 +25,17 @@ var HubsCtrl = BaseController.extend({
     },
 
     defineListeners:function(){
-	this._super();
+        this._super();
         this.notifications.addEventListener(juke.events.HUB_CREATED, this.hubCreated.bind(this));
         this.notifications.addEventListener(juke.events.CREATE_HUB_INTENT, this.createNewHubModal.bind(this));
-        $('#openModalButton').click(this.createNewHubModal.bind(this));
+
+        //        var self = this;
+        //            $('#openModalButton').click(self.createNewHubModal.bind(self));
+
+        $('#openModalButton').click(function(){
+            console.log("click");
+        });
+
     },
 
     destroy:function(){
@@ -39,6 +46,8 @@ var HubsCtrl = BaseController.extend({
 
     //Handle User Creating new Hub
     createNewHubModal:function(){
+        console.log("createNewHubModal");
+
         if(this.userModel.currentUser == null){
             alert("Sorry, but you  must be signed in to create a Hub");
         } else {

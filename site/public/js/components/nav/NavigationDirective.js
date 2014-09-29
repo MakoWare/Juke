@@ -49,6 +49,14 @@ var NavigationDirective = BaseDirective.extend({
 
 angular.module('navigation',[])
     .directive('navigation',['$location', 'Notifications', 'UsersModel', function($location, Notifications, UsersModel){
+
+        var partial;
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            partial = "partials/nav/navMobile.html";
+        } else {
+            partial = "partials/nav/navDesktop.html";
+        }
+
 	return {
 	    restrict:'A',
 	    isolate:true,
@@ -56,6 +64,6 @@ angular.module('navigation',[])
 		new NavigationDirective($scope, $location, Notifications, UsersModel);
 	    },
 	    scope:true,
-            templateUrl: 'partials/nav.html?e=335'
+            templateUrl: partial
 	};
     }]);

@@ -1,0 +1,20 @@
+<div id="hubsTableContent" style="overflow-y: auto; height: 300px">
+  <table class="table table-stripped table-hover">
+    <tbody>
+      <tr id="{{hub.id}}" ng-repeat="hub in hubs">
+        <td>
+        <div class="row">
+          <div class="col-xs-5 col-md-2">
+            <img class="img-responsive" alt="No Album Art" ng-src="{{(hub.get('currentlyPlaying').get('song').get('thumbnail')) || 'images/defaultAlbumArt.jpg'}}"  width="200"/>
+          </div>
+          <div class="col-xs-7 col-md-10">
+            <h3 style="margin-top: 5px">{{hub.attributes.title}}</h3>
+            <p>{{hub.get('currentlyPlaying').get('song').get('title')}}</p>
+            <p>owner: <a style="color: white">{{hub.get('owner').get('username')}}</a></p>
+          </div>
+        </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

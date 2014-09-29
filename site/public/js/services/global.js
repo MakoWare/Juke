@@ -13,6 +13,5 @@ angular.module('globalService', [])
 
 
         };
-
         return GlobalService;
     });

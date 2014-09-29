@@ -229,7 +229,16 @@ angular.module('parseService', [])
 			alert("Error: " + error.message);
 		    }
 		});
-	    }
+	    },
+
+            //Checks if User is on mobile
+            isMobile : function(){
+                if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
 	};
 	return ParseService;
     });

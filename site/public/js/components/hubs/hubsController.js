@@ -7,7 +7,6 @@ var HubsCtrl = BaseController.extend({
     userModel: null,
 
     init:function($scope, $location, $modal, HubsModel, UsersModel, Notifications){
-        console.log("HubsCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this.userModel = UsersModel;
@@ -18,6 +17,11 @@ var HubsCtrl = BaseController.extend({
 
     defineScope:function(){
 	this.$scope.instance="HubsController";
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            this.$scope.isMobile = true;
+        } else {
+            this.$scope.isMobile = false;
+        }
     },
 
     defineListeners:function(){

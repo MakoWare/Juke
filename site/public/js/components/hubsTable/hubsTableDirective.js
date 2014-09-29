@@ -20,7 +20,7 @@ var HubsTableDirective = BaseDirective.extend({
 
     setTableHeight: function(){
         var space = window.innerHeight - $('#hubsTableContent').offset().top;
-        var tableHeight = (space - 50);
+        var tableHeight = (space * .92);
         $('#hubsTableContent').height(tableHeight);
     },
 
@@ -48,6 +48,13 @@ var HubsTableDirective = BaseDirective.extend({
 
 angular.module('juke.hubsTable',[])
     .directive('hubsTable',['Notifications',function(Notifications){
+        var partial;
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            partial = "partials/hubsTable/hubsTableMobile.html";
+        } else {
+            partial = "partials/hubsTable/hubsTableDesktop.html";
+        }
+
         return {
 	    restrict:'C',
 	    isolate:true,
@@ -55,6 +62,6 @@ angular.module('juke.hubsTable',[])
 		new HubsTableDirective($scope,$elm,Notifications);
 	    },
 	    scope:true,
-            templateUrl: "partials/hubsTable.html?i=334"
+            templateUrl: partial
 	};
     }]);

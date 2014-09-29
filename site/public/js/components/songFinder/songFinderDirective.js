@@ -34,7 +34,7 @@ var SongFinderDirective = BaseDirective.extend({
 
     setTableHeight: function(){
         var space = window.innerHeight - $('#foundSongsTable').offset().top;
-        var tableHeight = (space - 100);
+        var tableHeight = (space * .6);
         console.log(tableHeight);
         $('#foundSongsTable').height(tableHeight);
     },
@@ -52,7 +52,13 @@ var SongFinderDirective = BaseDirective.extend({
 
 angular.module('juke.songFinder',[])
     .directive('songFinder',['Notifications',function(Notifications){
-        console.log("songFinder");
+        var partial;
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            partial = "partials/songFinder/songFinderMobile.html";
+        } else {
+            partial = "partials/songFinder/songFinderDesktop.html";
+        }
+
         return {
 	    restrict:'C',
 	    isolate:true,
@@ -60,6 +66,6 @@ angular.module('juke.songFinder',[])
 		new SongFinderDirective($scope,$elm,Notifications);
 	    },
 	    scope:true,
-            templateUrl: "partials/songFinder.html"
+            templateUrl: partial
 	};
     }]);

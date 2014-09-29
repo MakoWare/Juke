@@ -22,7 +22,13 @@ var PlayerDirective = BaseDirective.extend({
 
 angular.module('juke.player',[])
     .directive('player',['Notifications',function(Notifications){
-        console.log("player");
+        var partial;
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            partial = "partials/player/playerMobile.html";
+        } else {
+            partial = "partials/player/playerDesktop.html";
+        }
+
         return {
 	    restrict:'C',
 	    isolate:true,
@@ -30,6 +36,6 @@ angular.module('juke.player',[])
 		new PlayerDirective($scope,$elm,Notifications);
 	    },
 	    scope:true,
-            templateUrl: "partials/player.html"
+            templateUrl: partial
 	};
     }]);

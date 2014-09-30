@@ -46,72 +46,9 @@ Parse.Cloud.define("getHubsForTable", function(request, response){
 
 //Get PlayList
 Parse.Cloud.define("getPlaylist", function(request, response) {
-    var query = new Parse.Query(Hub);
-    query.get(request.params.hubId, {
-    success: function(hub){
-        var QueuedSong = Parse.Object.extend("QueuedSong");
-        var query = new Parse.Query(QueuedSong);
-        query.limit(1000);
-        query.include('song');
-        query.include('hub');
-        query.include('addedBy');
-        query.equalTo('hub', hub);
-        query.equalTo('active', true);
-        query.ascending('updatedAt');
-        query.find({
-        success: function(results){
-            if(results.length > 0){
-            var currentlyPlaying = results[0];
-            results.shift();
-            if(results.length > 0){
-                var hubDate = results[0].get('hub').createdAt.getTime();
-                var songs = [];
-                results.forEach(function(song){
-                var ups = song.get('ups').length;
-                var downs = song.get('downs').length;
-                var s = ups - downs;
-                var sign = 0;
-                var order = Math.log(Math.max(Math.abs(s) ,1));
-                if(s > 0){
-                    sign = 1;
-                } else if(s < 0){
-                    sign = -1;
-                } else {
-                    sign = 0;
-                }
-
-                var seconds = (song.createdAt.getTime() ) - hubDate;
-                var position = s;
-                song.set('position', position);
-                song.set('score', s);
-                });
-                results.sort(compare);
-                results.unshift(currentlyPlaying);
-            } else {
-                results.push(currentlyPlaying);
-            }
-            Parse.Object.saveAll(results, {
-                success: function(results){
-                response.success(results);
-                },
-                error: function(error){
-                console.error(error.message);
-                response.error("Error :" + error.message);
-                }
-            });
-            } else {
-            response.success(results);
-            }
-        },
-        error: function(error){
-            console.error(error.message);
-            response.error("Error :" + error.message);
-        }
-        });
-    },
-    error: function(object, error){
-        response.error("Error :" + error.message);
-    }
+    var promise = getPlaylist(request.params.hubId);
+    promise.then(function(results){
+        //This will be an error, or the actual results
     });
 });
 

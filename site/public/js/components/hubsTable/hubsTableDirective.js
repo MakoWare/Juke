@@ -1,3 +1,6 @@
+//Events
+namespace('juke.events').SEARCH_CHANGED = "ActivityModel.SEARCH_CHANGED";
+
 var HubsTableDirective = BaseDirective.extend({
 
     notifications:null,
@@ -15,6 +18,8 @@ var HubsTableDirective = BaseDirective.extend({
 
     defineListeners:function(){
         this.notifications.addEventListener(juke.events.HUBS_LOADED, this.handleNewHubs.bind(this));
+        this.notifications.addEventListener(juke.events.SEARCH_CHANGED, this.handleSearchChanged.bind(this));
+        this.$scope.searchParam = "";
         $(window).resize(this.setTableHeight);
     },
 
@@ -22,6 +27,12 @@ var HubsTableDirective = BaseDirective.extend({
         var space = window.innerHeight - $('#hubsTableContent').offset().top;
         var tableHeight = (space * .92);
         $('#hubsTableContent').height(tableHeight);
+    },
+
+    //Handle User searching
+    handleSearchChanged:function(event, param){
+        this.$scope.searchParam = param;
+        this.$scope.$apply();
     },
 
     //Handle HubsModel getting new Hubs

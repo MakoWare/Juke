@@ -1,7 +1,7 @@
 <div id="hubsTableContent" style="overflow-y: auto; height: 300px">
   <table class="table table-stripped table-hover">
     <tbody>
-      <tr id="{{hub.id}}" ng-repeat="hub in hubs">
+      <tr id="{{hub.id}}" ng-repeat="hub in hubs | filter:searchParam:strict">
         <td>
         <div class="row">
           <div class="col-xs-5 col-md-2">

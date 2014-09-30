@@ -2,9 +2,27 @@
 window.onload = function(){
     var innerColor;
     var outerColor;
-    var frequency = .05;
-    var i = 0;
-    var j = 25;
+    var frequency;
+    var i;
+    var j;
+    var timeInterval;
+
+
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        frequency = .08;
+        timeInterval = 1200;
+        i = 0;
+        j = 15;
+
+    } else {
+        frequency = .05;
+        timeInterval = 400;
+        i = 0;
+        j = 25;
+    }
+
+
+
 
     function RGB2Color(r,g,b){
         return '#' + byte2Hex(r) + byte2Hex(g) + byte2Hex(b);

@@ -4,6 +4,7 @@ var HubsCtrl = BaseController.extend({
     userModel: null,
 
     init:function($scope, $location, $modal, HubsModel, UsersModel, Notifications){
+        console.log("HubsCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this.userModel = UsersModel;
@@ -25,7 +26,6 @@ var HubsCtrl = BaseController.extend({
         this._super();
         this.notifications.addEventListener(juke.events.HUB_CREATED, this.hubCreated.bind(this));
         this.notifications.addEventListener(juke.events.CREATE_HUB_INTENT, this.createNewHubModal.bind(this));
-
     },
 
     destroy:function(){

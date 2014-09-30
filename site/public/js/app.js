@@ -9,6 +9,7 @@ angular.module('juke', [
     'juke.HubsModel',
     'juke.UsersModel',
     'juke.SongsModel',
+    'juke.hubs',
     'juke.hubsTable',
     'juke.player',
     'juke.songFinder',
@@ -18,7 +19,7 @@ angular.module('juke', [
     .config(function($routeProvider) {
 	$routeProvider.
             when('/hubs', {
-		templateUrl: 'partials/hubs.html',
+		templateUrl: 'partials/hubs/hubs.html',
 		controller: HubsCtrl}).
             when('/hubs/:id', {
 		templateUrl: 'partials/hub.html',

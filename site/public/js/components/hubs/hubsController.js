@@ -1,6 +1,3 @@
-//Events
-namespace('juke.events').CREATE_HUB_INTENT = "ActivityModel.CREATE_HUB_INTENT";
-
 var HubsCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
@@ -28,13 +25,6 @@ var HubsCtrl = BaseController.extend({
         this._super();
         this.notifications.addEventListener(juke.events.HUB_CREATED, this.hubCreated.bind(this));
         this.notifications.addEventListener(juke.events.CREATE_HUB_INTENT, this.createNewHubModal.bind(this));
-
-        //        var self = this;
-        //            $('#openModalButton').click(self.createNewHubModal.bind(self));
-
-        $('#openModalButton').click(function(){
-            console.log("click");
-        });
 
     },
 

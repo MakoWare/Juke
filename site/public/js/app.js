@@ -2,7 +2,6 @@
 
 angular.module('juke', [
     'notifications',
-    'globalService',
     'parseService',
     'youtubeService',
     'navigation',
@@ -13,6 +12,7 @@ angular.module('juke', [
     'juke.hubsTable',
     'juke.player',
     'juke.songFinder',
+    'juke.playList',
     'ui.bootstrap',
     'ngRoute'
 ])

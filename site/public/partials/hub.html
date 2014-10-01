@@ -5,14 +5,11 @@
         <h2>{{currentHub.attributes.title}}</h2>
       </div>
       <div class="col-xs-6">
-        <div class="btn-group" style="margin-top: 22px" data-toggle="buttons">
-          <label class="btn btn-default active">
-            <input type="radio" name="options" id="playListButton" checked> PlayList
-          </label>
-
-          <label class="btn btn-default">
-            <input type="radio" name="options" id="addSongsButton"> Add Songs
-          </label>
+        <div class="btn-group" style="margin-top: 22px">
+          <div class="btn-group">
+            <label class="btn btn-default" ng-model="currentView" btn-radio="'playlist'">PlayList</label>
+            <label class="btn btn-default" ng-model="currentView" btn-radio="'addSongs'">Add Songs</label>
+          </div>
         </div>
       </div>
     </div>
@@ -21,9 +18,19 @@
       <div class="player"></div>
     </div>
 
-    <div ng-controller="SongFinderCtrl">
-      <div class="songFinder"></div>
+    <div ng-show="currentView == 'playlist'">
+      <div ng-controller="PlayListCtrl">
+        <div class="playList"></div>
+      </div>
     </div>
+
+    <div ng-show="currentView == 'addSongs'">
+      <div ng-controller="SongFinderCtrl">
+        <div class="songFinder"></div>
+      </div>
+    </div>
+
+
 
   </div>
 </div>

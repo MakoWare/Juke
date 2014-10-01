@@ -48,7 +48,7 @@ Parse.Cloud.define("getHubsForTable", function(request, response){
 Parse.Cloud.define("getPlaylist", function(request, response) {
     var promise = getPlaylist(request.params.hubId);
     promise.then(function(results){
-        //This will be an error, or the actual results
+        response.success(results);
     });
 });
 
@@ -109,6 +109,7 @@ var getPlaylist = function(hubId){
                     song.set('score', s);
                 });
                 results.sort(compare);
+                currentlyPlaying.set('position', 0);
                 results.unshift(currentlyPlaying);
             } else {
                 results.push(currentlyPlaying);
@@ -189,20 +190,20 @@ Parse.Cloud.define("vote", function(request, response) {
 
     var query = new Parse.Query(QueuedSong);
     query.get(queuedSongId, {
-    success: function(queuedSong){
-        if(vote == "up"){
-        queuedSong.addUnique("ups", userId);
-        queuedSong.remove("downs", userId);
-        } else {
-        queuedSong.addUnique("downs", userId);
-        queuedSong.remove("ups", userId);
+        success: function(queuedSong){
+            if(vote == "up"){
+                queuedSong.addUnique("ups", userId);
+                queuedSong.remove("downs", userId);
+            } else {
+                queuedSong.addUnique("downs", userId);
+                queuedSong.remove("ups", userId);
+            }
+            queuedSong.save();
+            response.success();
+        },
+        error: function(object, error){
+            response.error(error);
         }
-        queuedSong.save();
-        response.success();
-    },
-    error: function(object, error){
-        response.error(error);
-    },
     });
 });
 

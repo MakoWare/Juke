@@ -10,13 +10,13 @@ var HubCtrl = BaseController.extend({
         this.location = $location;
         this.modal = $modal;
         this._super($scope);
-
         this.hubsModel.currentHubId = $location.url().split("/")[$location.url().split("/").length - 1];
         this.hubsModel.getHubById(this.hubsModel.currentHubId);
     },
 
     defineScope:function(){
 	this.$scope.instance="HubController";
+        this.$scope.currentView = "playlist";
         this.notifications.addEventListener(juke.events.CURRENT_HUB_LOADED, this.currentHubLoaded.bind(this));
     },
 

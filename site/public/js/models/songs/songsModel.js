@@ -7,7 +7,7 @@ var SongsModel = EventDispatcher.extend({
     currentSong: null,
     songs: null,
     foundSongs:null,
-    playList:null,
+    playlist:null,
 
     //Injected by the provider
     ParseService:null,
@@ -32,7 +32,7 @@ var SongsModel = EventDispatcher.extend({
         if(typeof canAdd != "string"){
             var submittedSong = jQuery.parseJSON(song);
             this.ParseService.addYouTubeSong(this.hubsModel.currentHub, submittedSong).then(function(results){
-                self.playList = results;
+                self.playlist = results;
                 self.currentSong = results[0]; //Not Sure if this is a good idea
                 self.notifications.notify(juke.events.PLAYLIST_LOADED);
             });
@@ -57,7 +57,7 @@ var SongsModel = EventDispatcher.extend({
     getPlaylist:function(){
         var self = this;
         this.ParseService.getPlaylist(this.hubsModel.currentHub.id).then(function(results){
-            self.playList = results;
+            self.playlist = results;
             self.currentSong = results[0]; //Not Sure if this is a good idea
             self.notifications.notify(juke.events.PLAYLIST_LOADED);
         });

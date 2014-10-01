@@ -13,17 +13,18 @@ var PlayListCtrl = BaseController.extend({
 
     defineScope:function(){
 	this.$scope.instance="PlayListCtrl";
-        this.$scope.foundSongs = [];
+        this.$scope.searchParam = "";
     },
 
     defineListeners:function(){
 	this._super();
-	//this.notifications.addEventListener(juke.events.VOTE_UP, this.handle.bind(this));
+	this.notifications.addEventListener(juke.events.PLAYLIST_LOADED, this.handlePlayListLoaded.bind(this));
     },
 
-    handleSongsSearch:function(event, query){
-        //Just search YouTube for now, this is easily extendable
-        this.songsModel.findYoutubeSongs(query);
+    handlePlayListLoaded:function(event){
+        console.log(this.songsModel.playlist);
+        this.$scope.playlist = this.songsModel.playlist;
+        this.$scope.$apply();
     },
 
 

@@ -1,11 +1,11 @@
 <div class="well" style="background-color: rgba(255,255,255,.20); color: white;" >
   <div class="row">
     <div class="col-xs-5 col-md-2">
-      <img class="img-responsive" alt="No Album Art" ng-src="{{currentSong.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"  width="200"/>
+      <img class="img-responsive" alt="No Album Art" ng-src="{{currentSong.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"  width="120"/>
     </div>
     <div class="col-xs-7 col-md-10">
       <h3 style="margin-top: 0px">{{currentSong.get('song').get('title')}}</h3>
-      <p>{{currentSong.get('song').get('description')}}</p>
+      <p>added By: <a style="color: blue">{{currentSong.get('addedBy').get('username')}}</a></p>
     </div>
   </div>
 

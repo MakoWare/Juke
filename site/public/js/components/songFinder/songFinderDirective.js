@@ -33,8 +33,8 @@ var SongFinderDirective = BaseDirective.extend({
     },
 
     setTableHeight: function(){
-        var space = window.innerHeight - $('#foundSongsTable').offset().top;
-        var tableHeight = (space * .6);
+        var space = window.innerHeight - $('#playListTable').offset().top;
+        var tableHeight = (space * .7);
         console.log(tableHeight);
         $('#foundSongsTable').height(tableHeight);
     },

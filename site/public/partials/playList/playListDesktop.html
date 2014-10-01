@@ -1,30 +1,25 @@
 <div class="well" style="background-color: rgba(255,255,255,.20); color: white; padding-top: 0px">
   <div class="row" style="padding-left: 5px; padding-right: 5px">
-    <h3>PlayList</h3>
-  </div>
-
-  <div class="row" style="padding-left: 5px; padding-right: 5px">
-    <div class="col-xs-8">
-      <input id="songSearchQuery" type="text" class="form-control placeholderChange" placeholder="Search" style="background-color: rgba(255,255,255,.40); color: white" />
-    </div>
     <div class="col-xs-4">
-      <button id="findSongsButton" class="btn btn-default">Search</button>
+      <h3 style="margin-top: 15px;">PlayList</h3>
+    </div>
+    <div class="col-xs-8" style="margin-top: 10px;" >
+      <input  type="text" class="form-control placeholderChange" placeholder="Search" style="background-color: rgba(255,255,255,.40); color: white" ng-model="searchParam"/>
     </div>
   </div>
 
-
-  <div id="playListTable" style="overflow-y: auto; height: 100px; margin: 5px;">
+  <div id="playListTable" style="overflow-y: auto; overflow-x: hidden; height: 100px; margin: 5px;">
     <table class="table table-stripped table-hover">
       <tbody>
-        <tr id="{{song}}" ng-repeat="song in foundSongs">
+        <tr id="{{song}}" ng-repeat="song in playlist | filter:searchParam" ng-show="song.get('position') != 0">
           <td>
             <div class="row">
               <div class="col-xs-5 col-md-2">
-                <img class="img-responsive" alt="No Album Art" ng-src="{{song.snippet.thumbnails.default.url || 'images/defaultAlbumArt.jpg'}}"  width="200"/>
+                <img class="img-responsive" alt="No Album Art" ng-src="{{song.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"  width="100"/>
               </div>
               <div class="col-xs-7 col-md-10">
-                <h3 style="margin-top: 0px">{{song.snippet.title}}</h3>
-                <p>{{song.snippet.description}}</p>
+                <h4 style="margin-bottom: 4px; margin-top: 0px;">{{song.get('song').get('title')}}</h4>
+                <p>added By: <a style="color: blue">{{song.get('addedBy').get('username')}}</a></p>
               </div>
             </div>
           </td>

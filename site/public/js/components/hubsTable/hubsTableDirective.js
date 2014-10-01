@@ -48,8 +48,9 @@ var HubsTableDirective = BaseDirective.extend({
 
     //Handle User selecting a Hub from the Hubs Table
     hubSelected:function(event){
-        var hubId = event.currentTarget.getAttribute('id');
-        this.notifications.notify(juke.events.HUB_SELECTED, hubId);
+        var hubJSON = event.currentTarget.getAttribute('id');
+        var hub = JSON.parse(hubJSON);
+        this.notifications.notify(juke.events.HUB_SELECTED, hub);
     },
 
     destroy:function(event){

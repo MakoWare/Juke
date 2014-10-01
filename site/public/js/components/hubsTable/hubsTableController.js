@@ -6,11 +6,12 @@ var HubsTableCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
 
-    init:function($scope, $location, HubsModel, Notifications){
+    init:function($scope, $location, $modal, HubsModel, Notifications){
         console.log("HubsTableCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this.location = $location;
+        this.modal = $modal;
 
         this._super($scope);
         this.hubsModel.getHubsForTable();
@@ -39,11 +40,36 @@ var HubsTableCtrl = BaseController.extend({
 
 
     //Handle User Selecting a Hub from the HubsTable
-    hubSelected:function(event, hubId){
-        this.hubsModel.currentHubID = hubId;
-	this.location.path("hubs/" + hubId);
-        this.$scope.$apply();
+    hubSelected:function(event, hub){
+        if(hub.passcode == ""){
+            this.hubsModel.currentHubID = hub.objectId;
+	    this.location.path("hubs/" + hub.objectId);
+            this.$scope.$apply();
+        } else {
+            var self = this;
+            var modalInstance = this.modal.open({
+                templateUrl: 'partials/hubs/passwordModal.html',
+                controller: 'PasswordModalCtrl',
+                size: 'sm',
+                resolve: {
+                    passcode: function () {
+                        return hub.passcode;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (successful) {
+                if(successful){
+                    self.hubsModel.currentHubID = hub.objectId;
+	            self.location.path("hubs/" + hub.objectId);
+                    self.$scope.$apply();
+                } else {
+
+                }
+            });
+        }
+
     }
 });
 
-HubsTableCtrl.$inject = ['$scope', '$location', 'HubsModel', 'Notifications'];
+HubsTableCtrl.$inject = ['$scope', '$location', '$modal', 'HubsModel', 'Notifications'];

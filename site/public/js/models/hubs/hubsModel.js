@@ -18,7 +18,6 @@ var HubsModel = EventDispatcher.extend({
         var self = this;
 	this.ParseService.getHubsForTable().then(function(results){
             self.hubs = results;
-            console.log(results);
             self.notifications.notify(juke.events.HUBS_LOADED);
         });
     },

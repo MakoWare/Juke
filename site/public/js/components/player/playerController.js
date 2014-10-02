@@ -7,12 +7,16 @@ var PlayerCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
     songsModel: null,
+    usersModel: null,
+    youtubeService: null,
 
-    init:function($scope, HubsModel, SongsModel, Notifications){
+    init:function($scope, HubsModel, SongsModel, UsersModel, YouTubeService, Notifications){
         console.log("PlayerCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this.songsModel = SongsModel;
+        this.usersModel = UsersModel;
+        this.youtubeService = YouTubeService;
         this._super($scope);
     },
 
@@ -20,6 +24,16 @@ var PlayerCtrl = BaseController.extend({
 	this.$scope.instance="PlayerController";
         this.$scope.currentSong = this.songsModel.currentSong;
         this.$scope.playList = this.songsModel.playList;
+        this.$scope.playing = false;
+        var self = this;
+
+        this.youtubeService.getPlayer(function(result){
+            result.addEventListener('onReady', self.onPlayerReady);
+            result.addEventListener('onStateChange', self.onPlayerStateChange);
+            self.$scope.player = result;
+            console.log(self.$scope.player);
+        });
+
     },
 
     defineListeners:function(){
@@ -27,6 +41,17 @@ var PlayerCtrl = BaseController.extend({
         this.notifications.addEventListener(juke.events.PLAYLIST_LOADED, this.handlePlayListLoaded.bind(this));
         this.notifications.addEventListener(juke.events.CURRENT_HUB_LOADED, this.handleHubLoaded.bind(this));
     },
+
+    onPlayerReady:function(event){
+        console.log("player Ready");
+        //event.target.playVideo();
+    },
+
+    onPlayerStateChange:function(event){
+        console.log("player State Change");
+        //event.target.playVideo();
+    },
+
 
     destroy:function(){
 	this.notifications.removeEventListener(juke.events.PLAYLIST_LOADED, this.handlePlayListLoaded.bind(this));
@@ -41,8 +66,13 @@ var PlayerCtrl = BaseController.extend({
 
     handleHubLoaded:function(){
         this.songsModel.getPlaylist();
+        if(this.usersModel.currentUser.id == this.hubsModel.currentHub.get('owner').id){
+            this.$scope.playing = true;
+        } else {
+
+        }
     }
 
 });
 
-PlayerCtrl.$inject = ['$scope', 'HubsModel', 'SongsModel', 'Notifications'];
+PlayerCtrl.$inject = ['$scope', 'HubsModel', 'SongsModel', 'UsersModel', 'YouTubeService', 'Notifications'];

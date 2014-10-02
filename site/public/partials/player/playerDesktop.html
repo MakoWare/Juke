@@ -1,12 +1,23 @@
 <div class="well" style="background-color: rgba(255,255,255,.20); color: white;" >
   <div class="row">
-    <div class="col-xs-5 col-md-2">
-      <img class="img-responsive" alt="No Album Art" ng-src="{{currentSong.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"  width="120"/>
+    <div class="col-xs-5 col-md-3">
+
+      <iframe id="player" frameborder="0" allowfullscreen="1" title="YouTube video player" width="220" src="https://www.youtube.com/embed/enablejsapi=1&amp;origin=http%3A%2F%2Fjuke.parseapp.com"></iframe>
+     <!-- <img class="img-responsive" alt="No Album Art" ng-src="{{currentSong.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"  width="120"/>
+-->
     </div>
-    <div class="col-xs-7 col-md-10">
+
+
+    <div class="col-xs-7 col-md-9">
       <h3 style="margin-top: 0px">{{currentSong.get('song').get('title')}}</h3>
       <p>added By: <a style="color: #4582EC">{{currentSong.get('addedBy').get('username')}}</a></p>
     </div>
   </div>
+
+
+
+
+
+
 
 </div>

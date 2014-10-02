@@ -22,10 +22,11 @@ var PlayListDirective = BaseDirective.extend({
     },
 
     setTableHeight: function(){
-        var space = window.innerHeight - $('#playListTable').offset().top;
-        var tableHeight = (space * .7);
-        console.log(tableHeight);
-        $('#playListTable').height(tableHeight);
+        if($('#playListTable').is(':visible')){
+            var space = window.innerHeight - $('#playListTable').offset().top;
+            var tableHeight = (space * .7);
+            $('#playListTable').height(tableHeight);
+        }
     },
 
     findSongs:function(){

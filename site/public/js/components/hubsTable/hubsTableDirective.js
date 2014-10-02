@@ -24,9 +24,11 @@ var HubsTableDirective = BaseDirective.extend({
     },
 
     setTableHeight: function(){
-        var space = window.innerHeight - $('#hubsTableContent').offset().top;
-        var tableHeight = (space * .92);
-        $('#hubsTableContent').height(tableHeight);
+        if($('#hubsTableContent').is(':visible')){
+            var space = window.innerHeight - $('#hubsTableContent').offset().top;
+            var tableHeight = (space * .92);
+            $('#hubsTableContent').height(tableHeight);
+        }
     },
 
     //Handle User searching

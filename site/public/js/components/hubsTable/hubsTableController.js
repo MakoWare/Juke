@@ -5,13 +5,15 @@ namespace('juke.events').HUB_SELECTED = "ActivityModel.HUB_SELECTED";
 var HubsTableCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
+    usersModel: null,
 
-    init:function($scope, $location, $modal, HubsModel, Notifications){
+    init:function($scope, $location, $modal, HubsModel, UsersModel, Notifications){
         console.log("HubsTableCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this.location = $location;
         this.modal = $modal;
+        this.usersModel = UsersModel;
 
         this._super($scope);
         this.hubsModel.getHubsForTable();
@@ -41,12 +43,23 @@ var HubsTableCtrl = BaseController.extend({
 
     //Handle User Selecting a Hub from the HubsTable
     hubSelected:function(event, hub){
-        if(hub.passcode == ""){
+        var self = this;
+        var isAllowed = false;
+        var isBlocked = false;
+
+        if(this.usersModel.currentUser){
+            hub.allowedUsers.forEach(function(user){
+                if(user.objectId == self.usersModel.currentUser.id){
+                    isAllowed = true;
+                }
+            });
+        }
+
+        if(hub.passcode == "" || isAllowed){
             this.hubsModel.currentHubID = hub.objectId;
 	    this.location.path("hubs/" + hub.objectId);
             this.$scope.$apply();
         } else {
-            var self = this;
             var modalInstance = this.modal.open({
                 templateUrl: 'partials/hubs/passwordModal.html',
                 controller: 'PasswordModalCtrl',
@@ -60,9 +73,18 @@ var HubsTableCtrl = BaseController.extend({
 
             modalInstance.result.then(function (successful) {
                 if(successful){
-                    self.hubsModel.currentHubID = hub.objectId;
-	            self.location.path("hubs/" + hub.objectId);
-                    self.$scope.$apply();
+                    self.hubsModel.hubs.forEach(function(hubToAdd){
+                        if(hubToAdd.id == hub.objectId){
+                            hubToAdd.add("allowedUsers", self.usersModel.currentUser);
+                            self.hubsModel.currentHub = hubToAdd;
+                        }
+                    });
+
+                    self.hubsModel.saveCurrentHub().then(function(){
+                        self.hubsModel.currentHubID = hub.objectId;
+	                self.location.path("hubs/" + hub.objectId);
+                        self.$scope.$apply();
+                    });
                 } else {
 
                 }
@@ -72,4 +94,4 @@ var HubsTableCtrl = BaseController.extend({
     }
 });
 
-HubsTableCtrl.$inject = ['$scope', '$location', '$modal', 'HubsModel', 'Notifications'];
+HubsTableCtrl.$inject = ['$scope', '$location', '$modal', 'HubsModel', 'UsersModel', 'Notifications'];

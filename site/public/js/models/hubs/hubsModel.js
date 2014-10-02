@@ -38,7 +38,23 @@ var HubsModel = EventDispatcher.extend({
             self.currentHub = result;
             self.notifications.notify(juke.events.HUB_CREATED);
         });
+    },
+
+    //Save current Hub
+    saveCurrentHub: function(){
+        var self = this;
+        return this.currentHub.save({
+            success: function(result){
+                self.currentHub = result;
+            },
+            error: function(object, error){
+                alert("An Error occured: " + error.message);
+            }
+        });
     }
+
+
+
 });
 
 //Provider, as all components will use the same HubsModel instance, $inject will init once, then pull the same object from Instance Cache for all other $injects

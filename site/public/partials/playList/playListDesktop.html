@@ -14,13 +14,28 @@
         <tr id="{{song}}" ng-repeat="song in playlist | filter:searchParam" ng-show="song.get('position') != 0">
           <td>
             <div class="row">
+              <div class="col-xs-1 col-md-1">
+                <h1 style="margin-top: 11px;">{{$index}}</h1>
+              </div>
+
+
               <div class="col-xs-5 col-md-2">
                 <img class="img-responsive" alt="No Album Art" ng-src="{{song.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"  width="100"/>
               </div>
-              <div class="col-xs-7 col-md-10">
+              <div class="col-xs-4 col-md-7">
                 <h4 style="margin-bottom: 4px; margin-top: 0px;">{{song.get('song').get('title')}}</h4>
                 <p>added By: <a style="color: #4582EC">{{song.get('addedBy').get('username')}}</a></p>
               </div>
+              <div class="col-xs-2 col-md-2">
+                <button type="button" class="btn btn-default btn-lg">
+                  <span class="glyphicon glyphicon-thumbs-up"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-lg">
+                  <span class="glyphicon glyphicon-thumbs-down"></span>
+                </button>
+
+              </div>
+
             </div>
           </td>
         </tr>

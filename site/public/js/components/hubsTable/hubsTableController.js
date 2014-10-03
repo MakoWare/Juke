@@ -75,8 +75,10 @@ var HubsTableCtrl = BaseController.extend({
                 if(successful){
                     self.hubsModel.hubs.forEach(function(hubToAdd){
                         if(hubToAdd.id == hub.objectId){
-                            hubToAdd.add("allowedUsers", self.usersModel.currentUser);
-                            self.hubsModel.currentHub = hubToAdd;
+                            if(self.usersModel.currentUser){
+                                hubToAdd.add("allowedUsers", self.usersModel.currentUser);
+                                self.hubsModel.currentHub = hubToAdd;
+                            }
                         }
                     });
 

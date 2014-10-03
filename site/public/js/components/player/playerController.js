@@ -37,8 +37,8 @@ var PlayerCtrl = BaseController.extend({
         var self = this;
         window.onYouTubeIframeAPIReady = function() {
             self.$scope.player = new YT.Player('player', {
-                width: '240',
-                height: '160',
+                width: '140',
+                height: '120',
                 playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
                 //playerVars: { 'controls': 1, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
                 events: {

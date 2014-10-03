@@ -17,7 +17,7 @@ angular.module('youtubeService', [])
                     callback(response);
                 });
             },
-
+            /*
             getPlayer: function getPlayer(callback){
                 if(loaded){
                     var player = new YT.Player('player', {
@@ -36,6 +36,7 @@ angular.module('youtubeService', [])
                     };
                 };
             }
+             */
 
         };
         return YouTubeService;

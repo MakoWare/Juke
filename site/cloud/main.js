@@ -364,11 +364,9 @@ Parse.Cloud.define("addYouTubeSong", function(request, response) {
             song.set('title',submittedSong.snippet.title);
             song.set('description',submittedSong.snippet.description);
             song.set('thumbnail',submittedSong.snippet.thumbnails.default.url);
-            song.set('type', "YouTube");
+            song.set('type', "youtube");
             song.set('pId', submittedSong.id.videoId);
-            song.set('videoId', submittedSong.id.videoId);
             song.set('owner', user);
-            song.set('hub', hub);
             song.save({
                 success: function(song){
                 var queuedSong = new QueuedSong();

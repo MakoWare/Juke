@@ -61,7 +61,28 @@ var SongsModel = EventDispatcher.extend({
             self.currentSong = results[0]; //Not Sure if this is a good idea
             self.notifications.notify(juke.events.PLAYLIST_LOADED);
         });
+    },
+
+    //Remove Current Song
+    removeCurrentSong:function(){
+        console.log("REMOVING CURRENT SONG!!!!!");
+        var self = this;
+        this.currentSong.set("active", false);
+        this.currentSong.save({
+            success: function(object){
+
+            },
+            error: function(object, error){
+                alert("An error occurred: " + error.message);
+            }
+        }).then(function(){
+            self.getPlaylist();
+        });
     }
+
+
+
+
 
 });
 

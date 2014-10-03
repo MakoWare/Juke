@@ -25,7 +25,7 @@ var PlayerCtrl = BaseController.extend({
 	this.$scope.instance="PlayerController";
         this.$scope.currentSong = this.songsModel.currentSong;
         this.$scope.playList = this.songsModel.playList;
-        this.$scope.playing = false;
+        this.$scope.playerLoaded = false;
     },
 
     defineListeners:function(){
@@ -35,10 +35,12 @@ var PlayerCtrl = BaseController.extend({
         this.notifications.addEventListener(juke.events.PLAYER_STATE_CHANGE, this.handlePlayerStateChange.bind(this));
         var self = this;
         window.onYouTubeIframeAPIReady = function() {
+            self.$scope.playerLoaded = true;
             self.$scope.player = new YT.Player('player', {
                 width: '240',
                 height: '160',
-                playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                //playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                playerVars: { 'controls': 1, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
@@ -48,6 +50,11 @@ var PlayerCtrl = BaseController.extend({
 
         function onPlayerReady(event){
             console.log("player Ready");
+            if(!self.songsModel.currentSong){
+                self.songsModel.getPlaylist();
+            }
+
+            /*
             function loadSong(){
                 var currentSong = self.songsModel.currentSong.get('song');
                 if(currentSong.get('type') == 'youtube'){
@@ -61,12 +68,12 @@ var PlayerCtrl = BaseController.extend({
             } else {
                 loadSong();
             }
+             */
 
         };
 
         function onPlayerStateChange(event){
             self.notifications.notify(juke.events.PLAYER_STATE_CHANGE, event);
-            //event.target.playVideo();
         };
     },
 
@@ -79,7 +86,6 @@ var PlayerCtrl = BaseController.extend({
     },
 
     handlePlayerStateChange:function(event, playerEvent){
-        console.log("handling state change");
         switch (playerEvent.data) {
         case -1:
             console.log("unstarted");
@@ -87,10 +93,12 @@ var PlayerCtrl = BaseController.extend({
             break;
         case 0:
             console.log("ended");
-
+            //Remove currentSong from playlist, then re-pull playlist
+            this.songsModel.removeCurrentSong();
             break;
         case 1:
             console.log("playing");
+            //console.log(playerEvent.target.getCurrentTime());
 
             break;
         case 2:
@@ -113,6 +121,14 @@ var PlayerCtrl = BaseController.extend({
         this.$scope.playList = this.songsModel.playList;
         this.$scope.currentSong = this.songsModel.currentSong;
         this.$scope.$apply();
+
+        //loadSong
+        if(this.songsModel.currentSong.get('song').get('type') == "youtube"){
+            if(this.$scope.playerLoaded){
+                this.$scope.player.loadVideoById(this.songsModel.currentSong.get('song').get('pId'));
+            }
+        }
+
     },
 
     handleHubLoaded:function(){

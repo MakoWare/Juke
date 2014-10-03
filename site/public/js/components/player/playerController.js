@@ -26,6 +26,7 @@ var PlayerCtrl = BaseController.extend({
         this.$scope.currentSong = this.songsModel.currentSong;
         this.$scope.playList = this.songsModel.playList;
         this.$scope.playerLoaded = false;
+        this.$scope.playerState = -1;
     },
 
     defineListeners:function(){
@@ -35,12 +36,11 @@ var PlayerCtrl = BaseController.extend({
         this.notifications.addEventListener(juke.events.PLAYER_STATE_CHANGE, this.handlePlayerStateChange.bind(this));
         var self = this;
         window.onYouTubeIframeAPIReady = function() {
-            self.$scope.playerLoaded = true;
             self.$scope.player = new YT.Player('player', {
                 width: '240',
                 height: '160',
-                //playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
-                playerVars: { 'controls': 1, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                //playerVars: { 'controls': 1, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
@@ -49,27 +49,11 @@ var PlayerCtrl = BaseController.extend({
         };
 
         function onPlayerReady(event){
+            self.$scope.playerLoaded = true;
             console.log("player Ready");
-            if(!self.songsModel.currentSong){
+            if(!self.songsModel.currentSong || this.$scope.playerState == -1){
                 self.songsModel.getPlaylist();
             }
-
-            /*
-            function loadSong(){
-                var currentSong = self.songsModel.currentSong.get('song');
-                if(currentSong.get('type') == 'youtube'){
-                    self.$scope.player.loadVideoById(currentSong.get('pId'));
-                }
-            }
-
-            if(!self.songsModel.currentSong){
-                console.log("waiting");
-                setTimeout(loadSong, 1000);
-            } else {
-                loadSong();
-            }
-             */
-
         };
 
         function onPlayerStateChange(event){
@@ -89,28 +73,34 @@ var PlayerCtrl = BaseController.extend({
         switch (playerEvent.data) {
         case -1:
             console.log("unstarted");
+            this.$scope.playerState = -1;
 
             break;
         case 0:
             console.log("ended");
+            this.$scope.playerState = 0;
             //Remove currentSong from playlist, then re-pull playlist
             this.songsModel.removeCurrentSong();
             break;
         case 1:
             console.log("playing");
+            this.$scope.playerState = 1;
             //console.log(playerEvent.target.getCurrentTime());
 
             break;
         case 2:
             console.log("paused");
+            this.$scope.playerState = 2;
 
             break;
         case 3:
             console.log("buffering");
+            this.$scope.playerState = 3;
 
             break;
         case 5:
             console.log("video cued");
+            this.$scope.playerState = 5;
 
             break;
         }
@@ -122,10 +112,19 @@ var PlayerCtrl = BaseController.extend({
         this.$scope.currentSong = this.songsModel.currentSong;
         this.$scope.$apply();
 
-        //loadSong
-        if(this.songsModel.currentSong.get('song').get('type') == "youtube"){
-            if(this.$scope.playerLoaded){
-                this.$scope.player.loadVideoById(this.songsModel.currentSong.get('song').get('pId'));
+        //Don't load song if player is already playing
+        console.log(this.$scope.playerState);
+        if(!(this.$scope.playerState == 1) && !(this.$scope.playerState == 3)){
+            //loadSong
+            console.log("loading song");
+            var queuedSong = this.songsModel.currentSong;
+            if(queuedSong){
+                var currentSong = queuedSong.get('song');
+                if(currentSong.get('type') == "youtube"){
+                    if(this.$scope.playerLoaded){
+                        this.$scope.player.loadVideoById(currentSong.get('pId'));
+                    }
+                }
             }
         }
 

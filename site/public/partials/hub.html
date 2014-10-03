@@ -18,13 +18,13 @@
       <div class="player"></div>
     </div>
 
-    <div ng-if="currentView == 'playlist'">
+    <div ng-show="currentView == 'playlist'">
       <div ng-controller="PlayListCtrl">
         <div class="playList"></div>
       </div>
     </div>
 
-    <div ng-if="currentView == 'addSongs'">
+    <div ng-show="currentView == 'addSongs'">
       <div ng-controller="SongFinderCtrl">
         <div class="songFinder"></div>
       </div>

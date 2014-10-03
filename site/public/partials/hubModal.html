@@ -32,7 +32,7 @@
               <input type="checkbox" ng-checked="!all" ng-model="hub.capabilities.youtube">Youtube
             </label>
           </div>
-          <div class="checkbox" style="padding-left: 5px">
+          <div  ng-show="false" class="checkbox" style="padding-left: 5px">
             <label>
               <input type="checkbox" ng-checked="!all" ng-model="hub.capabilities.spotify">Spotify
             </label>
@@ -42,8 +42,8 @@
       <br>
       <p>* = required</p>
       <div class="modal-footer">
-        <button ng-disabled="form.$invalid" id="createHubButton" type="submit" class="btn btn-primary">Create</button>
-        <button  id="closeModalButton" type="submit" class="btn btn-warning">Nevermind</button>
+        <button ng-disabled="form.$invalid" ng-click="createNewHub()" type="submit" class="btn btn-primary">Create</button>
+        <button  ng-click="dismissModal()" type="submit" class="btn btn-warning">Nevermind</button>
       </div>
     </form>
   </div>

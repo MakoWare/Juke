@@ -1,4 +1,4 @@
-var PasswordModalCtrl =  function ($scope, $modalInstance, passcode) {
+var PasswordModalCtrl = function($scope, $modalInstance, passcode) {
 
     $scope.actualPasscode = passcode;
 

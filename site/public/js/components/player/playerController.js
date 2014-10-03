@@ -51,7 +51,7 @@ var PlayerCtrl = BaseController.extend({
         function onPlayerReady(event){
             self.$scope.playerLoaded = true;
             console.log("player Ready");
-            if(!self.songsModel.currentSong || this.$scope.playerState == -1){
+            if(!self.songsModel.currentSong || self.$scope.playerState == -1){
                 self.songsModel.getPlaylist();
             }
         };
@@ -116,12 +116,12 @@ var PlayerCtrl = BaseController.extend({
         console.log(this.$scope.playerState);
         if(!(this.$scope.playerState == 1) && !(this.$scope.playerState == 3)){
             //loadSong
-            console.log("loading song");
             var queuedSong = this.songsModel.currentSong;
             if(queuedSong){
                 var currentSong = queuedSong.get('song');
                 if(currentSong.get('type') == "youtube"){
                     if(this.$scope.playerLoaded){
+                        console.log("loading song");
                         this.$scope.player.loadVideoById(currentSong.get('pId'));
                     }
                 }

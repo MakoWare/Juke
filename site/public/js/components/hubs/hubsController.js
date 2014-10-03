@@ -42,11 +42,9 @@ var HubsCtrl = BaseController.extend({
             alert("Sorry, but you  must be signed in to create a Hub");
         } else {
             var self = this;
-            console.log(this.modal);
-
             var modalInstance = self.modal.open({
                 templateUrl: 'partials/hubModal.html',
-                controller: HubModalCtrl,
+                controller: 'HubModalCtrl',
                 resolve: {
                     HubsModel: function () {
                         return self.hubsModel;

@@ -78,11 +78,45 @@ var SongsModel = EventDispatcher.extend({
         }).then(function(){
             self.getPlaylist();
         });
+    },
+
+    //Up Vote
+    upVote:function(song){
+        var self = this;
+        song.add("ups", this.usersModel.currentUser.id);
+        song.remove("downs", this.usersModel.currentUser.id);
+        song.save({
+            success: function(object){
+                self.ParseService.getPlaylist(self.hubsModel.currentHub.id).then(function(results){
+                    self.playlist = results;
+                    self.currentSong = results[0]; //Not Sure if this is a good idea
+                    self.notifications.notify(juke.events.PLAYLIST_LOADED);
+                });
+            },
+            error: function(object, error){
+                alert("An error occurred: " + error.message);
+            }
+        });
+    },
+
+    //Down Vote
+    downVote:function(song){
+        var self = this;
+        song.add("downs", this.usersModel.currentUser.id);
+        song.remove("ups", this.usersModel.currentUser.id);
+        song.save({
+            success: function(object){
+                self.ParseService.getPlaylist(self.hubsModel.currentHub.id).then(function(results){
+                    self.playlist = results;
+                    self.currentSong = results[0]; //Not Sure if this is a good idea
+                    self.notifications.notify(juke.events.PLAYLIST_LOADED);
+                });
+            },
+            error: function(object, error){
+                alert("An error occurred: " + error.message);
+            }
+        });
     }
-
-
-
-
 
 });
 

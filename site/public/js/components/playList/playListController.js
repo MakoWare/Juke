@@ -4,10 +4,11 @@ var PlayListCtrl = BaseController.extend({
     notifications: null,
     songsModel: null,
 
-    init:function($scope, SongsModel, Notifications){
+    init:function($scope, SongsModel, UsersModel, Notifications){
         console.log("PlayListCtrl.init()");
         this.notifications = Notifications;
         this.songsModel = SongsModel;
+        this.usersModel = UsersModel;
         this._super($scope);
     },
 
@@ -22,8 +23,20 @@ var PlayListCtrl = BaseController.extend({
     },
 
     handlePlayListLoaded:function(event){
-        console.log(this.songsModel.playlist);
-        this.$scope.playlist = this.songsModel.playlist;
+        var playlist = this.songsModel.playlist;
+        var currentUser = this.usersModel.currentUser;
+        this.$scope.playlist = playlist;
+
+        if(currentUser){
+            playlist.forEach(function(queuedSong){
+                if(($.inArray(currentUser.id, queuedSong.get('ups') > -1))){
+                    queuedSong.currentVote = "up";
+                }
+                if(($.inArray(currentUser.id, queuedSong.get('downs')) > -1)){
+                    queuedSong.currentVote = "down";
+                }
+            });
+        }
         this.$scope.$apply();
     },
 
@@ -34,4 +47,4 @@ var PlayListCtrl = BaseController.extend({
 
 });
 
-PlayListCtrl.$inject = ['$scope', 'SongsModel', 'Notifications'];
+PlayListCtrl.$inject = ['$scope', 'SongsModel', 'UsersModel', 'Notifications'];

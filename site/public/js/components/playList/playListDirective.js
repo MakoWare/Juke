@@ -7,18 +7,28 @@ var PlayListDirective = BaseDirective.extend({
     notifications:null,
     elm:null,
 
-    init:function($scope,$elm,notifications){
+    init:function($scope,$elm, SongsModel, notifications){
         console.log("SongFinderDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
 	this._super($scope);
+        this.songsModel = SongsModel;
 
         //Init Table Height
         this.setTableHeight();
     },
 
     defineListeners:function(){
+        var self = this;
         $(window).resize(this.setTableHeight);
+        this.$scope.upVote = function(song){
+            self.songsModel.upVote(song);
+            song.currentVote = "up";
+        };
+        this.$scope.downVote = function(song){
+            self.songsModel.downVote(song);
+            song.currentVote = "down";
+        };
     },
 
     setTableHeight: function(){
@@ -41,7 +51,7 @@ var PlayListDirective = BaseDirective.extend({
 });
 
 angular.module('juke.playList',[])
-    .directive('playList',['Notifications',function(Notifications){
+    .directive('playList',['SongsModel', 'Notifications',function(SongsModel, Notifications){
         var partial;
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             partial = "partials/playList/playListMobile.html";
@@ -53,7 +63,7 @@ angular.module('juke.playList',[])
 	    restrict:'C',
 	    isolate:true,
 	    link: function($scope,$elm,$attrs){
-		new PlayListDirective($scope,$elm,Notifications);
+		new PlayListDirective($scope,$elm, SongsModel, Notifications);
 	    },
 	    scope:true,
             templateUrl: partial

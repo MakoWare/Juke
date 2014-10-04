@@ -83,15 +83,17 @@ var SongsModel = EventDispatcher.extend({
     //Up Vote
     upVote:function(song){
         var self = this;
+        if(song.currentVote == "down"){
+            var score = song.get('score');
+            song.set('score', score + 2);
+        } else {
+            song.set('score', score + 1);
+        }
         song.add("ups", this.usersModel.currentUser.id);
         song.remove("downs", this.usersModel.currentUser.id);
         song.save({
             success: function(object){
-                self.ParseService.getPlaylist(self.hubsModel.currentHub.id).then(function(results){
-                    self.playlist = results;
-                    self.currentSong = results[0]; //Not Sure if this is a good idea
-                    self.notifications.notify(juke.events.PLAYLIST_LOADED);
-                });
+
             },
             error: function(object, error){
                 alert("An error occurred: " + error.message);
@@ -101,16 +103,19 @@ var SongsModel = EventDispatcher.extend({
 
     //Down Vote
     downVote:function(song){
+        if(song.currentVote == "up"){
+            var score = song.get('score');
+            song.set('score', score - 2);
+        } else {
+            song.set('score', score - 1);
+        }
+
         var self = this;
         song.add("downs", this.usersModel.currentUser.id);
         song.remove("ups", this.usersModel.currentUser.id);
         song.save({
             success: function(object){
-                self.ParseService.getPlaylist(self.hubsModel.currentHub.id).then(function(results){
-                    self.playlist = results;
-                    self.currentSong = results[0]; //Not Sure if this is a good idea
-                    self.notifications.notify(juke.events.PLAYLIST_LOADED);
-                });
+
             },
             error: function(object, error){
                 alert("An error occurred: " + error.message);

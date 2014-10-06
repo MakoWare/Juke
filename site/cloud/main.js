@@ -182,28 +182,62 @@ Parse.Cloud.define("removeSong", function(request, response) {
 });
 
 //Vote
+//Parse.Cloud.define("vote", function(request, response) {
+//    var userId = request.params.userId;
+//    var queuedSongId = request.params.queuedSongId;
+//    var vote = request.params.vote;
+//
+//
+//    var query = new Parse.Query(QueuedSong);
+//    query.get(queuedSongId, {
+//        success: function(queuedSong){
+//            if(vote == "up"){
+//                queuedSong.addUnique("ups", userId);
+//                queuedSong.remove("downs", userId);
+//            } else {
+//                queuedSong.addUnique("downs", userId);
+//                queuedSong.remove("ups", userId);
+//            }
+//            queuedSong.save();
+//            response.success();
+//        },
+//        error: function(object, error){
+//            response.error(error);
+//        }
+//    });
+//});
+
+/** The function to vote up
+
+params:
+ - direction : (String) the direction in which to vote
+ - queuedSongId : (String) the ID for the QueuedSong being voted upon
+
+*/
 Parse.Cloud.define("vote", function(request, response) {
-    var userId = request.params.userId;
+//    vote("up",request.params.userId,request.params.queuedSongId);
+    var direction = request.params.direction ? request.params.direction : request.params.vote;
     var queuedSongId = request.params.queuedSongId;
-    var vote = request.params.vote;
-
-
-    var query = new Parse.Query(QueuedSong);
-    query.get(queuedSongId, {
-        success: function(queuedSong){
-            if(vote == "up"){
-                queuedSong.addUnique("ups", userId);
-                queuedSong.remove("downs", userId);
-            } else {
-                queuedSong.addUnique("downs", userId);
-                queuedSong.remove("ups", userId);
-            }
-            queuedSong.save();
-            response.success();
-        },
-        error: function(object, error){
-            response.error(error);
+    
+    var queuedSongQuery = new Parse.Query(QueuedSong);
+    queuedSongQuery.get(queuedSongId).then(function(queuedSong){
+        if(direction=="up"){
+            queuedSong.addUnique("ups", Parse.User.current());
+            queuedSong.remove("downs", Parse.User.current());
+        } else if(direction=="down"){
+            queuedSong.addUnique("downs", Parse.User.current());
+            queuedSong.remove("ups", Parse.User.current());
+        } else {
+            // return error for bad vote direction
+            response.error("Wrong voting direction: "+direction);
         }
+        queuedSong.save().then(function(obj){
+            response.success(queuedSong);
+        }, function(err){
+            response.error("Failed to save the QueuedSong with id: "+queuedSongId);
+        });
+    }, function(err){
+        response.error("Failed to find the QueuedSong with id: "+queuedSongId);
     });
 });
 
@@ -408,28 +442,28 @@ var addCheck = function(hub, user, song){
  *
  *
  */
-Parse.Cloud.afterDelete("Hub", function(request) {
-    var Song = Parse.Object.extend("Song");
-    var query = new Parse.Query(Song);
-    query.equalTo("hub", request.object);
-    query.find({
-        success: function(songs) {
-//            console.log("i found the songs for " + request.object.id);
-            Parse.Object.destroyAll(songs, {
-                success: function() {
-//                    console.log("i deleted shit");
-                },
-                error: function(error) {
-                    console.error("Error deleting related comments " + error.code + ": " + error.message);
-                }
-            });
-
-        },
-        error: function(error) {
-            console.error("Error finding related comments " + error.code + ": " + error.message);
-        }
-    });
-});
+//Parse.Cloud.afterDelete("Hub", function(request) {
+//    var Song = Parse.Object.extend("Song");
+//    var query = new Parse.Query(Song);
+//    query.equalTo("hub", request.object);
+//    query.find({
+//        success: function(songs) {
+////            console.log("i found the songs for " + request.object.id);
+//            Parse.Object.destroyAll(songs, {
+//                success: function() {
+////                    console.log("i deleted shit");
+//                },
+//                error: function(error) {
+//                    console.error("Error deleting related comments " + error.code + ": " + error.message);
+//                }
+//            });
+//
+//        },
+//        error: function(error) {
+//            console.error("Error finding related comments " + error.code + ": " + error.message);
+//        }
+//    });
+//});
 
 Parse.Cloud.define("ytUrl", function(req, res) {
     var makoUrl = "http://makowaredev.com:3113/ytdl?id="+req.params.id;

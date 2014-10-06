@@ -29,12 +29,14 @@ var PlayListCtrl = BaseController.extend({
 
         if(currentUser){
             playlist.forEach(function(queuedSong){
-                if(($.inArray(currentUser.id, queuedSong.get('ups') > -1))){
+                queuedSong.currentVote = null;
+                if(($.inArray(currentUser.id, queuedSong.get('ups')) > -1)){
                     queuedSong.currentVote = "up";
                 }
                 if(($.inArray(currentUser.id, queuedSong.get('downs')) > -1)){
                     queuedSong.currentVote = "down";
                 }
+                console.log(queuedSong.currentVote);
             });
         }
         this.$scope.$apply();

@@ -65,64 +65,80 @@ var SongsModel = EventDispatcher.extend({
 
     //Remove Current Song
     removeCurrentSong:function(){
-        console.log("REMOVING CURRENT SONG!!!!!");
-        var self = this;
-        this.currentSong.set("active", false);
-        this.currentSong.save({
-            success: function(object){
+        var  currentUser = this.usersModel.currentUser;
 
-            },
-            error: function(object, error){
-                alert("An error occurred: " + error.message);
-            }
-        }).then(function(){
-            self.getPlaylist();
-        });
+        //If the currentUser is the owner, then remove the song, if not, just re-pull playlist
+        if(currentUser && currentUser.id == this.hubsModel.currentHub.id){
+            console.log("REMOVING CURRENT SONG!!!!!");
+            var self = this;
+            this.currentSong.set("active", false);
+            this.currentSong.save({
+                success: function(object){
+
+                },
+                error: function(object, error){
+                    alert("An error occurred: " + error.message);
+                }
+            }).then(function(){
+                self.getPlaylist();
+            });
+        } else {
+            this.getPlaylist();
+        }
     },
 
     //Up Vote
     upVote:function(song){
-        var self = this;
-        if(song.currentVote == "down"){
-            var score = song.get('score');
-            song.set('score', score + 2);
-        } else {
-            song.set('score', score + 1);
-        }
-        song.add("ups", this.usersModel.currentUser.id);
-        song.remove("downs", this.usersModel.currentUser.id);
-        song.save({
-            success: function(object){
-
-            },
-            error: function(object, error){
-                alert("An error occurred: " + error.message);
+        //Gotta be logged in
+        if(this.usersModel.currentUser){
+            var self = this;
+            if(song.currentVote == "down"){
+                var score = song.get('score');
+                song.set('score', score + 2);
+            } else {
+                song.set('score', score + 1);
             }
-        });
+            song.add("ups", this.usersModel.currentUser.id);
+            song.remove("downs", this.usersModel.currentUser.id);
+            song.save({
+                success: function(object){
+
+                },
+                error: function(object, error){
+                    alert("An error occurred: " + error.message);
+                }
+            });
+        } else {
+            alert("You must be Signed In to vote");
+        }
     },
 
     //Down Vote
     downVote:function(song){
-        if(song.currentVote == "up"){
-            var score = song.get('score');
-            song.set('score', score - 2);
-        } else {
-            song.set('score', score - 1);
-        }
-
-        var self = this;
-        song.add("downs", this.usersModel.currentUser.id);
-        song.remove("ups", this.usersModel.currentUser.id);
-        song.save({
-            success: function(object){
-
-            },
-            error: function(object, error){
-                alert("An error occurred: " + error.message);
+        if(this.usersModel.currentUser){
+            if(song.currentVote == "up"){
+                var score = song.get('score');
+                song.set('score', score - 2);
+            } else {
+                song.set('score', score - 1);
             }
-        });
-    }
 
+            var self = this;
+            song.add("downs", this.usersModel.currentUser.id);
+            song.remove("ups", this.usersModel.currentUser.id);
+            song.save({
+                success: function(object){
+
+                },
+                error: function(object, error){
+                    alert("An error occurred: " + error.message);
+                }
+            });
+        }
+        else {
+            alert("You must be Signed In to vote");
+        }
+    }
 });
 
 //Provider, as all components will use the same HubsModel instance, $inject will init once, then pull the same object from Instance Cache for all other $injects

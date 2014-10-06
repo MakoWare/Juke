@@ -28,11 +28,11 @@
               </div>
               <div class="col-xs-2 col-md-2">
                 <div class="btn-group">
-                  <button type="button" ng-click="upVote(song)" ng-model="song.currentVote" class="btn btn-default btn-lg" btn-radio="'up'">
+                  <button type="button" ng-click="upVote(song)" ng-model="song.currentVote" class="btn btn-default btn-lg" btn-radio="'up'" uncheckable>
                     <span class="glyphicon glyphicon-thumbs-up" ></span>
                   </button>
                   <button type="button" ng-click="downVote(song)" ng-model="song.currentVote" class="btn btn-default btn-lg" btn-radio="'down'">
-                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                    <span class="glyphicon glyphicon-thumbs-down" uncheckable></span>
                   </button>
                 </div>
               </div>

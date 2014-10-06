@@ -7,12 +7,13 @@ var PlayListDirective = BaseDirective.extend({
     notifications:null,
     elm:null,
 
-    init:function($scope,$elm, SongsModel, notifications){
+    init:function($scope,$elm, SongsModel, UsersModel, notifications){
         console.log("SongFinderDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
 	this._super($scope);
         this.songsModel = SongsModel;
+        this.usersModel = UsersModel;
 
         //Init Table Height
         this.setTableHeight();
@@ -22,12 +23,20 @@ var PlayListDirective = BaseDirective.extend({
         var self = this;
         $(window).resize(this.setTableHeight);
         this.$scope.upVote = function(song){
-            self.songsModel.upVote(song);
-            song.currentVote = "up";
+            if(self.usersModel.currentUser){
+                self.songsModel.upVote(song);
+                song.currentVote = "up";
+            } else {
+                alert("You must be Signed In to vote");
+            }
         };
         this.$scope.downVote = function(song){
-            self.songsModel.downVote(song);
-            song.currentVote = "down";
+            if(self.usersModel.currentUser){
+                self.songsModel.downVote(song);
+                song.currentVote = "down";
+            } else {
+                alert("You must be Signed In to vote");
+            }
         };
     },
 
@@ -51,7 +60,7 @@ var PlayListDirective = BaseDirective.extend({
 });
 
 angular.module('juke.playList',[])
-    .directive('playList',['SongsModel', 'Notifications',function(SongsModel, Notifications){
+    .directive('playList',['SongsModel', 'UsersModel',  'Notifications',function(SongsModel, UsersModel, Notifications){
         var partial;
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             partial = "partials/playList/playListMobile.html";
@@ -63,7 +72,7 @@ angular.module('juke.playList',[])
 	    restrict:'C',
 	    isolate:true,
 	    link: function($scope,$elm,$attrs){
-		new PlayListDirective($scope,$elm, SongsModel, Notifications);
+		new PlayListDirective($scope,$elm, SongsModel, UsersModel, Notifications);
 	    },
 	    scope:true,
             templateUrl: partial

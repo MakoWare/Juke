@@ -79,6 +79,8 @@ var PlayerCtrl = BaseController.extend({
             console.log("ended");
             this.$scope.playerState = 0;
             //Remove currentSong from playlist, then re-pull playlist
+
+
             this.songsModel.removeCurrentSong();
             break;
         case 1:
@@ -129,7 +131,8 @@ var PlayerCtrl = BaseController.extend({
 
     handleHubLoaded:function(){
         this.songsModel.getPlaylist();
-        if(this.usersModel.currentUser.id == this.hubsModel.currentHub.get('owner').id){
+        var currentUser = this.usersModel.currentUser;
+        if(currentUser && currentUser.id == this.hubsModel.currentHub.get('owner').id){
             this.$scope.playing = true;
         } else {
 

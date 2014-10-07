@@ -18,12 +18,11 @@ var NavigationDirective = BaseDirective.extend({
         $('#loginButton').click(this.login.bind(this));
         $('#logoutButton').click(this.logout.bind(this));
         $('#signUpButton').click(this.signUp.bind(this));
-        $('#searchParam').change(this.searchChanged.bind(this));
+        $('#searchParam').keyup(this.searchChanged.bind(this));
         this.notifications.addEventListener(juke.events.USER_LOGGED_IN, this.handleUserLogin.bind(this));
         this.notifications.addEventListener(juke.events.USER_LOGGED_OUT, this.handleUserLogout.bind(this));
 
         this.$scope.toggleSearch = function(){
-            console.log("tog");
             this.searching = !this.searching;
         };
     },
@@ -41,18 +40,15 @@ var NavigationDirective = BaseDirective.extend({
     },
 
     searchChanged:function(){
-        console.log("search changed");
         this.notifications.notify(juke.events.SEARCH_CHANGED,  this.$scope.searchParam);
     },
 
     handleUserLogin:function(){
-        console.log("oh, I see a user logged in");
         this.$scope.currentUser = this.userModel.currentUser;
         this.$scope.$apply(); //may not need this
     },
 
     handleUserLogout:function(){
-        console.log("oh, I see a user logged out");
         this.$scope.currentUser = this.userModel.currentUser;
         this.$scope.$apply(); //may not need this
     }

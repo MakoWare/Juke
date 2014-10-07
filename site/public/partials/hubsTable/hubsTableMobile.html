@@ -4,13 +4,13 @@
       <tr id="{{hub}}" ng-repeat="hub in hubs | filter:searchParam:strict">
         <td>
         <div class="row">
-          <div class="col-xs-5 col-md-2">
-            <img class="img-responsive" alt="No Album Art" ng-src="{{(hub.get('currentlyPlaying').get('song').get('thumbnail')) || 'images/defaultAlbumArt.jpg'}}"  width="200"/>
+          <div class="col-xs-3">
+            <img alt="No Album Art" ng-src="{{(hub.get('currentlyPlaying').get('song').get('thumbnail')) || 'images/defaultAlbumArt.jpg'}}"  width="100"/>
           </div>
-          <div class="col-xs-7 col-md-10">
-            <h3 style="margin-top: 5px">{{hub.attributes.title}}</h3>
-            <p>{{hub.get('currentlyPlaying').get('song').get('title')}}</p>
-            <p>owner: <a style="color: white">{{hub.get('owner').get('username')}}</a></p>
+          <div class="col-xs-9">
+            <h4 style="margin-top: 2px; margin-bottom: 2px;">{{hub.attributes.title}}</h4>
+            <p style="white-space: nowrap; margin-bottom: 0px;">{{hub.get('currentlyPlaying').get('song').get('title')}}</p>
+            <p><a style="color: #4582EC">{{hub.get('owner').get('username')}}</a></p>
           </div>
         </div>
         </td>

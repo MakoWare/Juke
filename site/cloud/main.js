@@ -105,7 +105,7 @@ var getPlaylist = function(hubId){
 
 
                     var seconds = song.createdAt.getTime() - hubDate;
-                    var position = (sign * order + seconds / 75000);
+                    var position = (sign * order + seconds / 175000);
 
                     song.set('position', position);
                     song.set('score', s);
@@ -405,7 +405,7 @@ Parse.Cloud.define("addYouTubeSong", function(request, response) {
             var song = new Song();
             song.set('title',submittedSong.snippet.title);
             song.set('description',submittedSong.snippet.description);
-            song.set('thumbnail',submittedSong.snippet.thumbnails.default.url);
+            song.set('thumbnail',submittedSong.snippet.thumbnails.high.url);
             song.set('type', "youtube");
             song.set('pId', submittedSong.id.videoId);
             song.set('owner', user);
@@ -416,7 +416,7 @@ Parse.Cloud.define("addYouTubeSong", function(request, response) {
                 queuedSong.set('song', song);
                 queuedSong.set('addedBy', user);
                 queuedSong.set('score', 1);
-                queuedSong.set('ups', [user.id]);
+                queuedSong.set('ups', [user]);
                 queuedSong.set('downs', []);
                 queuedSong.set('active', true);
                 queuedSong.save({

@@ -121,7 +121,9 @@ var PlayerCtrl = BaseController.extend({
                 var currentSong = queuedSong.get('song');
                 if(currentSong.get('type') == "youtube"){
                     if(this.$scope.playerLoaded){
-                        this.$scope.player.loadVideoById(currentSong.get('pId'));
+                        if(this.$scope.player){
+                            this.$scope.player.loadVideoById(currentSong.get('pId'));
+                        }
                     }
                 }
             }

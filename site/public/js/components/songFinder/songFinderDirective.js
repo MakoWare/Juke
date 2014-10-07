@@ -25,6 +25,7 @@ var SongFinderDirective = BaseDirective.extend({
 
     handleSongsFound:function(){
         $('.table > tbody > tr').click(this.songSelected.bind(this));
+        this.setTableHeight();
     },
 
     songSelected:function(){

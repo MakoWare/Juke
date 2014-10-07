@@ -27,7 +27,7 @@ var PlayerDirective = BaseDirective.extend({
             var p = playerEvent.target.getCurrentTime(); //get video position
             var d = playerEvent.target.getDuration(); //get video duration
             var c = p/d*100; //calculate % complete
-            var percentage = Math.round(c); //round to a whole number
+            var percentage = c; // Math.round(c); //round to a whole number
             console.log("p:" + p);
             console.log("d:" + d);
             console.log("c:" + c);
@@ -38,7 +38,7 @@ var PlayerDirective = BaseDirective.extend({
             playerElement.style.background = "-o-linear-gradient(left,"+col1+" "+percentage+"%, "+col2+" "+percentage+"%)";
             playerElement.style.background = "linear-gradient(to right,"+col1+" "+percentage+"%, "+col2+" "+percentage+"%)";
 
-        }, 1000);
+        }, 500);
     },
 
     handlePlayerStateChange:function(event, playerEvent){

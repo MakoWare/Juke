@@ -29,13 +29,19 @@ var PlayListCtrl = BaseController.extend({
 
         if(currentUser){
             playlist.forEach(function(queuedSong){
+                var ups = queuedSong.get('ups');
+                var downs = queuedSong.get('downs');
                 queuedSong.currentVote = null;
-                if(($.inArray(currentUser.id, queuedSong.get('ups')) > -1)){
-                    queuedSong.currentVote = "up";
-                }
-                if(($.inArray(currentUser.id, queuedSong.get('downs')) > -1)){
-                    queuedSong.currentVote = "down";
-                }
+                ups.forEach(function(up){
+                    if(up.id == currentUser.id){
+                        queuedSong.currentVote = "up";
+                    }
+                });
+                downs.forEach(function(down){
+                    if(down.id == currentUser.id){
+                        queuedSong.currentVote = "down";
+                    }
+                });
                 console.log(queuedSong.currentVote);
             });
         }

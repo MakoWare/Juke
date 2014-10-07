@@ -58,6 +58,8 @@ var SongsModel = EventDispatcher.extend({
         var self = this;
         this.ParseService.getPlaylist(this.hubsModel.currentHub.id).then(function(results){
             self.playlist = results;
+            console.log("GOT PLAYLIST");
+            console.log(results);
             self.currentSong = results[0]; //Not Sure if this is a good idea
             self.notifications.notify(juke.events.PLAYLIST_LOADED);
         });
@@ -87,55 +89,21 @@ var SongsModel = EventDispatcher.extend({
         }
     },
 
-    //Up Vote
-    upVote:function(song){
+    //Vote
+    vote:function(song, direction){
         //Gotta be logged in
         if(this.usersModel.currentUser){
             var self = this;
-            if(song.currentVote == "down"){
-                var score = song.get('score');
-                song.set('score', score + 2);
-            } else {
-                song.set('score', score + 1);
-            }
-            song.add("ups", this.usersModel.currentUser.id);
-            song.remove("downs", this.usersModel.currentUser.id);
-            song.save({
+            console.log("Voting direction:" + direction);
+            Parse.Cloud.run('vote', {'direction': direction, 'queuedSongId': song.id }, {
                 success: function(object){
-
+                    song = object;
                 },
-                error: function(object, error){
+                error: function(error){
                     alert("An error occurred: " + error.message);
                 }
             });
         } else {
-            alert("You must be Signed In to vote");
-        }
-    },
-
-    //Down Vote
-    downVote:function(song){
-        if(this.usersModel.currentUser){
-            if(song.currentVote == "up"){
-                var score = song.get('score');
-                song.set('score', score - 2);
-            } else {
-                song.set('score', score - 1);
-            }
-
-            var self = this;
-            song.add("downs", this.usersModel.currentUser.id);
-            song.remove("ups", this.usersModel.currentUser.id);
-            song.save({
-                success: function(object){
-
-                },
-                error: function(object, error){
-                    alert("An error occurred: " + error.message);
-                }
-            });
-        }
-        else {
             alert("You must be Signed In to vote");
         }
     }

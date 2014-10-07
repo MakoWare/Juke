@@ -93,7 +93,7 @@ var getPlaylist = function(hubId){
                     var ups = song.get('ups').length;
                     var downs = song.get('downs').length;
                     var s = ups - downs;
-                    var sign = 0;
+                    var sign;
                     var order = Math.log(Math.max(Math.abs(s) ,1));
                     if(s > 0){
                         sign = 1;
@@ -103,12 +103,20 @@ var getPlaylist = function(hubId){
                         sign = 0;
                     }
 
-                    var seconds = (song.createdAt.getTime() ) - hubDate;
-                    var position = s;
+
+                    var seconds = song.createdAt.getTime()  - hubDate;
+                    var position = (sign * order + seconds / 5000);
+
                     song.set('position', position);
                     song.set('score', s);
                 });
                 results.sort(compare);
+
+                for(var i = 0; i < results.length; i++){
+                    var positon = i + 1;
+                    results[i]..set('position', positon);
+                }
+
                 currentlyPlaying.set('position', 0);
                 results.unshift(currentlyPlaying);
             } else {
@@ -207,7 +215,7 @@ Parse.Cloud.define("removeSong", function(request, response) {
 //    });
 //});
 
-/** The function to vote up
+/** The function to vote
 
 params:
  - direction : (String) the direction in which to vote
@@ -218,7 +226,7 @@ Parse.Cloud.define("vote", function(request, response) {
 //    vote("up",request.params.userId,request.params.queuedSongId);
     var direction = request.params.direction ? request.params.direction : request.params.vote;
     var queuedSongId = request.params.queuedSongId;
-    
+
     var queuedSongQuery = new Parse.Query(QueuedSong);
     queuedSongQuery.get(queuedSongId).then(function(queuedSong){
         if(direction=="up"){

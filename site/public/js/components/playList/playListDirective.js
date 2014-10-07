@@ -24,7 +24,7 @@ var PlayListDirective = BaseDirective.extend({
         $(window).resize(this.setTableHeight);
         this.$scope.upVote = function(song){
             if(self.usersModel.currentUser){
-                self.songsModel.upVote(song);
+                self.songsModel.vote(song, "up");
                 song.currentVote = "up";
             } else {
                 alert("You must be Signed In to vote");
@@ -32,7 +32,7 @@ var PlayListDirective = BaseDirective.extend({
         };
         this.$scope.downVote = function(song){
             if(self.usersModel.currentUser){
-                self.songsModel.downVote(song);
+                self.songsModel.vote(song, "down");
                 song.currentVote = "down";
             } else {
                 alert("You must be Signed In to vote");

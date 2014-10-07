@@ -2,22 +2,18 @@
 namespace('juke.events').PLAYER_PLAYING = "ActivityModel.PLAYER_PLAYING";
 namespace('juke.events').PLAYER_STOPED = "ActivityModel.PLAYER_STOPED";
 namespace('juke.events').PLAYER_STATE_CHANGE = "ActivityModel.PLAYER_STATE_CHANGE";
-namespace('juke.events').PLAYER_NEXTSONG = "ActivityModel.PLAYER_NEXTSONG";
 
 var PlayerCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
     songsModel: null,
     usersModel: null,
-    youtubeService: null,
 
-    init:function($scope, HubsModel, SongsModel, UsersModel, YouTubeService, Notifications){
-        console.log("PlayerCtrl.init()");
+    init:function($scope, HubsModel, SongsModel, UsersModel, Notifications){
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this.songsModel = SongsModel;
         this.usersModel = UsersModel;
-        this.youtubeService = YouTubeService;
         this._super($scope);
     },
 
@@ -40,7 +36,6 @@ var PlayerCtrl = BaseController.extend({
                 width: '140',
                 height: '120',
                 playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
-                //playerVars: { 'controls': 1, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
                 events: {
                     'onReady': onPlayerReady,
                     'onStateChange': onPlayerStateChange
@@ -60,7 +55,6 @@ var PlayerCtrl = BaseController.extend({
         };
     },
 
-
     destroy:function(){
 	this.notifications.removeEventListener(juke.events.PLAYLIST_LOADED, this.handlePlayListLoaded.bind(this));
 	this.notifications.removeEventListener(juke.events.CURRENT_HUB_LOADED, this.handleHubLoaded.bind(this));
@@ -73,21 +67,15 @@ var PlayerCtrl = BaseController.extend({
         case -1:
             console.log("unstarted");
             this.$scope.playerState = -1;
-
             break;
         case 0:
             console.log("ended");
             this.$scope.playerState = 0;
-            //Remove currentSong from playlist, then re-pull playlist
-
-
-            this.songsModel.removeCurrentSong();
+            this.songsModel.nextSong();
             break;
         case 1:
             console.log("playing");
             this.$scope.playerState = 1;
-            //console.log(playerEvent.target.getCurrentTime());
-
             break;
         case 2:
             console.log("paused");
@@ -102,10 +90,8 @@ var PlayerCtrl = BaseController.extend({
         case 5:
             console.log("video cued");
             this.$scope.playerState = 5;
-
             break;
         }
-
     },
 
     handlePlayListLoaded:function(){
@@ -143,4 +129,4 @@ var PlayerCtrl = BaseController.extend({
 
 });
 
-PlayerCtrl.$inject = ['$scope', 'HubsModel', 'SongsModel', 'UsersModel', 'YouTubeService', 'Notifications'];
+PlayerCtrl.$inject = ['$scope', 'HubsModel', 'SongsModel', 'UsersModel', 'Notifications'];

@@ -1,10 +1,8 @@
 var PlayerDirective = BaseDirective.extend({
-
     notifications:null,
     elm:null,
 
     init:function($scope,$elm,notifications){
-        console.log("PlayerDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
 	this._super($scope);
@@ -20,24 +18,17 @@ var PlayerDirective = BaseDirective.extend({
         var playerElement = $('#playerWell')[0];
         var col1= "rgba(255, 255, 255, .5)";
         var col2= "rgba(255, 255, 255, .1)";
-        console.log(playerEvent);
-
 
         this.songProgressTimer = setInterval(function(){
-            var p = playerEvent.target.getCurrentTime(); //get video position
-            var d = playerEvent.target.getDuration(); //get video duration
-            var c = p/d*100; //calculate % complete
+            var p = playerEvent.target.getCurrentTime();
+            var d = playerEvent.target.getDuration();
+            var c = p/d*100;
             var percentage = c; // Math.round(c); //round to a whole number
-            console.log("p:" + p);
-            console.log("d:" + d);
-            console.log("c:" + c);
-            console.log(percentage);
 
             playerElement.style.background = "-webkit-gradient(linear, left top,right top, color-stop("+percentage+"%,"+col1+"), color-stop("+percentage+"%,"+col2+"))";
             playerElement.style.background = "-moz-linear-gradient(left center,"+col1+" "+percentage+"%, "+col2+" "+percentage+"%)";
             playerElement.style.background = "-o-linear-gradient(left,"+col1+" "+percentage+"%, "+col2+" "+percentage+"%)";
             playerElement.style.background = "linear-gradient(to right,"+col1+" "+percentage+"%, "+col2+" "+percentage+"%)";
-
         }, 500);
     },
 
@@ -55,16 +46,11 @@ var PlayerDirective = BaseDirective.extend({
                 clearInterval(this.songProgressTimer);
             }
         }
-
-
     },
-
 
     destroy:function(event){
 
     }
-
-
 
 });
 

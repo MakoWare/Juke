@@ -58,20 +58,16 @@ var SongsModel = EventDispatcher.extend({
         var self = this;
         this.ParseService.getPlaylist(this.hubsModel.currentHub.id).then(function(results){
             self.playlist = results;
-            console.log("GOT PLAYLIST");
-            console.log(results);
             self.currentSong = results[0]; //Not Sure if this is a good idea
             self.notifications.notify(juke.events.PLAYLIST_LOADED);
         });
     },
 
-    //Remove Current Song
-    removeCurrentSong:function(){
+    //Next Song
+    nextSong:function(){
         var  currentUser = this.usersModel.currentUser;
-
         //If the currentUser is the owner, then remove the song, if not, just re-pull playlist
         if(currentUser && currentUser.id == this.hubsModel.currentHub.id){
-            console.log("REMOVING CURRENT SONG!!!!!");
             var self = this;
             this.currentSong.set("active", false);
             this.currentSong.save({

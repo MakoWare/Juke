@@ -104,8 +104,8 @@ var getPlaylist = function(hubId){
                     }
 
 
-                    var seconds = song.createdAt.getTime()  - hubDate;
-                    var position = (sign * order + seconds / 5000);
+                    var seconds = song.createdAt.getTime() - hubDate;
+                    var position = (sign * order + seconds / 75000);
 
                     song.set('position', position);
                     song.set('score', s);
@@ -114,7 +114,7 @@ var getPlaylist = function(hubId){
 
                 for(var i = 0; i < results.length; i++){
                     var positon = i + 1;
-                    results[i]..set('position', positon);
+                    results[i].set('position', positon);
                 }
 
                 currentlyPlaying.set('position', 0);

@@ -1,7 +1,33 @@
-<div class="well" style="background-color: rgba(255,255,255,.20); color: white;" >
+<nav class="navbar navbar-default navbar-fixed-bottom" style="color: gray">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="row">
+
+        <div class="col-xs-4">
+          <div class="embed-responsive embed-responsive-16by9">
+            <div id="player"></div>
+          </div>
+        </div>
+
+        <div class="col-xs-8">
+          <h5>{{currentSong.get('song').get('title')}}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!--
+<div class="well" style="background-color: rgba(255,255,255,.20); color: white; padding: 5px">
   <div class="row">
     <div class="col-xs-5 col-md-2">
+
+
+
+
       <img class="img-responsive" alt="No Album Art" ng-src="{{currentSong.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"  width="200"/>
+
     </div>
     <div class="col-xs-7 col-md-10">
       <h3 style="margin-top: 0px">{{currentSong.get('song').get('title')}}</h3>
@@ -10,3 +36,4 @@
   </div>
 
 </div>
+      -->

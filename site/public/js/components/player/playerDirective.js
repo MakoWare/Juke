@@ -1,16 +1,45 @@
+namespace('juke.events').YOUTUBE_READY = "ActivityModel.YOUTUBE_READY";
+namespace('juke.events').PLAYER_STATE_CHANGE = "ActivityModel.PLAYER_STATE_CHANGE";
+
 var PlayerDirective = BaseDirective.extend({
     notifications:null,
     elm:null,
 
     init:function($scope,$elm,notifications){
+        console.log("PlayerDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
-	this._super($scope);
         this.songProgressTimer = null;
+	this._super($scope);
+        this.$scope.ytPlayerReady = false;
+
     },
 
     defineListeners:function(){
-        this.notifications.addEventListener(juke.events.PLAYER_STATE_CHANGE, this.handlePlayerStateChange.bind(this));
+        var self = this;
+
+
+        window.onPlayerReady = function(playerEvent){
+            self.notifications.notify(juke.events.YOUTUBE_READY, playerEvent);
+        };
+
+        window.onPlayerStateChange = function(event){
+            self.notifications.notify(juke.events.PLAYER_STATE_CHANGE, event);
+        };
+
+        window.onYouTubeIframeAPIReady = function() {
+            console.log("youtubeIframeReady");
+            new YT.Player('player', {
+                width: '140',
+                height: '120',
+                playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                events: {
+                    'onReady': window.onPlayerReady,
+                    'onStateChange': window.onPlayerStateChange
+                }
+            });
+        };
+
     },
 
     //Show Song Progress
@@ -62,7 +91,6 @@ angular.module('juke.player',[])
         } else {
             partial = "partials/player/playerDesktop.html";
         }
-
         return {
 	    restrict:'C',
 	    isolate:true,

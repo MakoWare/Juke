@@ -42,7 +42,6 @@ var PlayListCtrl = BaseController.extend({
                         queuedSong.currentVote = "down";
                     }
                 });
-                console.log(queuedSong.currentVote);
             });
         }
         this.$scope.$apply();

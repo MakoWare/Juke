@@ -1,34 +1,57 @@
-<div class="container">
-  <div class="well" style="background-color:rgba(255,255,255,.20); color:white; padding-top: 0px; padding-bottom: 5px;">
-    <div class="row">
-      <div class="col-xs-6">
-        <h2>{{currentHub.attributes.title}}</h2>
-      </div>
-      <div class="col-xs-6">
-        <div class="btn-group" style="margin-top: 22px">
-          <div class="btn-group">
-            <label class="btn btn-default" ng-model="currentView" btn-radio="'playlist'">PlayList</label>
-            <label class="btn btn-default" ng-model="currentView" btn-radio="'addSongs'">Add Songs</label>
-          </div>
+<div class="container" style="color: white" ng-if="isMobile">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>{{currentHub.attributes.title}}</h2>
+    </div>
+  </div>
+
+  <div ng-controller="PlayerCtrl">
+    <div class="player"></div>
+  </div>
+
+  <div ng-show="currentView == 'playlist'">
+    <div ng-controller="PlayListCtrl">
+      <div class="playList"></div>
+    </div>
+  </div>
+
+  <div ng-show="currentView == 'addSongs'">
+    <div ng-controller="SongFinderCtrl">
+      <div class="songFinder"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container" style="color: white" ng-if="!isMobile">
+  <div class="row">
+    <div class="col-xs-6">
+      <h2>{{currentHub.attributes.title}}</h2>
+    </div>
+    <div class="col-xs-6">
+      <div class="btn-group" style="margin-top: 22px">
+        <div class="btn-group">
+          <label class="btn btn-default" ng-model="currentView" btn-radio="'playlist'">PlayList</label>
+          <label class="btn btn-default" ng-model="currentView" btn-radio="'addSongs'">Add Songs</label>
         </div>
       </div>
     </div>
-
-    <div ng-controller="PlayerCtrl">
-      <div class="player"></div>
-    </div>
-
-    <div ng-show="currentView == 'playlist'">
-      <div ng-controller="PlayListCtrl">
-        <div class="playList"></div>
-      </div>
-    </div>
-
-    <div ng-show="currentView == 'addSongs'">
-      <div ng-controller="SongFinderCtrl">
-        <div class="songFinder"></div>
-      </div>
-    </div>
-
   </div>
+
+  <div ng-controller="PlayerCtrl">
+    <div class="player"></div>
+  </div>
+
+  <div ng-show="currentView == 'playlist'">
+    <div ng-controller="PlayListCtrl">
+      <div class="playList"></div>
+    </div>
+  </div>
+
+  <div ng-show="currentView == 'addSongs'">
+    <div ng-controller="SongFinderCtrl">
+      <div class="songFinder"></div>
+    </div>
+  </div>
+
 </div>

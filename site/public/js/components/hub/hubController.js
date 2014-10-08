@@ -17,6 +17,11 @@ var HubCtrl = BaseController.extend({
     defineScope:function(){
 	this.$scope.instance="HubController";
         this.$scope.currentView = "playlist";
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            this.$scope.isMobile = true;
+        } else {
+            this.$scope.isMobile = false;
+        }
         this.notifications.addEventListener(juke.events.CURRENT_HUB_LOADED, this.currentHubLoaded.bind(this));
     },
 

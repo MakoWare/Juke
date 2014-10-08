@@ -1,7 +1,7 @@
 //Events
 namespace('juke.events').PLAYER_PLAYING = "ActivityModel.PLAYER_PLAYING";
 namespace('juke.events').PLAYER_STOPED = "ActivityModel.PLAYER_STOPED";
-namespace('juke.events').PLAYER_STATE_CHANGE = "ActivityModel.PLAYER_STATE_CHANGE";
+
 
 var PlayerCtrl = BaseController.extend({
     notifications: null,
@@ -21,8 +21,10 @@ var PlayerCtrl = BaseController.extend({
 	this.$scope.instance="PlayerController";
         this.$scope.currentSong = this.songsModel.currentSong;
         this.$scope.playList = this.songsModel.playList;
-        this.$scope.playerLoaded = false;
-        this.$scope.playerState = -1;
+        this.$scope.player = {};
+        this.$scope.player.state = "stopped";
+        this.$scope.player.ytPlayerReady = false;
+        this.$scope.player.ytPlayerState = -1;
     },
 
     defineListeners:function(){
@@ -30,36 +32,15 @@ var PlayerCtrl = BaseController.extend({
         this.notifications.addEventListener(juke.events.PLAYLIST_LOADED, this.handlePlayListLoaded.bind(this));
         this.notifications.addEventListener(juke.events.CURRENT_HUB_LOADED, this.handleHubLoaded.bind(this));
         this.notifications.addEventListener(juke.events.PLAYER_STATE_CHANGE, this.handlePlayerStateChange.bind(this));
-        var self = this;
-        window.onYouTubeIframeAPIReady = function() {
-            self.$scope.player = new YT.Player('player', {
-                width: '140',
-                height: '120',
-                playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        };
+        this.notifications.addEventListener(juke.events.YOUTUBE_READY, this.handleYoutubeReady.bind(this));
 
-        function onPlayerReady(event){
-            self.$scope.playerLoaded = true;
-            if(!self.songsModel.currentSong || self.$scope.playerState == -1){
-                self.songsModel.getPlaylist();
-            }
-        };
-
-        function onPlayerStateChange(event){
-            self.notifications.notify(juke.events.PLAYER_STATE_CHANGE, event);
-        };
     },
 
-    destroy:function(){
-	this.notifications.removeEventListener(juke.events.PLAYLIST_LOADED, this.handlePlayListLoaded.bind(this));
-	this.notifications.removeEventListener(juke.events.CURRENT_HUB_LOADED, this.handleHubLoaded.bind(this));
-        this.notifications.removeEventListener(juke.events.PLAYER_STATE_CHANGE, this.handlePlayerStateChange.bind(this));
-
+    handleYoutubeReady:function(event, playerEvent){
+        this.$scope.player.ytPlayer = playerEvent.target;
+        if(this.$scope.player.state == "stopped"){
+            this.playNextSong();
+        }
     },
 
     handlePlayerStateChange:function(event, playerEvent){
@@ -94,27 +75,29 @@ var PlayerCtrl = BaseController.extend({
         }
     },
 
+    playYoutubeSong:function(){
+        var currentSong = this.songsModel.currentSong.get('song');
+        if(this.$scope.player.ytPlayer){
+            console.log(this.$scope.player.ytPlayer);
+            console.log(currentSong.get('pId'));
+            this.$scope.player.ytPlayer.loadVideoById(currentSong.get('pId'));
+        }
+    },
+
+    playNextSong:function(){
+        var queuedSong = this.songsModel.currentSong;
+        var currentSong = queuedSong.get('song');
+        switch (currentSong.get('type')) {
+            case "youtube":
+            this.playYoutubeSong();
+            break;
+        }
+    },
+
     handlePlayListLoaded:function(){
         this.$scope.playList = this.songsModel.playList;
         this.$scope.currentSong = this.songsModel.currentSong;
         this.$scope.$apply();
-
-        //Don't load song if player is already playing
-        if(!(this.$scope.playerState == 1) && !(this.$scope.playerState == 3)){
-            //loadSong
-            var queuedSong = this.songsModel.currentSong;
-            if(queuedSong){
-                var currentSong = queuedSong.get('song');
-                if(currentSong.get('type') == "youtube"){
-                    if(this.$scope.playerLoaded){
-                        if(this.$scope.player){
-                            this.$scope.player.loadVideoById(currentSong.get('pId'));
-                        }
-                    }
-                }
-            }
-        }
-
     },
 
     handleHubLoaded:function(){
@@ -123,8 +106,15 @@ var PlayerCtrl = BaseController.extend({
         if(currentUser && currentUser.id == this.hubsModel.currentHub.get('owner').id){
             this.$scope.playing = true;
         } else {
-
+            this.$scope.playing = true;
         }
+    },
+
+    destroy:function(){
+	this.notifications.removeEventListener(juke.events.PLAYLIST_LOADED, this.handlePlayListLoaded.bind(this));
+	this.notifications.removeEventListener(juke.events.CURRENT_HUB_LOADED, this.handleHubLoaded.bind(this));
+        this.notifications.removeEventListener(juke.events.PLAYER_STATE_CHANGE, this.handlePlayerStateChange.bind(this));
+
     }
 
 });

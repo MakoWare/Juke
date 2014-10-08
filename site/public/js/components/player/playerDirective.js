@@ -6,7 +6,6 @@ var PlayerDirective = BaseDirective.extend({
     elm:null,
 
     init:function($scope,$elm,notifications){
-        console.log("PlayerDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
         this.songProgressTimer = null;
@@ -17,7 +16,11 @@ var PlayerDirective = BaseDirective.extend({
 
     defineListeners:function(){
         var self = this;
-
+        if (typeof(YT) == 'undefined' || typeof(YT.Player) == 'undefined') {
+            $.getScript('https://www.youtube.com/iframe_api');
+        } else {
+            self.createYoutubePlayer();
+        }
 
         window.onPlayerReady = function(playerEvent){
             self.notifications.notify(juke.events.YOUTUBE_READY, playerEvent);
@@ -29,18 +32,22 @@ var PlayerDirective = BaseDirective.extend({
 
         window.onYouTubeIframeAPIReady = function() {
             console.log("youtubeIframeReady");
-            new YT.Player('player', {
-                width: '140',
-                height: '120',
-                playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
-                events: {
-                    'onReady': window.onPlayerReady,
-                    'onStateChange': window.onPlayerStateChange
-                }
-            });
+            self.createYoutubePlayer();
         };
-
+        this.notifications.addEventListener(juke.events.PLAYER_STATE_CHANGE, this.handlePlayerStateChange.bind(this));
     },
+    createYoutubePlayer:function(){
+        new YT.Player('player', {
+            width: '140',
+            height: '120',
+            playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+            events: {
+                'onReady': window.onPlayerReady,
+                'onStateChange': window.onPlayerStateChange
+            }
+        });
+    },
+
 
     //Show Song Progress
     showSongProgress:function(playerEvent){

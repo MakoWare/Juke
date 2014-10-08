@@ -78,8 +78,6 @@ var PlayerCtrl = BaseController.extend({
     playYoutubeSong:function(){
         var currentSong = this.songsModel.currentSong.get('song');
         if(this.$scope.player.ytPlayer){
-            console.log(this.$scope.player.ytPlayer);
-            console.log(currentSong.get('pId'));
             this.$scope.player.ytPlayer.loadVideoById(currentSong.get('pId'));
         }
     },

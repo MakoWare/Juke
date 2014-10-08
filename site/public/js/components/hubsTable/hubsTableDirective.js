@@ -26,7 +26,7 @@ var HubsTableDirective = BaseDirective.extend({
     setTableHeight: function(){
         if($('#hubsTableContent').is(':visible')){
             var space = window.innerHeight - $('#hubsTableContent').offset().top;
-            var tableHeight = (space * .92);
+            var tableHeight = space;
             $('#hubsTableContent').height(tableHeight);
         }
     },

@@ -9,8 +9,8 @@ window.onload = function(){
 
 
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-        frequency = .08;
-        timeInterval = 1200;
+        frequency = .03;
+        timeInterval = 2000;
         i = 0;
         j = 15;
 
@@ -64,7 +64,7 @@ window.onload = function(){
 
 //        setBackgroundRadialGradient(innerColor, outerColor);
         setBackgroundLinearGradient(innerColor, outerColor, "135deg");
-  }, 400);
+  }, timeInterval);
 
 
 };

@@ -47,8 +47,8 @@ var PlayerDirective = BaseDirective.extend({
             new YT.Player('player', {
                 width: '140',
                 height: '120',
-                //            playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
-                playerVars: { 'controls': 1, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                //playerVars: { 'controls': 1, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
                 events: {
                     'onReady': window.onPlayerReady,
                     'onStateChange': window.onPlayerStateChange

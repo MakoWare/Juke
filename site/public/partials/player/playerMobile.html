@@ -1,17 +1,15 @@
-<nav class="navbar navbar-default navbar-fixed-bottom" style="color: gray">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <div class="row">
+<nav class="navbar navbar-default navbar-fixed-bottom" style="color: gray; border:0px">
+  <div class="navbar-header" style="margin: 0px">
+    <div class="row">
 
-        <div class="col-xs-4">
-          <div class="embed-responsive embed-responsive-16by9">
-            <div id="player"></div>
-          </div>
+      <div class="col-xs-3" style="padding-right: 0px">
+        <div class="embed-responsive embed-responsive-16by9" style="height: 70px; width: 80px">
+          <div id="player" class="embed-responsive-item"></div>
         </div>
+      </div>
 
-        <div class="col-xs-8">
-          <h5>{{currentSong.get('song').get('title')}}</h5>
-        </div>
+      <div class="col-xs-8" id="playerWell">
+        <h5>{{currentSong.get('song').get('title')}}</h5>
       </div>
     </div>
   </div>
@@ -19,9 +17,9 @@
 
 
 <!--
-<div class="well" style="background-color: rgba(255,255,255,.20); color: white; padding: 5px">
-  <div class="row">
-    <div class="col-xs-5 col-md-2">
+    <div class="well" style="background-color: rgba(255,255,255,.20); color: white; padding: 5px">
+      <div class="row">
+        <div class="col-xs-5 col-md-2">
 
 
 

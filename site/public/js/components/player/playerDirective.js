@@ -11,6 +11,12 @@ var PlayerDirective = BaseDirective.extend({
         this.songProgressTimer = null;
 	this._super($scope);
         this.$scope.ytPlayerReady = false;
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            this.mobile = true;
+        } else {
+            this.mobile = false;
+        }
+
 
     },
 
@@ -37,23 +43,42 @@ var PlayerDirective = BaseDirective.extend({
         this.notifications.addEventListener(juke.events.PLAYER_STATE_CHANGE, this.handlePlayerStateChange.bind(this));
     },
     createYoutubePlayer:function(){
-        new YT.Player('player', {
-            width: '140',
-            height: '120',
-            playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
-            events: {
-                'onReady': window.onPlayerReady,
-                'onStateChange': window.onPlayerStateChange
-            }
-        });
+        if(!this.mobile){
+            new YT.Player('player', {
+                width: '140',
+                height: '120',
+                //            playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                playerVars: { 'controls': 1, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                events: {
+                    'onReady': window.onPlayerReady,
+                    'onStateChange': window.onPlayerStateChange
+                }
+            });
+        } else {
+            new YT.Player('player', {
+                width: '83',
+                height: '70',
+                //            playerVars: { 'controls': 0, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                playerVars: { 'controls': 1, 'disablekb': 1, 'iv_load_policy': 3, 'showinfo': 0},
+                events: {
+                    'onReady': window.onPlayerReady,
+                    'onStateChange': window.onPlayerStateChange
+                }
+            });
+        }
     },
 
 
     //Show Song Progress
     showSongProgress:function(playerEvent){
         var playerElement = $('#playerWell')[0];
-        var col1= "rgba(255, 255, 255, .5)";
-        var col2= "rgba(255, 255, 255, .1)";
+        if(!this.mobile){
+            var col1= "rgba(255, 255, 255, .5)";
+            var col2= "rgba(255, 255, 255, .1)";
+        } else {
+            var col1= "rgba(69, 130, 236, .5)";
+            var col2= "rgba(255, 255, 255, 1)";
+        }
 
         this.songProgressTimer = setInterval(function(){
             var p = playerEvent.target.getCurrentTime();

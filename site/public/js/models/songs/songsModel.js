@@ -67,7 +67,7 @@ var SongsModel = EventDispatcher.extend({
     nextSong:function(){
         var  currentUser = this.usersModel.currentUser;
         //If the currentUser is the owner, then remove the song, if not, just re-pull playlist
-        if(currentUser && currentUser.id == this.hubsModel.currentHub.id){
+        if(currentUser && currentUser.id == this.hubsModel.currentHub.get('owner').id){
             var self = this;
             this.currentSong.set("active", false);
             this.currentSong.save({

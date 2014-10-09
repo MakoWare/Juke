@@ -22,8 +22,6 @@ var PlayerCtrl = BaseController.extend({
         this.$scope.currentSong = this.songsModel.currentSong;
         this.$scope.playList = this.songsModel.playList;
         this.$scope.player = {};
-        this.$scope.player.state = "stopped";
-        this.$scope.player.ytPlayerReady = false;
         this.$scope.player.ytPlayerState = -1;
     },
 
@@ -38,7 +36,8 @@ var PlayerCtrl = BaseController.extend({
 
     handleYoutubeReady:function(event, playerEvent){
         this.$scope.player.ytPlayer = playerEvent.target;
-        if(this.$scope.player.state == "stopped"){
+
+        if(this.$scope.player.ytPlayerState == -1){
             this.playNextSong();
         }
     },
@@ -47,30 +46,28 @@ var PlayerCtrl = BaseController.extend({
         switch (playerEvent.data) {
         case -1:
             console.log("unstarted");
-            this.$scope.playerState = -1;
+            this.$scope.player.ytPlayerState = -1;
             break;
         case 0:
             console.log("ended");
-            this.$scope.playerState = 0;
+            this.$scope.player.ytPlayerState = 0;
             this.songsModel.nextSong();
             break;
         case 1:
             console.log("playing");
-            this.$scope.playerState = 1;
+            this.$scope.player.ytPlayerState = 1;
             break;
         case 2:
             console.log("paused");
-            this.$scope.playerState = 2;
-
+            this.$scope.player.ytPlayerState = 2;
             break;
         case 3:
             console.log("buffering");
-            this.$scope.playerState = 3;
-
+            this.$scope.player.ytPlayerState = 3;
             break;
         case 5:
             console.log("video cued");
-            this.$scope.playerState = 5;
+            this.$scope.player.ytPlayerState = 5;
             break;
         }
     },
@@ -84,11 +81,16 @@ var PlayerCtrl = BaseController.extend({
 
     playNextSong:function(){
         var queuedSong = this.songsModel.currentSong;
-        var currentSong = queuedSong.get('song');
-        switch (currentSong.get('type')) {
+        console.log("playingSong");
+        if(queuedSong){
+            var currentSong = queuedSong.get('song');
+            switch (currentSong.get('type')) {
             case "youtube":
-            this.playYoutubeSong();
-            break;
+                if(this.$scope.player.ytPlayer){
+                    this.playYoutubeSong();
+                }
+                break;
+            }
         }
     },
 
@@ -96,6 +98,8 @@ var PlayerCtrl = BaseController.extend({
         this.$scope.playList = this.songsModel.playList;
         this.$scope.currentSong = this.songsModel.currentSong;
         this.$scope.$apply();
+        console.log("playlist handler");
+        this.playNextSong();
     },
 
     handleHubLoaded:function(){

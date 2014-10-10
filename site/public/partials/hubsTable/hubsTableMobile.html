@@ -2,17 +2,15 @@
   <table class="table table-stripped table-hover">
     <tbody>
       <tr id="{{hub}}" ng-repeat="hub in hubs | filter:searchParam:strict">
-        <td>
-        <div class="row">
-          <div class="col-xs-4" style="padding-right: 0px">
-            <img class="img-responsive" alt="No Album Art" ng-src="{{(hub.get('currentlyPlaying').get('song').get('thumbnail')) || 'images/defaultAlbumArt.jpg'}}"  width="100"/>
+        <td style="padding-left: 0px; padding-right: 0px">
+          <div class="col-xs-4" style="padding-right: 0px; padding-left: 0px">
+            <img class="img-responsive" alt="No Album Art" ng-src="{{(hub.get('currentlyPlaying').get('song').get('thumbnail')) || 'images/defaultAlbumArt.jpg'}}"/>
           </div>
           <div class="col-xs-8" style="padding-left: 10px">
-            <p style="margin-top: 0px; margin-bottom: 0px; font-size: 18px">{{hub.attributes.title.substr(0, 20)}}</p>
-            <p style="font-size: 12px; margin-bottom: 0px;">{{hub.get('currentlyPlaying').get('song').get('title').substr(0, 60)}}</p>
+            <p style="margin-top: 0px; margin-bottom: 0px; font-size: 20px">{{hub.attributes.title.substr(0, 20)}}</p>
+            <p style="font-size: 14px; margin-bottom: 0px;">{{hub.get('currentlyPlaying').get('song').get('title').substr(0, 60)}}</p>
             <p style="font-size: 12px; margin-bottom: 0px;"><a style="color: #4582EC">{{hub.get('owner').get('username').substr(0, 25)}}</a></p>
           </div>
-        </div>
         </td>
       </tr>
     </tbody>

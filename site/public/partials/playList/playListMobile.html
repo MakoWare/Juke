@@ -12,20 +12,18 @@
               <p style="font-size: 10px; margin-bottom: 0px;"><a style="color: #4582EC">{{song.get('addedBy').get('username')}}</a></p>
             </div>
 
-
             <div class="col-xs-1">
               <h4 style="margin-top: 11px;">{{song.get('score')}}</h4>
             </div>
 
             <div class="col-xs-2">
-              <button type="button" ng-click="upVote(song)" ng-model="song.currentVote" class="btn btn-default btn-sm" style="padding-right: 8px; padding-left: 8px; padding-top: 2px; padding-bottom: 2px; border-bottom: 0px;">
+              <button type="button" ng-click="upVote(song)" ng-model="song.currentVote" class="btn btn-default btn-sm" style="padding-right: 8px; padding-left: 8px; padding-top: 2px; padding-bottom: 2px; margin-bottom: 3px;">
                 <span class="glyphicon glyphicon-thumbs-up" ></span>
               </button>
-              <button type="button" ng-click="downVote(song)" ng-model="song.currentVote" class="btn btn-default btn-sm" style="padding-right: 8px; padding-left: 8px; padding-top: 2px; padding-bottom: 2px; ">
+              <button type="button" ng-click="downVote(song)" ng-model="song.currentVote" class="btn btn-default btn-sm" style="padding-right: 8px; padding-left: 8px; padding-top: 2px; padding-bottom: 2px; margin-top: 3px;">
                 <span class="glyphicon glyphicon-thumbs-down" uncheckable></span>
               </button>
             </div>
-
 
           </td>
         </tr>

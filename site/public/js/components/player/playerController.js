@@ -37,7 +37,7 @@ var PlayerCtrl = BaseController.extend({
     handleYoutubeReady:function(event, playerEvent){
         this.$scope.player.ytPlayer = playerEvent.target;
 
-        if(this.$scope.player.ytPlayerState == -1){
+        if(this.$scope.player.ytPlayerState == -1 && this.$scope.playing){
             this.playNextSong();
         }
     },
@@ -98,8 +98,9 @@ var PlayerCtrl = BaseController.extend({
         this.$scope.playList = this.songsModel.playList;
         this.$scope.currentSong = this.songsModel.currentSong;
         this.$scope.$apply();
-        console.log("playlist handler");
-        this.playNextSong();
+        if(this.$scope.playing){
+            this.playNextSong();
+        }
     },
 
     handleHubLoaded:function(){
@@ -108,7 +109,7 @@ var PlayerCtrl = BaseController.extend({
         if(currentUser && currentUser.id == this.hubsModel.currentHub.get('owner').id){
             this.$scope.playing = true;
         } else {
-            this.$scope.playing = true;
+            this.$scope.playing = false;
         }
     },
 

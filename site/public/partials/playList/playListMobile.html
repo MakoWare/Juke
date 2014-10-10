@@ -1,36 +1,32 @@
 <div style="color: white; padding-top: 0px;">
-  <div id="playListTable" style="overflow-y: auto; overflow-x: hidden; height: 100px; margin: 5px;">
+  <div id="playListTable" style="overflow-y: auto; overflow-x: hidden; height: 100px; margin: 0px;">
     <table class="table table-stripped table-hover">
       <tbody>
         <tr id="{{song}}" ng-repeat="song in playlist | filter:searchParam" ng-show="song.get('position') != 0">
-          <td>
-            <div class="row">
-              <div class="col-xs-1 col-md-1">
-                <h1 style="margin-top: 11px;">{{$index}}</h1>
-              </div>
-
-
-              <div class="col-xs-5 col-md-2">
-                <img class="img-responsive" alt="No Album Art" ng-src="{{song.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"  width="100"/>
-              </div>
-              <div class="col-xs-3 col-md-6">
-                <h4 style="margin-bottom: 4px; margin-top: 0px;">{{song.get('song').get('title')}}</h4>
-                <p>added By: <a style="color: #4582EC">{{song.get('addedBy').get('username')}}</a></p>
-              </div>
-              <div class="col-xs-2 col-md-2">
-                <div class="btn-group">
-                  <button type="button" ng-click="upVote(song)" ng-model="song.currentVote" class="btn btn-default btn-lg" btn-radio="'up'" uncheckable>
-                    <span class="glyphicon glyphicon-thumbs-up" ></span>
-                  </button>
-                  <button type="button" ng-click="downVote(song)" ng-model="song.currentVote" class="btn btn-default btn-lg" btn-radio="'down'">
-                    <span class="glyphicon glyphicon-thumbs-down" uncheckable></span>
-                  </button>
-                </div>
-              </div>
-              <div class="col-xs-1 col-md-1">
-                <h1 style="margin-top: 11px">{{song.get('score')}}</h1>
-              </div>
+          <td style="padding-right: 0px; padding-left:0px; padding-bottom: 8px;">
+            <div class="col-xs-3" style="padding-right: 0px;">
+              <img class="img-responsive" alt="No Album Art" ng-src="{{song.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"/>
             </div>
+            <div class="col-xs-6" style="padding-right: 0px">
+              <p style="margin-bottom: 0px; margin-top: 0px;">{{song.get('song').get('title').substr(0, 38)}}</p>
+              <p style="font-size: 10px; margin-bottom: 0px;"><a style="color: #4582EC">{{song.get('addedBy').get('username')}}</a></p>
+            </div>
+
+
+            <div class="col-xs-1">
+              <h4 style="margin-top: 11px;">{{song.get('score')}}</h4>
+            </div>
+
+            <div class="col-xs-2">
+              <button type="button" ng-click="upVote(song)" ng-model="song.currentVote" class="btn btn-default btn-sm" style="padding-right: 8px; padding-left: 8px; padding-top: 2px; padding-bottom: 2px; border-bottom: 0px;">
+                <span class="glyphicon glyphicon-thumbs-up" ></span>
+              </button>
+              <button type="button" ng-click="downVote(song)" ng-model="song.currentVote" class="btn btn-default btn-sm" style="padding-right: 8px; padding-left: 8px; padding-top: 2px; padding-bottom: 2px; ">
+                <span class="glyphicon glyphicon-thumbs-down" uncheckable></span>
+              </button>
+            </div>
+
+
           </td>
         </tr>
       </tbody>

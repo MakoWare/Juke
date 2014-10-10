@@ -1,7 +1,10 @@
-<div class="container" style="color: white" ng-if="isMobile">
-  <div class="row">
-    <div class="col-xs-12">
-      <h2>{{currentHub.attributes.title}}</h2>
+<div ng-if="isMobile">
+  <div class="row" style="margin-top:3px">
+    <div class="col-xs-6">
+      <button class="btn btn-default btn-sm">PlayList</button>
+    </div>
+    <div class="col-xs-6">
+      <button class="btn btn-default btn-sm">Add Songs</button>
     </div>
   </div>
 
@@ -20,7 +23,6 @@
       <div class="songFinder"></div>
     </div>
   </div>
-
 </div>
 
 <div class="container" style="color: white" ng-if="!isMobile">

@@ -1,31 +1,16 @@
 <div style="color: white; padding-top: 0px">
-  <div class="row" style="padding-left: 5px; padding-right: 5px">
-    <h3>Add Songs</h3>
-  </div>
 
-  <div class="row" style="padding-left: 5px; padding-right: 5px">
-    <div class="col-xs-8">
-      <input id="songSearchQuery" type="text" class="form-control placeholderChange" placeholder="Search" style="background-color: rgba(255,255,255,.40); color: white" />
-    </div>
-    <div class="col-xs-4">
-      <button id="findSongsButton" class="btn btn-default">Search</button>
-    </div>
-  </div>
-
-
-  <div id="foundSongsTable" style="overflow-y: auto; height: 100px; margin: 5px;">
+  <div id="foundSongsTable" style="overflow-y: auto; overflow-x: hidden; height: 100px; margin: 5px;">
     <table class="table table-stripped table-hover">
       <tbody>
         <tr id="{{song}}" ng-repeat="song in foundSongs">
           <td>
-            <div class="row">
-              <div class="col-xs-5 col-md-2">
-                <img class="img-responsive" alt="No Album Art" ng-src="{{song.snippet.thumbnails.default.url || 'images/defaultAlbumArt.jpg'}}"  width="200"/>
-              </div>
-              <div class="col-xs-7 col-md-10">
-                <h3 style="margin-top: 0px">{{song.snippet.title}}</h3>
-                <p>{{song.snippet.description}}</p>
-              </div>
+            <div class="col-xs-5 col-md-2">
+              <img class="img-responsive" alt="No Album Art" ng-src="{{song.snippet.thumbnails.default.url || 'images/defaultAlbumArt.jpg'}}"  width="200"/>
+            </div>
+            <div class="col-xs-7 col-md-10">
+              <h3 style="margin-top: 0px">{{song.snippet.title}}</h3>
+              <p>{{song.snippet.description}}</p>
             </div>
           </td>
         </tr>

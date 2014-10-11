@@ -40,7 +40,8 @@ var NavigationDirective = BaseDirective.extend({
     },
 
     searchChanged:function(){
-        this.notifications.notify(juke.events.SEARCH_CHANGED,  this.$scope.searchParam);
+        var query = $('#searchParam').val();
+        this.notifications.notify(juke.events.SEARCH_CHANGED,  query);
     },
 
     handleUserLogin:function(){

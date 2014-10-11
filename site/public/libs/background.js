@@ -12,7 +12,7 @@ window.onload = function(){
         frequency = .03;
         timeInterval = 2000;
         i = 0;
-        j = 15;
+        j = 35;
 
     } else {
         frequency = .05;

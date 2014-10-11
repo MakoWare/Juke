@@ -20,6 +20,7 @@ var PlayListCtrl = BaseController.extend({
     defineListeners:function(){
 	this._super();
 	this.notifications.addEventListener(juke.events.PLAYLIST_LOADED, this.handlePlayListLoaded.bind(this));
+	this.notifications.addEventListener(juke.events.SEARCH_CHANGED, this.handleSearchChanged.bind(this));
     },
 
     handlePlayListLoaded:function(event){
@@ -48,6 +49,12 @@ var PlayListCtrl = BaseController.extend({
         this.$scope.$apply();
     },
 
+    handleSearchChanged:function(event, query){
+        if($('#playListTable').is(':visible')){
+            this.$scope.searchParam = query;
+            this.$scope.$apply();
+        }
+    },
 
     destroy:function(){
 

@@ -8,7 +8,7 @@ var PlayListDirective = BaseDirective.extend({
     elm:null,
 
     init:function($scope,$elm, SongsModel, UsersModel, notifications){
-        console.log("SongFinderDirective.init()");
+        console.log("PlayListDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
 	this._super($scope);
@@ -55,15 +55,9 @@ var PlayListDirective = BaseDirective.extend({
     setTableHeight: function(){
         if($('#playListTable').is(':visible')){
             var space = window.innerHeight - $('#playListTable').offset().top;
-            var tableHeight = (space * .7);
+            var tableHeight = (space * .9);
             $('#playListTable').height(tableHeight);
         }
-    },
-
-    findSongs:function(){
-        var query = $('#songSearchQuery').val();
-        //For now Just pass query, easy to extend params for Service type, i.e, spotify
-        this.notifications.notify(juke.events.SONGS_SEARCH, query);
     },
 
     destroy:function(event){

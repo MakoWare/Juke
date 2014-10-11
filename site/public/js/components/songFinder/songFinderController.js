@@ -22,11 +22,14 @@ var SongFinderCtrl = BaseController.extend({
 	this.notifications.addEventListener(juke.events.SONGS_SEARCH, this.handleSongsSearch.bind(this));
 	this.notifications.addEventListener(juke.events.SONGS_FOUND, this.handleSongsFound.bind(this));
 	this.notifications.addEventListener(juke.events.SONGS_ADD, this.handleSongAdd.bind(this));
+        this.notifications.addEventListener(juke.events.SEARCH_CHANGED, this.handleSongsSearch.bind(this));
     },
 
     handleSongsSearch:function(event, query){
         //Just search YouTube for now, this is easily extendable
-        this.songsModel.findYoutubeSongs(query);
+        if($('#foundSongsTable').is(':visible')){
+            this.songsModel.findYoutubeSongs(query);
+        }
     },
 
     handleSongsFound:function(){

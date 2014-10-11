@@ -24,6 +24,12 @@ var PlayListDirective = BaseDirective.extend({
         $(window).resize(this.setTableHeight);
         this.$scope.upVote = function(song){
             if(self.usersModel.currentUser){
+
+                if(song.currentVote == "down"){
+                    song.set('score', (song.get('score') + 2));
+                } else {
+                    song.set('score', (song.get('score') + 1));
+                }
                 self.songsModel.vote(song, "up");
                 song.currentVote = "up";
             } else {
@@ -32,6 +38,12 @@ var PlayListDirective = BaseDirective.extend({
         };
         this.$scope.downVote = function(song){
             if(self.usersModel.currentUser){
+
+                if(song.currentVote == "up"){
+                    song.set('score', (song.get('score') - 2));
+                } else {
+                    song.set('score', (song.get('score') + 1));
+                }
                 self.songsModel.vote(song, "down");
                 song.currentVote = "down";
             } else {

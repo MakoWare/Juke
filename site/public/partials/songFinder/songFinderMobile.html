@@ -1,6 +1,6 @@
 <div style="color: white; padding-top: 0px">
   <div id="foundSongsTable" style="overflow-y: auto; overflow-x: hidden; height: 100px; margin: 0px;">
-    <table class="table table-stripped table-hover">
+    <table class="table table-stripped table-hover" style="overflow-x: hidden">
       <tbody>
         <tr id="{{song}}" ng-repeat="song in foundSongs">
           <td style="padding-right: 0px; padding-left:0px; padding-bottom: 8px;">
@@ -9,8 +9,8 @@
             </div>
 
             <div class="col-xs-9">
-              <h3 style="margin-top: 0px">{{song.snippet.title}}</h3>
-              <p>{{song.snippet.description}}</p>
+              <p style="margin-bottom: 0px; margin-top: 0px;">{{song.snippet.title.substr(0, 28)}}</p>
+              <p style="font-size: 12px; margin-bottom: 0px;">{{song.snippet.description.substr(0, 60)}}</p>
             </div>
           </td>
         </tr>

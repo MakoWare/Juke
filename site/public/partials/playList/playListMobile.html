@@ -8,8 +8,8 @@
               <img class="img-responsive" alt="No Album Art" ng-src="{{song.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"/>
             </div>
             <div class="col-xs-6" style="padding-right: 0px">
-              <p style="margin-bottom: 0px; margin-top: 0px;">{{song.get('song').get('title').substr(0, 38)}}</p>
-              <p style="font-size: 10px; margin-bottom: 0px;"><a style="color: #4582EC">{{song.get('addedBy').get('username')}}</a></p>
+              <p style="margin-bottom: 0px; margin-top: 0px;">{{song.get('song').get('title').substr(0, 35)}}</p>
+              <p style="font-size: 10px; margin-bottom: 0px;"><a style="color: #4582EC">{{song.get('addedBy').get('username').substr(0, 25)}}</a></p>
             </div>
 
             <div class="col-xs-1">

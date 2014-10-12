@@ -15,8 +15,6 @@ var PlayListDirective = BaseDirective.extend({
         this.songsModel = SongsModel;
         this.usersModel = UsersModel;
 
-        //Init Table Height
-        this.setTableHeight();
     },
 
     defineListeners:function(){
@@ -50,12 +48,18 @@ var PlayListDirective = BaseDirective.extend({
                 alert("You must be Signed In to vote");
             }
         };
+
+	this.notifications.addEventListener(juke.events.PLAYLIST_LOADED, this.handlePlayListLoaded.bind(this));
+    },
+
+    handlePlayListLoaded: function(){
+        this.setTableHeight();
     },
 
     setTableHeight: function(){
         if($('#playListTable').is(':visible')){
             var space = window.innerHeight - $('#playListTable').offset().top;
-            var tableHeight = (space * .9);
+            var tableHeight = space;
             $('#playListTable').height(tableHeight);
         }
     },

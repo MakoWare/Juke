@@ -25,6 +25,14 @@ var NavigationDirective = BaseDirective.extend({
         this.$scope.toggleSearch = function(){
             this.searching = !this.searching;
         };
+
+        var self = this;
+        console.log(        $("#searchParam"));
+        $("#searchParam").focusout(function() {
+            console.log("lost focus");
+            self.$scope.searching = false;
+        });
+
     },
 
     login:function(){
@@ -58,7 +66,6 @@ var NavigationDirective = BaseDirective.extend({
 
 angular.module('navigation',[])
     .directive('navigation',['$location', 'Notifications', 'UsersModel', function($location, Notifications, UsersModel){
-
         var partial;
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             partial = "partials/nav/navMobile.html";

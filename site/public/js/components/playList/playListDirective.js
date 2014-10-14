@@ -14,7 +14,6 @@ var PlayListDirective = BaseDirective.extend({
 	this._super($scope);
         this.songsModel = SongsModel;
         this.usersModel = UsersModel;
-
     },
 
     defineListeners:function(){
@@ -22,14 +21,15 @@ var PlayListDirective = BaseDirective.extend({
         $(window).resize(this.setTableHeight);
         this.$scope.upVote = function(song){
             if(self.usersModel.currentUser){
-
                 if(song.currentVote == "down"){
                     song.set('score', (song.get('score') + 2));
-                } else {
+                    self.songsModel.vote(song, "up");
+                    song.currentVote = "up";
+                } else if(song.currentVote != "up")  {
                     song.set('score', (song.get('score') + 1));
+                    self.songsModel.vote(song, "up");
+                    song.currentVote = "up";
                 }
-                self.songsModel.vote(song, "up");
-                song.currentVote = "up";
             } else {
                 alert("You must be Signed In to vote");
             }
@@ -39,11 +39,13 @@ var PlayListDirective = BaseDirective.extend({
 
                 if(song.currentVote == "up"){
                     song.set('score', (song.get('score') - 2));
-                } else {
+                    self.songsModel.vote(song, "down");
+                    song.currentVote = "down";
+                } else if(song.currentVote != "down") {
                     song.set('score', (song.get('score') + 1));
+                    self.songsModel.vote(song, "down");
+                    song.currentVote = "down";
                 }
-                self.songsModel.vote(song, "down");
-                song.currentVote = "down";
             } else {
                 alert("You must be Signed In to vote");
             }

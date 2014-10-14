@@ -15,6 +15,7 @@ var NavigationDirective = BaseDirective.extend({
     },
 
     defineListeners:function(){
+        var self = this;
         $('#loginButton').click(this.login.bind(this));
         $('#logoutButton').click(this.logout.bind(this));
         $('#signUpButton').click(this.signUp.bind(this));
@@ -23,14 +24,16 @@ var NavigationDirective = BaseDirective.extend({
         this.notifications.addEventListener(juke.events.USER_LOGGED_OUT, this.handleUserLogout.bind(this));
 
         this.$scope.toggleSearch = function(){
-            this.searching = !this.searching;
+            self.$scope.searching = !self.$scope.searching;
+            if(self.$scope.searching){
+                setTimeout(function() {$("#searchParam").focus(); }, 0);
+            }
         };
 
-        var self = this;
-        console.log(        $("#searchParam"));
         $("#searchParam").focusout(function() {
-            console.log("lost focus");
             self.$scope.searching = false;
+            self.$scope.$apply();
+
         });
 
     },

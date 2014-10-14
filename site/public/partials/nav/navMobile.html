@@ -1,21 +1,24 @@
 <div class="navbar navbar-default navbar-fixed-top" style="position: fixed; margin-bottom: 0px; border-bottom: 0px;">
-  <div class="container">
+  <div class="container-fluid">
     <div class="navbar-header">
-      <button style="margin-top: 14px; margin-bottom: 3px"type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+      <a class="navbar-brand" href="http://juke.parseapp.com">Juke</a>
+
+      <button style="margin-top: 10px; margin-bottom: 6px" type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
 	<span class="icon-bar"></span>
 	<span class="icon-bar"></span>
 	<span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="http://juke.parseapp.com">Juke</a>
 
-      <div class="navbar-right pull-right">
-        <button  ng-show="!searching" style="margin-bottom: 0px; padding-bottom: 0px;" type="button" class="btn btn-default navbar-btn btn-lg" ng-click="toggleSearch()">
+
+
+      <div class="nav-form" style="">
+        <input ng-show="searching" type="text" placeholder="Search" class="form-control" ng-model="searchParam" id="searchParam">
+      </div>
+
+      <div class="pull-right">
+        <button  ng-show="!searching" style="margin-bottom: 0px; padding-bottom: 5px; padding-top: 11px;" type="button" class="btn btn-default navbar-btn btn-lg" ng-click="toggleSearch()">
           <span style="color: #575757" class="glyphicon glyphicon-search"></span>
         </button>
-
-        <div class="nav-form" style="margin-top: 10px; margin-right: 5px; margin-bottom: 8px;">
-          <input ng-show="searching" type="text" placeholder="Search" class="form-control" ng-model="searchParam" id="searchParam">
-        </div>
       </div>
     </div>
 

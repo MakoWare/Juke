@@ -38,7 +38,7 @@ angular.module('parseService', [])
 		    success: function(user) {
                         return user;
 		    },
-		    error: function(error) {
+		    error: function(object, error) {
                         alert("Error: " + error.message);
 		    }
 		});

@@ -1,4 +1,6 @@
 //Events
+namespace('juke.events').ADDING_SONGS_SHOWN = "ActivityModel.ADDING_SONGS_SHOWN";
+
 var HubCtrl = BaseController.extend({
     notifications: null,
     hubsModel: null,
@@ -15,6 +17,7 @@ var HubCtrl = BaseController.extend({
     },
 
     defineScope:function(){
+        var self = this;
 	this.$scope.instance="HubController";
         this.$scope.currentView = "playlist";
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -23,10 +26,13 @@ var HubCtrl = BaseController.extend({
             this.$scope.isMobile = false;
         }
         this.notifications.addEventListener(juke.events.CURRENT_HUB_LOADED, this.currentHubLoaded.bind(this));
+
+        this.$scope.addingSongsButtonClick = function(){
+            self.notifications.notify(juke.events.ADDING_SONGS_SHOWN);
+        };
     },
 
     defineListeners:function(){
-	this._super();
     },
 
     destroy:function(){

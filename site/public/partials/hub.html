@@ -2,10 +2,10 @@
 
   <div class="btn-group btn-group-xs btn-group-justified">
     <div class="btn-group">
-      <button style="border-radius: 0px" type="button" class="btn btn-default btn-sm" ng-model="currentView" btn-radio="'playlist'">PlayList</button>
+      <button style="border-radius: 0px" type="button" class="btn btn-default btn-sm" ng-model="currentView" btn-radio="'playlist'" id="playlistMobileButton">PlayList</button>
     </div>
     <div class="btn-group">
-      <button style="border-radius: 0px" type="button" class="btn btn-default btn-sm" ng-model="currentView" btn-radio="'addSongs'">Add Songs</button>
+      <button style="border-radius: 0px" type="button" class="btn btn-default btn-sm" ng-model="currentView" btn-radio="'addSongs'" id="addSongsMobileButton" ng-click="addingSongsButtonClick()">Add Songs</button>
     </div>
   </div>
 

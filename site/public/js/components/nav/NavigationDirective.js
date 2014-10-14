@@ -23,6 +23,8 @@ var NavigationDirective = BaseDirective.extend({
         this.notifications.addEventListener(juke.events.USER_LOGGED_IN, this.handleUserLogin.bind(this));
         this.notifications.addEventListener(juke.events.USER_LOGGED_OUT, this.handleUserLogout.bind(this));
 
+        this.notifications.addEventListener(juke.events.ADDING_SONGS_SHOWN, this.handleAddingSongsShown.bind(this));
+
         this.$scope.toggleSearch = function(){
             self.$scope.searching = !self.$scope.searching;
             if(self.$scope.searching){
@@ -36,6 +38,12 @@ var NavigationDirective = BaseDirective.extend({
 
         });
 
+    },
+
+    handleAddingSongsShown:function(){
+        console.log("hadleing add songs shown");
+        this.$scope.searching = true;
+        setTimeout(function() {$("#searchParam").focus(); }, 0);
     },
 
     login:function(){

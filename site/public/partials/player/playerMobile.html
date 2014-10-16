@@ -1,31 +1,26 @@
 <div ng-show="false">
-<nav class="navbar navbar-default navbar-fixed-bottom" style="color: gray; border:0px">
-  <div class="navbar-header" style="margin: 0px">
-    <div class="row">
+  <nav class="navbar navbar-default navbar-fixed-bottom" style="color: gray; border:0px">
+    <div class="navbar-header" style="margin: 0px">
+      <div class="row">
 
-      <div class="col-xs-3" style="padding-right: 0px">
-        <div class="embed-responsive embed-responsive-16by9">
-          <div id="player" class="embed-responsive-item"></div>
+        <div class="col-xs-3" style="padding-right: 0px">
+          <div class="embed-responsive embed-responsive-16by9">
+            <div id="player" class="embed-responsive-item"></div>
+          </div>
+        </div>
+
+        <div class="col-xs-8" id="playerWell">
+          <h5>{{currentSong.get('song').get('title')}}</h5>
         </div>
       </div>
-
-      <div class="col-xs-8" id="playerWell">
-        <h5>{{currentSong.get('song').get('title')}}</h5>
-      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 </div>
 
 
-<!--
-    <div class="well" style="background-color: rgba(255,255,255,.20); color: white; padding: 5px">
-      <div class="row">
-        <div class="col-xs-5 col-md-2">
-
-
-
-
+<div class="navbar navbar-default navbar-fixed-bottom" style="color: gray; border:0px">
+  <div class="row">
+    <div class="col-xs-5 col-md-2">
       <img class="img-responsive" alt="No Album Art" ng-src="{{currentSong.get('song').get('thumbnail') || 'images/defaultAlbumArt.jpg'}}"  width="200"/>
 
     </div>
@@ -34,6 +29,4 @@
       <p>{{currentSong.get('song').get('description')}}</p>
     </div>
   </div>
-
 </div>
-      -->

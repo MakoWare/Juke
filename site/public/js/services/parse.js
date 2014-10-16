@@ -9,7 +9,7 @@ angular.module('parseService', [])
 	var Hub = Parse.Object.extend("Hub");
 	var QueuedSong = Parse.Object.extend("QueuedSong");
 	var Song = Parse.Object.extend("Song");
-
+	var User = Parse.Object.extend("User");
 
         var ParseService = {
 	    name: "Parse",
@@ -80,10 +80,23 @@ angular.module('parseService', [])
                 return Parse.User.current();
             },
 
+            //Get User by Username
+            getUserByUsername: function(username){
+                var query = new Parse.Query(User);
+                query.equalTo("username", username);
+                return query.first({
+                    success: function(result){
+                        return result;
+                    },
+                    error: function(error){
+                        alert("Error: " + error.message);
+                    }
+                });
+            },
 
 	    //Hubs
 	    //Get a Hub by its objectId
-	    getHubById : function getHubById(hubId){
+	    getHubById: function getHubById(hubId){
 		var query = new Parse.Query(Hub);
 		return query.get(hubId, {
 		    success: function(result){

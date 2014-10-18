@@ -83,6 +83,7 @@ angular.module('parseService', [])
             //Get User by Username
             getUserByUsername: function(username){
                 var query = new Parse.Query(User);
+                query.include('bio');
                 query.equalTo("username", username);
                 return query.first({
                     success: function(result){

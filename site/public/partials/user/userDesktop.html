@@ -1,0 +1,22 @@
+<div class="container" style="padding-top: 20px; color: white">
+  <div class="row">
+    <div class="col-md-2">
+      <img class="img-responsive" alt="No Album Art" ng-src="{{(hub.get('currentlyPlaying').get('song').get('thumbnail')) || 'images/defaultAlbumArt.jpg'}}"/>
+    </div>
+    <div class="col-md-10">
+      <h1>{{viewingUser.get('username')}}</h1>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Bio</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" style="padding: 15px">
+      <p>{{viewingUser.get('bio')}}</p>
+    </div>
+  </div>
+
+</div>

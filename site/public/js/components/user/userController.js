@@ -24,8 +24,14 @@ var UserCtrl = BaseController.extend({
     },
 
     defineListeners:function(){
+        this.notifications.addEventListener(juke.events.FOUND_USER_BY_USERNAME, this.handleFoundViewingUser);
 
+    },
 
+    handleFoundViewingUser:function(){
+        this.$scope.viewingUser = this.userModel.viewingUser;
+        this.$scope.$apply();
+        console.log(        this.$scope.viewingUser);
     },
 
     destroy:function(){

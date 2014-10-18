@@ -8,6 +8,7 @@ angular.module('juke', [
     'juke.HubsModel',
     'juke.UsersModel',
     'juke.SongsModel',
+    'juke.user',
     'juke.hubs',
     'juke.hubsTable',
     'juke.player',

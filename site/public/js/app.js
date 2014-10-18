@@ -25,8 +25,8 @@ angular.module('juke', [
             when('/hubs/:id', {
 		templateUrl: 'partials/hub.html',
 		controller: HubCtrl}).
-            when('/users/:username', {
-		templateUrl: 'partials/user/user.html',
-		controller: UserCtrl}).
+//            when('/users/:username', {
+//		templateUrl: 'partials/user/user.html',
+//		controller: UserCtrl}).
 	    otherwise({redirectTo: '/hubs'});
     });

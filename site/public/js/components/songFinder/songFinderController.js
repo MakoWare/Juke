@@ -5,7 +5,6 @@ var SongFinderCtrl = BaseController.extend({
     hubsModel: null,
 
     init:function($scope, SongsModel, Notifications){
-        console.log("SongFinderCtrl.init()");
         this.notifications = Notifications;
         this.songsModel = SongsModel;
         this._super($scope);
@@ -38,8 +37,6 @@ var SongFinderCtrl = BaseController.extend({
     },
 
     handleSongAdd:function(event, song){
-        console.log("adding song " + song);
-
         //Just add YouTubeSong for now
         this.songsModel.addYouTubeSong(song);
     },

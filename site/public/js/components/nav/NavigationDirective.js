@@ -41,7 +41,6 @@ var NavigationDirective = BaseDirective.extend({
     },
 
     handleAddingSongsShown:function(){
-        console.log("hadleing add songs shown");
         this.$scope.searching = true;
         setTimeout(function() {$("#searchParam").focus(); }, 0);
     },

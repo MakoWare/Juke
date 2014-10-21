@@ -45,28 +45,22 @@ var PlayerCtrl = BaseController.extend({
     handlePlayerStateChange:function(event, playerEvent){
         switch (playerEvent.data) {
         case -1:
-            console.log("unstarted");
             this.$scope.player.ytPlayerState = -1;
             break;
         case 0:
-            console.log("ended");
             this.$scope.player.ytPlayerState = 0;
             this.songsModel.nextSong();
             break;
         case 1:
-            console.log("playing");
             this.$scope.player.ytPlayerState = 1;
             break;
         case 2:
-            console.log("paused");
             this.$scope.player.ytPlayerState = 2;
             break;
         case 3:
-            console.log("buffering");
             this.$scope.player.ytPlayerState = 3;
             break;
         case 5:
-            console.log("video cued");
             this.$scope.player.ytPlayerState = 5;
             break;
         }
@@ -81,7 +75,6 @@ var PlayerCtrl = BaseController.extend({
 
     playNextSong:function(){
         var queuedSong = this.songsModel.currentSong;
-        console.log("playingSong");
         if(queuedSong){
             var currentSong = queuedSong.get('song');
             switch (currentSong.get('type')) {

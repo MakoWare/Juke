@@ -37,7 +37,6 @@ var PlayerDirective = BaseDirective.extend({
         };
 
         window.onYouTubeIframeAPIReady = function() {
-            console.log("youtubeIframeReady");
             self.createYoutubePlayer();
         };
         this.notifications.addEventListener(juke.events.PLAYER_STATE_CHANGE, this.handlePlayerStateChange.bind(this));

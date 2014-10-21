@@ -6,7 +6,6 @@ var HubCtrl = BaseController.extend({
     hubsModel: null,
 
     init:function($scope, $location, $modal, HubsModel, Notifications){
-        console.log("HubCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this.location = $location;

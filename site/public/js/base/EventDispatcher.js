@@ -44,11 +44,10 @@ var EventDispatcher = Class.extend({
     * @param Mutiple params available, first must be string
     */
     dispatchEvent:function(){
-        console.log("dispatching event: " + arguments[0]);
         var listeners;
 
         if(typeof arguments[0] !== 'string'){
-            console.warn('EventDispatcher','First params must be an event type (String)');
+
         }else{
             listeners = this._listeners[arguments[0]];
 

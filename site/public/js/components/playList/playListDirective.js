@@ -8,7 +8,6 @@ var PlayListDirective = BaseDirective.extend({
     elm:null,
 
     init:function($scope,$elm, SongsModel, UsersModel, notifications){
-        console.log("PlayListDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
 	this._super($scope);

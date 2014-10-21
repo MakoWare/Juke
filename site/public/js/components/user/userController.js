@@ -13,7 +13,6 @@ var UserCtrl = BaseController.extend({
 
     defineScope:function(){
         var username = this.location.url().split("/")[this.location.url().split("/").length - 1];
-
         if(this.userModel.currentUser && this.userModel.currentUser.get('username') == username){
             this.userModel.viewingUser = this.userModel.currentUser;
             this.$scope.viewingUser = this.userModel.currentUser;
@@ -24,14 +23,12 @@ var UserCtrl = BaseController.extend({
     },
 
     defineListeners:function(){
-        this.notifications.addEventListener(juke.events.FOUND_USER_BY_USERNAME, this.handleFoundViewingUser);
-
+        this.notifications.addEventListener(juke.events.FOUND_USER_BY_USERNAME, this.handleFoundViewingUser.bind(this));
     },
 
     handleFoundViewingUser:function(){
         this.$scope.viewingUser = this.userModel.viewingUser;
         this.$scope.$apply();
-        console.log(        this.$scope.viewingUser);
     },
 
     destroy:function(){

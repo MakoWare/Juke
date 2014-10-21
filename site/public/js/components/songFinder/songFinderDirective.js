@@ -8,7 +8,6 @@ var SongFinderDirective = BaseDirective.extend({
     elm:null,
 
     init:function($scope,$elm,notifications){
-        console.log("SongFinderDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
 	this._super($scope);

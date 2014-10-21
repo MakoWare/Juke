@@ -90,7 +90,6 @@ var SongsModel = EventDispatcher.extend({
         //Gotta be logged in
         if(this.usersModel.currentUser){
             var self = this;
-            console.log("Voting direction:" + direction);
             Parse.Cloud.run('vote', {'direction': direction, 'queuedSongId': song.id }, {
                 success: function(object){
                     song = object;

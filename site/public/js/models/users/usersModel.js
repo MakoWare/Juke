@@ -41,7 +41,6 @@ var UsersModel = EventDispatcher.extend({
     getUserByUsername:function(username){
         var self = this;
 	this.ParseService.getUserByUsername(username).then(function(result){
-            console.log(result);
             if(result){
                 self.viewingUser = result;
                 self.notifications.notify(juke.events.FOUND_USER_BY_USERNAME);

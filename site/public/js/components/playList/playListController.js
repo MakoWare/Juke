@@ -5,7 +5,6 @@ var PlayListCtrl = BaseController.extend({
     songsModel: null,
 
     init:function($scope, SongsModel, UsersModel, Notifications){
-        console.log("PlayListCtrl.init()");
         this.notifications = Notifications;
         this.songsModel = SongsModel;
         this.usersModel = UsersModel;

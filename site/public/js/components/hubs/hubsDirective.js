@@ -7,7 +7,6 @@ var HubsDirective = BaseDirective.extend({
     elm:null,
 
     init:function($scope,$elm, notifications){
-        console.log("HubseDirective.init()");
 	this.notifications = notifications;
 	this.elm = $elm;
         this._super($scope);
@@ -22,7 +21,6 @@ var HubsDirective = BaseDirective.extend({
     },
 
     createNewHubModal:function(){
-        console.log("createNewHubModal");
         this.notifications.notify(juke.events.CREATE_HUB_INTENT);
     },
 

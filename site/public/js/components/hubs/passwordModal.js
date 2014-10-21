@@ -3,7 +3,6 @@ var PasswordModalCtrl = function($scope, $modalInstance, passcode) {
     $scope.actualPasscode = passcode;
 
     $scope.attempEntry = function(){
-        console.log($scope.actualPasscode);
         var attemptPasscode = $('#passcodeInput').val();
 
         if(attemptPasscode == $scope.actualPasscode){

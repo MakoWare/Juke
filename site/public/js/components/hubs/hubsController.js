@@ -4,7 +4,6 @@ var HubsCtrl = BaseController.extend({
     userModel: null,
 
     init:function($scope, $location, $modal, HubsModel, UsersModel, Notifications){
-        console.log("HubsCtrl.init()");
         this.notifications = Notifications;
         this.hubsModel = HubsModel;
         this.userModel = UsersModel;
@@ -36,8 +35,6 @@ var HubsCtrl = BaseController.extend({
 
     //Handle User Creating new Hub
     createNewHubModal:function(){
-        console.log("createNewHubModal");
-
         if(this.userModel.currentUser == null){
             alert("Sorry, but you  must be signed in to create a Hub");
         } else {

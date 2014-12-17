@@ -544,23 +544,23 @@ var addSongFromDevice = function(req, res){
                             res.success();
                         }, function(err){
                             // something failed
-                            res.error({err:"E001",data:err});
+                            res.error(JSON.stringify({err:"E001",data:err}));
                         });
 
                     } else {
-                        res.error({err:"E002"}); // error because the song is already in the hub
+                        res.error(JSON.stringify({err:"E002"})); // error because the song is already in the hub
                     }
                 },
                 function(error) {
                     // The request failed
-                    res.error({err:"E003",data:error}); // parse error, check the data for reason, present to user
+                    res.error(JSON.stringify{err:"E003",data:error})); // parse error, check the data for reason, present to user
                 }
             );
             
         },
         function(error) {
             // The hub find failed
-            res.error({err:"E004",data:error}); // failed to find the hub
+            res.error(JSON.stringify{err:"E004",data:error})); // failed to find the hub
         }
     );
     

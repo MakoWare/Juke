@@ -553,14 +553,14 @@ var addSongFromDevice = function(req, res){
                 },
                 function(error) {
                     // The request failed
-                    res.error(JSON.stringify{err:"E003",data:error})); // parse error, check the data for reason, present to user
+                    res.error(JSON.stringify({err:"E003",data:error})); // parse error, check the data for reason, present to user
                 }
             );
             
         },
         function(error) {
             // The hub find failed
-            res.error(JSON.stringify{err:"E004",data:error})); // failed to find the hub
+            res.error(JSON.stringify({err:"E004",data:error})); // failed to find the hub
         }
     );
     

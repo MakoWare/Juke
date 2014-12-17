@@ -483,79 +483,89 @@ var addCheck = function(hub, user, song){
  *
  */
 var addSongFromDevice = function(req, res){
+    console.log('about to run the hub query');
     // get the req params
     var songInfo = req.params.songInfo;
     var hubId = req.params.hubId;
     
-    // check if the song exists already
-    var songQuery = new Parse.Query(Song);
-    songQuery.equalTo("pId",songInfo.pId);
-    var queuedSongQuery = new Parse.Query(QueuedSong);
-    queuedSongQuery.equalTo("hub",hubId);
-    queuedSongQuery.equalTo("active",true);
-    queuedSongQuery.matchesQuery("song",songQuery);
-    queuedSongQuery.count({
-        success: function(count) {
-            if(count==0){
-                // if zero count, song is not in hub
-                // find or create a song to be used by the new queuedsong obj
-                var songQuery = new Parse.Query(Song);
-                songQuery.equalTo("pId",songInfo.pId);
-                songQuery.first().then(function(song){
-                    if(!song){
-                        // song does not exist so make one
-                        song = new Song();
-                        song.set("type",songInfo.type);
-                        song.set("artist",songInfo.artist);
-                        song.set("title",songInfo.title);
-                        song.set("description",songInfo.description);
-                        song.set("pId",songInfo.pId);
-                        song.set("thumbnail",songInfo.thumbnail);
-                        song.set("owner",Parse.User.current());
-                        return song.save();
+    // get the hub first
+    var hubQuery = new Parse.Query(Hub);
+    hubQuery.get(hubId).then(
+        function(theHub){
+            // check if the song exists already
+//            console.log('got the hub');
+//            res.success();
+            
+            var songQuery = new Parse.Query(Song);
+            songQuery.equalTo("pId",songInfo.pId);
+            var queuedSongQuery = new Parse.Query(QueuedSong);
+            queuedSongQuery.equalTo("hub",theHub);
+            queuedSongQuery.equalTo("active",true);
+            queuedSongQuery.matchesQuery("song",songQuery);
+            queuedSongQuery.count(
+                function(count) {
+                    console.log('got queuedSong');
+                    if(count==0){
+                        // if zero count, song is not in hub
+                        // find or create a song to be used by the new queuedsong obj
+                        var songQuery = new Parse.Query(Song);
+                        songQuery.equalTo("pId",songInfo.pId);
+                        songQuery.first().then(function(song){
+                            console.log('got the song');
+                            if(!song){
+                                // song does not exist so make one
+                                song = new Song();
+                                song.set("type",songInfo.type);
+                                song.set("artist",songInfo.artist);
+                                song.set("title",songInfo.title);
+                                song.set("description",songInfo.description);
+                                song.set("pId",songInfo.pId);
+                                song.set("thumbnail",songInfo.thumbnail);
+                                song.set("owner",Parse.User.current());
+                                return song.save();
+                            } else {
+                                return Parse.Promise.as(song);
+                            }
+                        }).then(function(song){
+                            console.log('about to make a queuedSong');
+                            // now we have both the hub and song, create the QueuedSong
+                            var queuedSong = new QueuedSong();
+                            queuedSong.set('hub', theHub);
+                            queuedSong.set('song', song);
+                            queuedSong.set('addedBy', Parse.User.current());
+                            queuedSong.set('score', 1);
+                            queuedSong.set('ups', [Parse.User.current()]);
+                            queuedSong.set('downs', []);
+                            queuedSong.set('active', true);
+                            return queuedSong.save();
+                        }).then(function(obj){
+                            // everything saved, return response to user
+                            console.log('about to return success');
+                            res.success();
+                        }, function(err){
+                            // something failed
+                            res.error({err:"E001",data:err});
+                        });
+
                     } else {
-                        return Parse.Promise.as(song);
+                        res.error({err:"E002"}); // error because the song is already in the hub
                     }
-                }).then(function(song){
-                    // we have a saved and valid song, now we need the hub object
-                    var hubQuery = new Parse.Query(Hub);
-                    return hubQuery.get(hubId).then(function(hub){
-                        return Parse.Promise.as({hub:hub,song:song});
-                    });
-                }).then(function(package){
-                    var song = package.song;
-                    var hub = package.hub;
-                    
-                    // now we have both the hub and song, create the QueuedSong
-                    var queuedSong = new QueuedSong();
-                    queuedSong.set('hub', hub);
-                    queuedSong.set('song', song);
-                    queuedSong.set('addedBy', Parse.User.current());
-                    queuedSong.set('score', 1);
-                    queuedSong.set('ups', [Parse.User.current()]);
-                    queuedSong.set('downs', []);
-                    queuedSong.set('active', true);
-                    return queuedSong.save();
-                }).then(function(obj){
-                    // everything saved, return response to user
-                    res.success();
-                }, function(err){
-                    // something failed
-                    res.error({err:"E001",data:err});
-                });
-                
-            } else {
-                res.error({err:"E002"}); // error because the song is already in the hub
-            }
+                },
+                function(error) {
+                    // The request failed
+                    res.error({err:"E003",data:error}); // parse error, check the data for reason, present to user
+                }
+            );
+            
         },
-        error: function(error) {
-            // The request failed
-            res.error({err:"E001",data:error}); // parse error, check the data for reason, present to user
+        function(error) {
+            // The hub find failed
+            res.error({err:"E004",data:error}); // failed to find the hub
         }
-    });
-                      
+    );
     
 };
+
 Parse.Cloud.define("addSongFromDevice", addSongFromDevice);
 
 /*

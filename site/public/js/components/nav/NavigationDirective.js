@@ -3,10 +3,11 @@ var NavigationDirective = BaseDirective.extend({
     notifications:null,
     userModel: null,
 
-    init:function($scope, $location, notifications, usersModel){
-	this.notifications = notifications;
+    init:function($scope, $location, notifications, usersModel, $modal){
+        this.notifications = notifications;
         this.userModel = usersModel;
         this.location = $location;
+        this.modal = $modal;
 	this._super($scope);
         this.$scope.login = {};
         this.$scope.signUp = {};
@@ -19,6 +20,8 @@ var NavigationDirective = BaseDirective.extend({
         $('#loginButton').click(this.login.bind(this));
         $('#logoutButton').click(this.logout.bind(this));
         $('#signUpButton').click(this.signUp.bind(this));
+        $('#feedbackButton1').click(this.giveFeedBack.bind(this));
+        $('#feedbackButton2').click(this.giveFeedBack.bind(this));
         $('#searchParam').keyup(this.searchChanged.bind(this));
         this.notifications.addEventListener(juke.events.USER_LOGGED_IN, this.handleUserLogin.bind(this));
         this.notifications.addEventListener(juke.events.USER_LOGGED_OUT, this.handleUserLogout.bind(this));
@@ -38,6 +41,13 @@ var NavigationDirective = BaseDirective.extend({
 
         });
 
+    },
+
+    giveFeedBack:function(){
+        var modalInstance = this.modal.open({
+            templateUrl: 'partials/feedbackModal.html',
+            controller: 'FeedBackModalCtrl'
+        });
     },
 
     handleAddingSongsShown:function(){
@@ -75,7 +85,7 @@ var NavigationDirective = BaseDirective.extend({
 });
 
 angular.module('navigation',[])
-    .directive('navigation',['$location', 'Notifications', 'UsersModel', function($location, Notifications, UsersModel){
+    .directive('navigation',['$location', 'Notifications', 'UsersModel', '$modal', function($location, Notifications, UsersModel, $modal){
         var partial;
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             partial = "partials/nav/navMobile.html";
@@ -87,7 +97,7 @@ angular.module('navigation',[])
 	    restrict:'A',
 	    isolate:true,
 	    link: function($scope,$elm,$attrs){
-		new NavigationDirective($scope, $location, Notifications, UsersModel);
+		new NavigationDirective($scope, $location, Notifications, UsersModel, $modal);
 	    },
 	    scope:true,
             templateUrl: partial

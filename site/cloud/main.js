@@ -483,10 +483,18 @@ var addCheck = function(hub, user, song){
  *
  */
 var addSongFromDevice = function(req, res){
-    console.log('about to run the hub query');
+//    console.log('about to run the hub query');
     // get the req params
     var songInfo = req.params.songInfo;
     var hubId = req.params.hubId;
+    
+    console.log(Parse.User.current().get('authData').anonymous);
+    // check if user is anon
+    if(Parse.User.current().get('authData').anonymous){
+        
+        res.error(JSON.stringify({err:"E003"})); // error because the user is not authed
+        return;
+    }
     
     // get the hub first
     var hubQuery = new Parse.Query(Hub);
@@ -504,14 +512,14 @@ var addSongFromDevice = function(req, res){
             queuedSongQuery.matchesQuery("song",songQuery);
             queuedSongQuery.count(
                 function(count) {
-                    console.log('got queuedSong');
+//                    console.log('got queuedSong');
                     if(count==0){
                         // if zero count, song is not in hub
                         // find or create a song to be used by the new queuedsong obj
                         var songQuery = new Parse.Query(Song);
                         songQuery.equalTo("pId",songInfo.pId);
                         songQuery.first().then(function(song){
-                            console.log('got the song');
+//                            console.log('got the song');
                             if(!song){
                                 // song does not exist so make one
                                 song = new Song();
@@ -527,7 +535,7 @@ var addSongFromDevice = function(req, res){
                                 return Parse.Promise.as(song);
                             }
                         }).then(function(song){
-                            console.log('about to make a queuedSong');
+//                            console.log('about to make a queuedSong');
                             // now we have both the hub and song, create the QueuedSong
                             var queuedSong = new QueuedSong();
                             queuedSong.set('hub', theHub);
@@ -540,7 +548,7 @@ var addSongFromDevice = function(req, res){
                             return queuedSong.save();
                         }).then(function(obj){
                             // everything saved, return response to user
-                            console.log('about to return success');
+//                            console.log('about to return success');
                             res.success();
                         }, function(err){
                             // something failed

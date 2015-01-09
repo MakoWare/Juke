@@ -371,6 +371,7 @@ Parse.Cloud.define("addSong", function(request, response) {
 //Add YouTubeSong to Queue
 //request params - user.id, hub.id, YouTubeSong (actual result from api request)
 Parse.Cloud.define("addYouTubeSong", function(request, response) {
+    Parse.Cloud.useMasterKey();
     var hubId =  request.params.hubId;
     var userId = request.params.userId;
     var submittedSong = request.params.song;
@@ -473,9 +474,9 @@ var addCheck = function(hub, user, song){
 //    });
 //});
 
-/**  
+/**
  *  method to add songs to a hub from a device (ie. ios, android)
- *  
+ *
  *  params
  *      songInfo : Object - package of info about the song to be added
  *          ie. {"type":"youtube","artist":"Avicii","title":"Levels","description":"desc","pId":"ads98sdf","thumbnail":"http://www.somepic.com/S0m3pIciD"}
@@ -487,15 +488,15 @@ var addSongFromDevice = function(req, res){
     // get the req params
     var songInfo = req.params.songInfo;
     var hubId = req.params.hubId;
-    
+
     console.log(Parse.User.current().get('authData').anonymous);
     // check if user is anon
     if(Parse.User.current().get('authData').anonymous){
-        
+
         res.error(JSON.stringify({err:"E003"})); // error because the user is not authed
         return;
     }
-    
+
     // get the hub first
     var hubQuery = new Parse.Query(Hub);
     hubQuery.get(hubId).then(
@@ -503,7 +504,7 @@ var addSongFromDevice = function(req, res){
             // check if the song exists already
 //            console.log('got the hub');
 //            res.success();
-            
+
             var songQuery = new Parse.Query(Song);
             songQuery.equalTo("pId",songInfo.pId);
             var queuedSongQuery = new Parse.Query(QueuedSong);
@@ -564,14 +565,14 @@ var addSongFromDevice = function(req, res){
                     res.error(JSON.stringify({err:"E003",data:error})); // parse error, check the data for reason, present to user
                 }
             );
-            
+
         },
         function(error) {
             // The hub find failed
             res.error(JSON.stringify({err:"E004",data:error})); // failed to find the hub
         }
     );
-    
+
 };
 
 Parse.Cloud.define("addSongFromDevice", addSongFromDevice);

@@ -1,0 +1,20 @@
+nav {
+    background-color: #ff9100;
+
+    .brand-logo {
+        font-family: Orbitron;
+    }
+
+    a {
+        color: white;
+        &:hover {
+            color: white;
+        }
+    }
+
+    li {
+        &:hover {
+            background-color: #e65100;
+        }
+    }
+}

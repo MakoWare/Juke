@@ -13,7 +13,7 @@ angular.module('juke').config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "partials/hubs/hubsPage.html",
             controller: HubsPageController,
             resolve: {
-                initHubs: getHubs
+
             }
         });
 });

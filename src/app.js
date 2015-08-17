@@ -8,6 +8,8 @@ angular.module('juke', [
 
     //Hubs
     'HubModel',
+    'hubsList',
+    'addHubModal',
 
     //Parse
     'ParseService',

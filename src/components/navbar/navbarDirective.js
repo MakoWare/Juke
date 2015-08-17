@@ -17,27 +17,31 @@ var NavBarDirective = BaseDirective.extend({
 
     defineListeners: function(){
         this.notifications.addEventListener(models.events.USER_SIGNED_IN, this.onUserSignedIn.bind(this));
-        this.$scope.logout = this.logout.bind(this);
-        this.$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-            this.$scope.state = toState.name;
-        }.bind(this));
+        this.notifications.addEventListener(models.events.BRAND_CHANGE, this.onBrandChange.bind(this));
         $(".dropdown-button").dropdown();
     },
 
     defineScope: function(){
-        this.navShowing = false;
         this.$scope.currentUser = this.userModel.currentUser;
+        this.$scope.logout = this.logout.bind(this);
+        this.$scope.showModal = this.showModal.bind(this);
         $(".button-collapse").sideNav();
+    },
 
+    showModal: function(){
+        this.notifications.notify(models.events.OPEN_ADD_HUB_MODAL);
     },
 
     logout: function(){
         this.userModel.logout();
-        this.$location.url("/");
     },
 
     onUserSignedIn: function(){
         this.$scope.currentUser = this.userModel.currentUser;
+    },
+
+    onBrandChange: function(event, brand){
+        this.$scope.brand = brand;
     }
 
 });

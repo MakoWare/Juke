@@ -1,10 +1,7 @@
 //Users Controller
 var HubsPageController = BaseController.extend({
 
-    /**** OVERRIDE Methods ****/
-    initialize:function($scope, $location, Notifications, ParseService, UserModel, $state, HubModel){
-        this.$location = $location;
-        this.ParseService = ParseService;
+    initialize:function($scope, $state, Notifications, UserModel, HubModel){
         this.userModel = UserModel;
         this.hubModel = HubModel;
         this.$state = $state;
@@ -17,7 +14,9 @@ var HubsPageController = BaseController.extend({
 
     defineScope:function(){
         this._super();
+        this.notifications.notify(models.events.BRAND_CHANGE, "Hubs");
         console.log("yo");
+
     },
 
     destroy:function(){
@@ -27,4 +26,4 @@ var HubsPageController = BaseController.extend({
 
 });
 
-HubsPageController.$inject = ['$scope', '$location', 'Notifications', 'ParseService', 'UserModel', '$state','HubModel'];
+HubsPageController.$inject = ['$scope', '$state', 'Notifications', 'UserModel', 'HubModel'];

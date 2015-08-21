@@ -1,0 +1,15 @@
+.hubsPage {
+    .addHubButton {
+        position: fixed;
+        top: 75px;
+        right: 2%;
+        display: none;
+
+        @media #{$medium-and-up} {
+            display: block;
+        }
+    }
+
+
+
+}

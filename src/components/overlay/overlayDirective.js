@@ -26,14 +26,14 @@ var OverlayDirective = BaseDirective.extend({
     },
 
     /** EVENT HANDLERS **/
-    handleShowLoading: function(event, apply){
+    handleShowLoading: function(event){
         this.$scope.loading = true;
         if(!this.$scope.$$phase) {
             this.$scope.$apply();
         }
     },
 
-    handleHideLoading: function(event, apply){
+    handleHideLoading: function(event){
         this.$scope.loading = false;
         if(!this.$scope.$$phase) {
             this.$scope.$apply();

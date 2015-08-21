@@ -15,15 +15,16 @@ var HubsPageController = BaseController.extend({
     defineScope:function(){
         this._super();
         this.notifications.notify(models.events.BRAND_CHANGE, "Hubs");
-        console.log("yo");
-
+        this.$scope.openAddHubModal = this.openAddHubModal.bind(this);
     },
 
     destroy:function(){
         this._super();
+    },
 
+    openAddHubModal: function(){
+        this.notifications.notify(models.events.OPEN_ADD_HUB_MODAL);
     }
-
 });
 
 HubsPageController.$inject = ['$scope', '$state', 'Notifications', 'UserModel', 'HubModel'];

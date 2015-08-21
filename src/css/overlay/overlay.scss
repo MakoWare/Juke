@@ -1,7 +1,4 @@
-$anim-speed: 750ms;
-$tricolor: #00e5ff;
-$triw: 30px;
-$trih: $triw*.9;
+$numBars: 15;
 
 .overlay {
     position: fixed;
@@ -9,90 +6,49 @@ $trih: $triw*.9;
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.8);
     z-index: 9999999;
     text-align: center;
     line-height: 35vh;
 
-    @include keyframes(pulse) {
+
+    #bars {
+        position: absolute;
+        height: 50px;
+        left: 50%;
+        margin-left: -5em;
+        top: 35%;
+        width: 100px;
+    }
+
+    .bar {
+        background: #2196f3;
+        bottom: 1px;
+        height: 3px;
+        position: absolute;
+        width: 8px;
+        animation: sound 0ms -800ms linear infinite alternate;
+    }
+
+    @keyframes sound {
         0% {
-            opacity: 1;
-        }
-        16.666%{
-            opacity: 1;
+            opacity: .35;
+            height: 3px;
         }
         100% {
-            opacity: 0;
+            opacity: 1;
+            height: 120px;
         }
     }
 
-    .triangles {
-        position: fixed;
-        top: 45%;
-        left: 50%;
-        width:30em;
-        height:18em;
-        margin-top: -2em;
-        margin-left: -4em;
-        z-index: 99999;
-    }
-    .tri {
-        position: absolute;
-        @include animation(pulse $anim-speed ease-in infinite);
-        border: {
-            top: $trih solid $tricolor;
-            left: $triw/2 solid transparent;
-            right: $triw/2 solid transparent;
-            bottom: 0px;
-        }
-        &.invert {
-            border: {
-                top: 0px;
-                bottom: $trih solid $tricolor;
-                left: $triw/2 solid transparent;
-                right: $triw/2 solid transparent;
-            }
-        }
-        &:nth-child(1) {
-            left: $triw;
-        }
-        &:nth-child(2) {
-            left: $triw/2;
-            top: $trih;
-            @include animation-delay($anim-speed/6*-1);
-        }
-        &:nth-child(3) {
-            left: $triw;
-            top: $trih;
-        }
-        &:nth-child(4) {
-            left: $triw*1.5;
-            top: $trih;
-            @include animation-delay($anim-speed/6*-5);
-        }
-        &:nth-child(5) {
-            top:$trih*2;
-            @include animation-delay($anim-speed/6*-2);
-        }
-        &:nth-child(6) {
-            top:$trih*2;
-            left: $triw/2;
-            @include animation-delay($anim-speed/6*-2);
-        }
-        &:nth-child(7) {
-            top:$trih*2;
-            left: $triw;
-            @include animation-delay($anim-speed/6*-3);
-        }
-        &:nth-child(8) {
-            top:$trih*2;
-            left: $triw*1.5;
-            @include animation-delay($anim-speed/6*-4);
-        }
-        &:nth-child(9) {
-            top:$trih*2;
-            left: $triw*2;
-            @include animation-delay($anim-speed/6*-4);
+    @for $i from 1 through $numBars {
+        $start: 1px;
+        $left: $start + (9 * $i);
+        .bar:nth-child(#{$i})  {
+
+            left: $left;
+            animation-duration: random(100) + 500ms;
         }
     }
+
 }

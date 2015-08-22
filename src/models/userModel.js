@@ -16,8 +16,12 @@ var UserModel = EventDispatcher.extend({
     ParseService:null,
     notifications: null,
 
-    signIn: function(email, password){
-
+    login: function(username, password){
+        return this.ParseService.login(username, password).then(function(user){
+            this.currentUser = user;
+        }, function(error){
+            return error;
+        });
     },
 
     signOut: function(){

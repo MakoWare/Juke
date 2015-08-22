@@ -26,10 +26,14 @@
           </div>
         </div>
       </form>
+      <div class="row">
+        <p ng-if="error" style="text-align: center">{{errorMessage}}</p>
+      </div>
     </div>
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action waves-effect waves-green btn-flat" ng-click="createHub()">Create</a>
+    <a ng-show="isLogin" href="#!" class="modal-action waves-effect waves-green btn-flat" ng-click="login()">Login</a>
+    <a ng-show="!isLogin" href="#!" class="modal-action waves-effect waves-green btn-flat" ng-click="signUp()">Sign Up</a>
     <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
   </div>
 </div>

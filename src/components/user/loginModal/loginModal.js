@@ -31,12 +31,31 @@ var LoginModalDirective = BaseDirective.extend({
     },
 
     login: function(){
-        console.log("login");
-
+        this.notifications.notify(models.events.SHOW_LOADING);
+        this.userModel.login(this.$scope.user.username, this.$scope.user.password).then(function(user){
+            this.notifications.notify(models.events.HIDE_LOADING);
+            $('#loginModal').closeModal();
+        }.bind(this), function(error){
+            this.notifications.notify(models.events.HIDE_LOADING);
+            console.log(error);
+            this.$scope.error = true;
+            this.$scope.errorMessage = error.message;
+            this.$scope.$apply();
+        }.bind(this));
     },
 
     signUp: function(){
-        console.log("signup");
+        this.notifications.notify(models.events.SHOW_LOADING);
+        this.userModel.signUp(this.$scope.user.username, this.$scope.user.password).then(function(user){
+            this.notifications.notify(models.events.HIDE_LOADING);
+            $('#loginModal').closeModal();
+        }.bind(this), function(error){
+            this.notifications.notify(models.events.HIDE_LOADING);
+            console.log(error);
+            this.$scope.error = true;
+            this.$scope.errorMessage = error.message;
+            this.$scope.$apply();
+        }.bind(this));
     }
 
 

@@ -1,9 +1,17 @@
+var app = angular.module('juke');
+
 var getHubs = function(HubsModel){
-    return HubsModel.getHubs();
+    //return HubsModel.getHubs();
+    //return true;
+};
+
+var getHubById = function(HubModel, $stateParams){
+    var hubId = $stateParams.hubId;
+    return HubModel.getHubById(hubId);
 };
 
 
-angular.module('juke').config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("hubs");
 
     $stateProvider
@@ -13,13 +21,38 @@ angular.module('juke').config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "partials/hubs/hubsPage.html",
             controller: HubsPageController,
             resolve: {
-
+                //getHubs: getHubs
+            }
+        })
+        .state('hub', {
+            url: "/hubs/:id",
+            templateUrl: "partials/hubs/hubPage.html",
+            controller: HubPageController,
+            resolve: {
+                //getHubById: getHubById
+            }
+        })
+    /** Users **/
+        .state('users', {
+            url: "/users",
+            templateUrl: "partials/users/usersPage.html",
+            controller: UsersPageController,
+            resolve: {
+                //getUsers: getUsers
+            }
+        })
+        .state('user', {
+            url: "/user/:id",
+            templateUrl: "partials/users/userPage.html",
+            controller: UserPageController,
+            resolve: {
+                //getUsers: getUsers
             }
         });
 });
 
 
-angular.module('juke').config(function($provide) {
+app.config(function($provide) {
     $provide.decorator('$state', function($delegate, $rootScope) {
         $rootScope.$on('$stateChangeStart', function(event, state, params) {
             $delegate.next = state;
@@ -27,4 +60,15 @@ angular.module('juke').config(function($provide) {
         });
         return $delegate;
     });
+});
+
+
+app.config(function($provide) {
+  $provide.decorator('$state', function($delegate, $rootScope) {
+    $rootScope.$on('$stateChangeStart', function(event, state, params) {
+      $delegate.next = state;
+      $delegate.toParams = params;
+    });
+    return $delegate;
+  });
 });

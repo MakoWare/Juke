@@ -1,5 +1,4 @@
-//Users Controller
-var HubsPageController = BaseController.extend({
+var HubPageController = BaseController.extend({
 
     initialize:function($scope, $state, Notifications, UserModel, HubModel){
         this.userModel = UserModel;
@@ -14,17 +13,15 @@ var HubsPageController = BaseController.extend({
 
     defineScope:function(){
         this._super();
-        this.notifications.notify(models.events.BRAND_CHANGE, "Hubs");
-        this.$scope.openAddHubModal = this.openAddHubModal.bind(this);
+        this.notifications.notify(models.events.BRAND_CHANGE, "Hub");
+        this.$scope.hub = this.hubModel.hub;
     },
 
     destroy:function(){
         this._super();
     },
 
-    openAddHubModal: function(){
-        this.notifications.notify(models.events.OPEN_ADD_HUB_MODAL);
-    }
+
 });
 
-HubsPageController.$inject = ['$scope', '$state', 'Notifications', 'UserModel', 'HubModel'];
+HubPageController.$inject = ['$scope', '$state', 'Notifications', 'UserModel', 'HubModel'];

@@ -22,7 +22,7 @@ var OverlayDirective = BaseDirective.extend({
     },
 
     defineScope: function(){
-        this.$scope.loading = false; //CHANGE THIS ;
+        this.$scope.loading = true;
     },
 
     /** EVENT HANDLERS **/

@@ -15,7 +15,16 @@ var HubModel = EventDispatcher.extend({
         }.bind(this), function(error){
             console.log(error);
         });
+    },
+
+    createHub: function(hub){
+        return this.ParseService.createHub(hub).then(function(hub){
+            this.hub = hub;
+        }.bind(this), function(error){
+            console.log(error);
+        });
     }
+
 });
 
 

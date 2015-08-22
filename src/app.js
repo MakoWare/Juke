@@ -5,6 +5,7 @@ angular.module('juke', [
 
     //User
     'UserModel',
+    'loginModal',
 
     //Hubs
     'HubModel',
@@ -14,6 +15,5 @@ angular.module('juke', [
     //Parse
     'ParseService',
 
-    'ui.router',
-    'ngAnimate'
+    'ui.router'
 ]);

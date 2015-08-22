@@ -24,12 +24,17 @@ var NavBarDirective = BaseDirective.extend({
     defineScope: function(){
         this.$scope.currentUser = this.userModel.currentUser;
         this.$scope.logout = this.logout.bind(this);
-        this.$scope.showModal = this.showModal.bind(this);
+        this.$scope.openAddHubModal = this.openAddHubModal.bind(this);
+        this.$scope.openLoginModal = this.openLoginModal.bind(this);
         $(".button-collapse").sideNav();
     },
 
-    showModal: function(){
+    openAddHubModal: function(){
         this.notifications.notify(models.events.OPEN_ADD_HUB_MODAL);
+    },
+
+    openLoginModal: function(){
+        this.notifications.notify(models.events.OPEN_LOGIN_MODAL);
     },
 
     logout: function(){

@@ -24,6 +24,14 @@ var UserModel = EventDispatcher.extend({
         });
     },
 
+    signUp: function(username, password){
+        return this.ParseService.login(username, password).then(function(user){
+            this.currentUser = user;
+        }, function(error){
+            return error;
+        });
+    },
+
     signOut: function(){
 
     },
@@ -71,9 +79,7 @@ var UserModel = EventDispatcher.extend({
     },
 
     createUser: function(user){
-
         return this.ParseService.createUser(user);
-
     },
 
     updateUser: function(user){

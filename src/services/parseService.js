@@ -35,6 +35,18 @@ var ParseService = Class.extend({
         Parse.User.logOut();
     },
 
+    signUp: function(username, password){
+        return Parse.User.signUp(username, password, {
+            success: function(user) {
+                return user;
+            },
+            error: function(user, error) {
+                console.log(error);
+                return error;
+            }
+        });
+    },
+
     //CREATE
     createUser: function(user){
         return Parse.Cloud.run('createUser',user);

@@ -13,8 +13,13 @@ var HubPageController = BaseController.extend({
 
     defineScope:function(){
         this._super();
-        this.notifications.notify(models.events.BRAND_CHANGE, "Hub");
         this.$scope.hub = this.hubModel.hub;
+
+        $(document).ready(function(){
+            $('ul.tabs').tabs();
+        });
+        this.notifications.notify(models.events.BRAND_CHANGE, this.$scope.hub.get('name'));
+        this.notifications.notify(models.events.HIDE_LOADING);
     },
 
     destroy:function(){

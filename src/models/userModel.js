@@ -19,21 +19,27 @@ var UserModel = EventDispatcher.extend({
     login: function(username, password){
         return this.ParseService.login(username, password).then(function(user){
             this.currentUser = user;
-        }, function(error){
+            this.notifications.notify(models.events.USER_SIGNED_IN);
+            return user;
+        }.bind(this), function(error){
             return error;
-        });
+        }.bind(this));
     },
 
     signUp: function(username, password){
-        return this.ParseService.login(username, password).then(function(user){
+        return this.ParseService.signUp(username, password).then(function(user){
             this.currentUser = user;
-        }, function(error){
+            this.notifications.notify(models.events.USER_SIGNED_IN);
+            return user;
+        }.bind(this), function(error){
             return error;
-        });
+        }.bind(this));
     },
 
     signOut: function(){
-
+        return this.ParseService.signOut().then(function(){
+            this.notifications.notify(models.events.USER_SIGNED_OUT);
+        });
     },
 
     updateUser: function(user){

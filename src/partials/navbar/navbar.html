@@ -1,4 +1,4 @@
-<ul id="dropdown1" class="dropdown-content">
+<ul id="userDropDown" class="dropdown-content">
   <li><a ui-sref="profile({userId: currentUser.id})">Profile</a></li>
   <li class="divider"></li>
   <li><a ng-click="signOut()">Sign Out</a></li>
@@ -14,13 +14,13 @@
         <li><a ui-sref="hubs">Hubs</a></li>
         <li><a ui-sref="users">Users</a></li>
         <li href="" ng-if="!currentUser" ng-click="openLoginModal()"><a>Login</a></li>
-        <li ng-if="currentUser"><a class="dropdown-button" data-activates="dropdown1">{{currentUser.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li ng-if="currentUser"><a class="dropdown-button" data-activates="userDropDown">{{currentUser.get('username')}}<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
       <ul class="side-nav" id="mobile-demo">
         <li><a ui-sref="hubs">Hubs</a></li>
         <li><a ui-sref="users">Users</a></li>
         <li href="" ng-if="!currentUser" ng-click="openLoginModal()"><a>Login</a></li>
-        <li><a class="dropdown-button" data-activates="dropdown1">Dropdown<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li ng-if="currentUser"> <a class="dropdown-button" data-activates="userDropDown">{{currentUser.get('username')}}<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
     </div>
   </div>

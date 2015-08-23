@@ -1,8 +1,7 @@
 var app = angular.module('juke');
 
-var getHubs = function(HubsModel){
-    //return HubsModel.getHubs();
-    //return true;
+var getHubs = function(HubModel){
+    return HubModel.getHubs();
 };
 
 var getHubById = function(HubModel, $stateParams){
@@ -21,15 +20,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "partials/hubs/hubsPage.html",
             controller: HubsPageController,
             resolve: {
-                //getHubs: getHubs
+                getHubs: getHubs
             }
         })
         .state('hub', {
-            url: "/hubs/:id",
+            url: "/hubs/:hubId",
             templateUrl: "partials/hubs/hubPage.html",
             controller: HubPageController,
             resolve: {
-                //getHubById: getHubById
+                getHubById: getHubById
             }
         })
     /** Users **/

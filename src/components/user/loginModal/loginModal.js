@@ -46,6 +46,7 @@ var LoginModalDirective = BaseDirective.extend({
 
     signUp: function(){
         this.notifications.notify(models.events.SHOW_LOADING);
+        console.log(this.$scope.user);
         this.userModel.signUp(this.$scope.user.username, this.$scope.user.password).then(function(user){
             this.notifications.notify(models.events.HIDE_LOADING);
             $('#loginModal').closeModal();

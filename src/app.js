@@ -9,7 +9,8 @@ angular.module('juke', [
 
     //Hubs
     'HubModel',
-    'hubsList',
+    'hubList',
+    'hubListItem',
     'addHubModal',
 
     //Parse

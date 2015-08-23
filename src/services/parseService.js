@@ -32,7 +32,7 @@ var ParseService = Class.extend({
     },
 
     signOut: function(){
-        Parse.User.logOut();
+        return Parse.User.logOut();
     },
 
     signUp: function(username, password){
@@ -83,8 +83,19 @@ var ParseService = Class.extend({
     /** Hubs **/
 
     //CREATE
-    createHub: function(){
-
+    createHub: function(hub){
+        var newHub = new this.Hub();
+        newHub.set("name", hub.name);
+        newHub.set("password", hub.password);
+        newHub.set("type", "web");
+        newHub.set("owner", Parse.User.current());
+        return newHub.save(null, {
+            success: function(newHub){
+                return newHub;
+            }, error: function(newHub, error){
+                return error;
+            }
+        });
     },
 
     //UPDATE
@@ -94,12 +105,28 @@ var ParseService = Class.extend({
 
     //READ
     getHubs: function(){
-
+        var query = new Parse.Query("Hub");
+        query.include("owner");
+        return query.find({
+            success: function(hubs){
+                return hubs;
+            }, error: function(error){
+                return error;
+            }
+        });
     },
 
     //READ
-    getHubById: function(){
-
+    getHubById: function(id){
+        var query = new Parse.Query("Hub");
+        query.include("owner");
+        return query.get(id, {
+            success: function(hub){
+                return hub;
+            }, error: function(hub, error){
+                return error;
+            }
+        });
     },
 
     //DELETE

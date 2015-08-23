@@ -17,13 +17,14 @@ var NavBarDirective = BaseDirective.extend({
 
     defineListeners: function(){
         this.notifications.addEventListener(models.events.USER_SIGNED_IN, this.onUserSignedIn.bind(this));
+        this.notifications.addEventListener(models.events.USER_SIGNED_OUT, this.onUserSignedOut.bind(this));
         this.notifications.addEventListener(models.events.BRAND_CHANGE, this.onBrandChange.bind(this));
         $(".dropdown-button").dropdown();
     },
 
     defineScope: function(){
         this.$scope.currentUser = this.userModel.currentUser;
-        this.$scope.logout = this.logout.bind(this);
+        this.$scope.signOut = this.signOut.bind(this);
         this.$scope.openAddHubModal = this.openAddHubModal.bind(this);
         this.$scope.openLoginModal = this.openLoginModal.bind(this);
         $(".button-collapse").sideNav();
@@ -37,13 +38,21 @@ var NavBarDirective = BaseDirective.extend({
         this.notifications.notify(models.events.OPEN_LOGIN_MODAL);
     },
 
-    logout: function(){
-        this.userModel.logout();
+    signOut: function(){
+        this.notifications.notify(models.events.SHOW_LOADING);
+        this.userModel.signOut().then(function(){
+            this.notifications.notify(models.events.HIDE_LOADING);
+        });
     },
 
     onUserSignedIn: function(){
         this.$scope.currentUser = this.userModel.currentUser;
     },
+
+    onUserSignedOut: function(){
+        this.$scope.currentUser = this.userModel.currentUser;
+    },
+
 
     onBrandChange: function(event, brand){
         this.$scope.brand = brand;

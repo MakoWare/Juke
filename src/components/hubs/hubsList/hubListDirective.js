@@ -1,6 +1,6 @@
 'use strict';
 
-var HubsListItemDirective = BaseDirective.extend({
+var HubListDirective = BaseDirective.extend({
     hubModel: null,
     notifications: null,
 
@@ -13,10 +13,13 @@ var HubsListItemDirective = BaseDirective.extend({
 
     defineListeners: function(){
         this._super();
+
     },
 
     defineScope: function(){
         this._super();
+        this.$scope.hubs = this.hubModel.hubs;
+        console.log(this.$scope.hubs);
     },
 
     destroy: function(){
@@ -26,14 +29,14 @@ var HubsListItemDirective = BaseDirective.extend({
 
 });
 
-angular.module('hubsListItem',[])
-    .directive('hubsListItem', function($state, UserModel, Notifications, HubModel){
+angular.module('hubList',[])
+    .directive('hubList', function($state, UserModel, Notifications, HubModel){
         return {
             restrict:'E',
             link: function($scope){
-                new HubsListItemDirective($scope, $state, UserModel, Notifications, HubModel);
+                new HubListDirective($scope, $state, UserModel, Notifications, HubModel);
             },
-            scope:false,
-            templateUrl: "partials/hubs/hubsList/hubsListItem.html"
+            scope: false,
+            templateUrl: "partials/hubs/hubList/hubList.html"
         };
     });

@@ -31,16 +31,21 @@ var AddHubModalDirective = BaseDirective.extend({
     },
 
     onOpenModal: function(){
-        $('#modal1').openModal();
+        $('#addHubModal').openModal();
     },
 
     createHub: function(){
         console.log("createHub");
         console.log(this.$scope.hub);
         this.notifications.notify(models.events.SHOW_LOADING);
-        this.hubModel.createHub(this.$scope.hub).then(function(results){
+        this.hubModel.createHub(this.$scope.hub).then(function(hub){
             this.notifications.notify(models.events.HIDE_LOADING);
+            console.log(hub);
+            this.$state.go('hub', {hubId: hub.id});
+        }.bind(this), function(error){
+            console.log(error);
         });
+
     }
 
 });

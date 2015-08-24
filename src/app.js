@@ -5,6 +5,8 @@ angular.module('juke', [
 
     //User
     'UserModel',
+    'userList',
+    'userListItem',
     'loginModal',
 
     //Hubs

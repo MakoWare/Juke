@@ -16,6 +16,10 @@ angular.module('juke', [
     'hubInfo',
     'addHubModal',
 
+    //Player
+    'player',
+
+
     //Parse
     'ParseService',
 

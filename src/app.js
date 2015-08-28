@@ -18,7 +18,7 @@ angular.module('juke', [
 
     //Player
     'player',
-
+    'youtubePlayer',
 
     //Parse
     'ParseService',

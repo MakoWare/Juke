@@ -1,6 +1,6 @@
 'use strict';
-namespace('models.events').PLAY = "ActivityModel.PLAY";
-namespace('models.events').STOP = "ActivityModel.STOP";
+namespace('models.events').PLAYING = "ActivityModel.PLAYING";
+namespace('models.events').STOPPED = "ActivityModel.STOPPED";
 namespace('models.events').NEXT_SONG = "ActivityModel.NEXT_SONG";
 namespace('models.events').SONGS_LOADED = "ActivityModel.SONGS_LOADED";
 

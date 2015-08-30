@@ -14,8 +14,10 @@ var HubsPageController = BaseController.extend({
 
     defineScope:function(){
         this._super();
-        this.notifications.notify(models.events.BRAND_CHANGE, "Hubs");
+        this.$scope.currentUser = this.userModel.currentUser;
         this.$scope.openAddHubModal = this.openAddHubModal.bind(this);
+
+        this.notifications.notify(models.events.BRAND_CHANGE, "Hubs");
         this.notifications.notify(models.events.HIDE_LOADING);
     },
 

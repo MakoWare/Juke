@@ -19,7 +19,7 @@ var NavBarDirective = BaseDirective.extend({
         this.notifications.addEventListener(models.events.USER_SIGNED_IN, this.onUserSignedIn.bind(this));
         this.notifications.addEventListener(models.events.USER_SIGNED_OUT, this.onUserSignedOut.bind(this));
         this.notifications.addEventListener(models.events.BRAND_CHANGE, this.onBrandChange.bind(this));
-        $(".dropdown-button").dropdown();
+
     },
 
     defineScope: function(){
@@ -27,6 +27,8 @@ var NavBarDirective = BaseDirective.extend({
         this.$scope.signOut = this.signOut.bind(this);
         this.$scope.openAddHubModal = this.openAddHubModal.bind(this);
         this.$scope.openLoginModal = this.openLoginModal.bind(this);
+
+        $(".userDropdownButton").dropdown();
         $(".button-collapse").sideNav();
     },
 
@@ -47,6 +49,7 @@ var NavBarDirective = BaseDirective.extend({
 
     onUserSignedIn: function(){
         this.$scope.currentUser = this.userModel.currentUser;
+        $(".dropdown-button").dropdown();
     },
 
     onUserSignedOut: function(){

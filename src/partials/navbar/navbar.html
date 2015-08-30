@@ -10,12 +10,11 @@
       <div class="nav-wrapper">
         <a href="#!" class="brand-logo">{{brand}}</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-        <a class="addHubButton waves-effect waves-white btn-flat" ng-click="openAddHubModal()"><i class="material-icons">add</i></a>
         <ul class="right hide-on-med-and-down">
           <li><a ui-sref="hubs">Hubs</a></li>
           <li><a ui-sref="users">Users</a></li>
           <li href="" ng-if="!currentUser" ng-click="openLoginModal()"><a>Login</a></li>
-          <li ng-if="currentUser"><a class="dropdown-button" data-activates="userDropDown">{{currentUser.get('username')}}<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li ng-if="currentUser"><a class="userDropdownButton" data-activates="userDropDown">{{currentUser.get('username')}}<i class="material-icons right">arrow_drop_down</i></a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
           <li><a ui-sref="hubs">Hubs</a></li>

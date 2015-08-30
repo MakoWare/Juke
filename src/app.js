@@ -16,6 +16,12 @@ angular.module('juke', [
     'hubInfo',
     'addHubModal',
 
+    //Songs
+    'SongModel',
+    'songList',
+    'songListItem',
+    'addSongModal',
+
     //Player
     'player',
     'youtubePlayer',

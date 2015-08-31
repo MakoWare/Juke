@@ -44,5 +44,15 @@
     ga('create', 'UA-54993936-1', 'auto');
     ga('send', 'pageview');
 
+
+    function OnGoogleLoad(){
+    console.log("halp");
+    gapi.client.setApiKey("AIzaSyBbe9WJQm4LmnZJ2HzgU8odGnItzXjdwDQ");
+    gapi.client.load('youtube', 'v3', function() {
+
+    });
+    }
+
   </script>
+  <script src="https://apis.google.com/js/client.js?onload=OnGoogleLoad"></script>
 </html>

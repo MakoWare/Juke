@@ -24,6 +24,7 @@ var AddSongModalDirective = BaseDirective.extend({
     defineScope: function(){
         this._super();
         this.$scope.findSongs = this.findSongs.bind(this);
+        this.$scope.searchParams = {};
     },
 
     destroy: function(){
@@ -36,8 +37,7 @@ var AddSongModalDirective = BaseDirective.extend({
     },
 
     findSongs: function(){
-
-
+        this.songModel.findSongs(this.$scope.searchParams);
     }
 
 

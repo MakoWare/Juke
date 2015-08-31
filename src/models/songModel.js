@@ -12,10 +12,6 @@ var SongModel = EventDispatcher.extend({
     ParseService:null,
     notifications: null,
 
-    findSongs: function(){
-
-    },
-
     addSong: function(song){
         //Check permisions before sending req
         return this.ParseService.addSong(song).then(function(song){
@@ -31,6 +27,24 @@ var SongModel = EventDispatcher.extend({
             return song;
         }.bind(this), function(error){
             return error;
+        });
+    },
+
+    findSongs: function(searchParams){
+        return this.findYouTubeSongs(searchParams);
+    },
+
+    findYouTubeSongs: function(searchParams){
+        var request = gapi.client.youtube.search.list({
+            q: searchParams.text,
+            maxResults: 10,
+            part: 'snippet'
+        });
+
+        return request.execute(function(response) {
+            console.log(response);
+            var str = JSON.stringify(response.result);
+            $('#search-container').html('<pre>' + str + '</pre>');
         });
     }
 

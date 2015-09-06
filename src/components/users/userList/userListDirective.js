@@ -19,7 +19,6 @@ var UserListDirective = BaseDirective.extend({
     defineScope: function(){
         this._super();
         this.$scope.hubs = this.hubModel.hubs;
-        console.log(this.$scope.hubs);
     },
 
     destroy: function(){

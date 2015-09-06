@@ -15,18 +15,25 @@ var SongListDirective = BaseDirective.extend({
 
     defineListeners: function(){
         this._super();
-
+        this.onSongsFound = this.onSongsFound.bind(this);
+        this.notifications.addEventListener(models.events.SONGS_FOUND, this.onSongsFound);
     },
 
     defineScope: function(){
         this._super();
         this.$scope.hub = this.hubModel.hub;
-        this.$scope.songs = this.songModel.queuedSongs;
+        this.$scope.youtubeSongs = this.songModel.foundYoutubeSongs;
     },
 
     destroy: function(){
         this._super();
+        this.notifications.removeEventListener(models.events.SONGS_FOUND, this.onSongsFound);
     },
+
+    onSongsFound: function(){
+        this.$scope.songs = this.songModel.foundSongs;
+        console.log(this.$scope.songs);
+    }
 
 
 });

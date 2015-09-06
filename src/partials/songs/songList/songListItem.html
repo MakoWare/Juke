@@ -1,5 +1,7 @@
-<div class="hubListItem">
-  <img src="images/defaultAlbumArt.jpg" alt="" class="circle">
-  <span class="title">{{hub.get('name')}}</span>
-  <p>{{hub.get('owner').username}}</p>
+<div class="youtubeSongListItem" ng-click="addSong()">
+  <img ng-src="{{song.thumbnail}}" alt="songThumbnail">
+  <div class="songInfo">
+    <h6>{{song.title}}</h6>
+    <p>{{song.description}}</p>
+  </div>
 </div>

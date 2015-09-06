@@ -8,6 +8,7 @@ var HubModel = EventDispatcher.extend({
     hubs : [],
     ParseService:null,
     notifications: null,
+    currentSong: null,
 
     getHubs: function(){
         return this.ParseService.getHubs().then(function(hubs){
@@ -34,6 +35,13 @@ var HubModel = EventDispatcher.extend({
         }.bind(this), function(error){
             return error;
         });
+    },
+
+    addSongToPlaylist: function(song){
+        return this.ParseService.addSongToPlaylist(song, this.hub).then(function(result){
+            console.log(result);
+
+        }.bind(this));
     }
 
 });

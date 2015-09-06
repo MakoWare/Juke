@@ -34,10 +34,13 @@ var AddSongModalDirective = BaseDirective.extend({
 
     onOpenModal: function(){
         $('#addSongModal').openModal();
+        $('#queryInput').focus();
     },
 
     findSongs: function(){
-        this.songModel.findSongs(this.$scope.searchParams);
+        this.songModel.findSongs(this.$scope.searchParams).then(function(results){
+
+        });
     }
 
 

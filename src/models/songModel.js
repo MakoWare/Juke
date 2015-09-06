@@ -1,6 +1,7 @@
 'use strict';
 
 namespace('models.events').SONG_ADDED = "ActivityModel.SONG_ADDED";
+namespace('models.events').SONGS_FOUND = "ActivityModel.SONG_FOUND";
 
 
 var SongModel = EventDispatcher.extend({
@@ -9,17 +10,9 @@ var SongModel = EventDispatcher.extend({
     playingSong: null,
     nextSong: null,
     queuedSongs: [],
+    foundSongs: [],
     ParseService:null,
     notifications: null,
-
-    addSong: function(song){
-        //Check permisions before sending req
-        return this.ParseService.addSong(song).then(function(song){
-            return song;
-        }.bind(this), function(error){
-            return error;
-        });
-    },
 
     getNextSong: function(hubId){
         return this.ParseService.getNextSong(hubId).then(function(song){
@@ -35,17 +28,34 @@ var SongModel = EventDispatcher.extend({
     },
 
     findYouTubeSongs: function(searchParams){
+        var deferred = this.$q.defer();
         var request = gapi.client.youtube.search.list({
             q: searchParams.text,
             maxResults: 10,
             part: 'snippet'
         });
 
-        return request.execute(function(response) {
-            console.log(response);
-            var str = JSON.stringify(response.result);
-            $('#search-container').html('<pre>' + str + '</pre>');
+        request.execute(function(response) {
+            this.parseYouTubeSongs(response.items);
+            this.notifications.notify(models.events.SONGS_FOUND);
+            deferred.resolve(response);
+        }.bind(this), function(error){
+            deferred.reject(error);
         });
+        return deferred.promise;
+    },
+
+    parseYouTubeSongs: function(songs){
+        songs.forEach(function(song){
+            this.foundSongs.push({
+                type: "youtube",
+                title: song.snippet.title,
+                description: song.snippet.description,
+                thumbnail: song.snippet.thumbnails.default.url,
+                youtubeId: song.id.videoId,
+                createdAt: song.snippet.publishedAt
+            });
+        }.bind(this));
     }
 
 });
@@ -55,7 +65,8 @@ var SongModel = EventDispatcher.extend({
     var SongModelProvider = Class.extend({
         instance: new SongModel(),
 
-        $get: function(ParseService, Notifications){
+        $get: function($q, ParseService, Notifications){
+            this.instance.$q = $q;
             this.instance.ParseService = ParseService;
             this.instance.notifications = Notifications;
             return this.instance;

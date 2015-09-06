@@ -132,16 +132,70 @@ var ParseService = Class.extend({
     //DELETE
     deleteHub: function(hubId){
         return Parse.Cloud.run('deleteHub', {hubId: hubId, userId: Parse.User.current().id});
+    },
+
+    /** SONGS **/
+
+    //Add Song
+    addSongToPlaylist: function(song, hub){
+        var deferred = this.$q.defer();
+        var queuedSong = new this.QueuedSong();
+        queuedSong.set("addedBy", Parse.User.current());
+        queuedSong.set("hub", hub);
+        queuedSong.set("title", song.title);
+        queuedSong.set("thumbnail", song.thumbnail);
+        queuedSong.set("description", song.description);
+        queuedSong.set("type", song.type);
+        queuedSong.set("youtubeId", song.youtubeId);
+        queuedSong.set("songCreatedAt", song.createdAt);
+
+        queuedSong.save(null, {
+            success: function(result){
+                deferred.resolve(result);
+            }, error: function(error){
+                deferred.reject(error);
+            }
+        });
+
+        return deferred.promise;
+
+        //For Song analytics
+        /*
+        var query = new Parse.Query("Song");
+        if(song.type == 'youtube'){
+            query.equalTo("type", "youtube");
+            query.equalTo("youtubeId", song.youtubeId);
+        } else {
+            console.log("error, don't know type of song");
+        }
+
+        query.first({
+            success: function(result){
+                if(result.id){
+                    result.set("playCount", result.get("addCount") + 1);
+                } else {
+                    //create new Song
+                }
+            }, error: function(error){
+                deferred.reject(error);
+            }
+        });
+         */
+
+
+        //Needs to be in the cloud eventually
+        //return Parse.Cloud.run('addSongToPlaylist', {song: JSON.stringify(song), hub: hub.toJSON(), userId: Parse.User.current().id });
     }
+
 });
 
 (function(){
     var ParseServiceProvider = Class.extend({
         instance:new ParseService(),
-        $get: function(){
+        $get: function($q){
 
             Parse.initialize("GU8DuOP6RzlnFFNBNOVnB5qrf6HCqxpJXSbDyN3W", "Wf6t36hyN7aPbkQzIxN6bXPMZGlr4xpdZgK1ljwG");
-
+            this.instance.$q = $q;
             this.instance.HubACL.setPublicReadAccess(true);
             this.instance.HubACL.setPublicWriteAccess(false);
             this.instance.SongACL.setPublicReadAccess(true);

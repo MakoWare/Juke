@@ -18,12 +18,22 @@ var SongListItemDirective = BaseDirective.extend({
 
     defineScope: function(){
         this._super();
+        this.$scope.addSong = this.addSong.bind(this);
+        //console.log(this.$scope.song);
     },
 
     destroy: function(){
         this._super();
     },
 
+    addSong: function(){
+        console.log("add");
+        this.notifications.notify(models.events.SHOW_LOADING);
+        this.hubModel.addSongToPlaylist(this.$scope.song).then(function(results){
+            this.notifications.notify(models.events.HIDE_LOADING);
+            Materialize.toast('Song added!', 2000, '');
+        }.bind(this));
+    }
 
 });
 

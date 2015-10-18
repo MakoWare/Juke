@@ -1,0 +1,17 @@
+{
+    "name": "Juke",
+    "dir": "~/Repos/Juke",
+    "port": "5002",
+    "branches": {
+	"master": {
+	    "commands": [
+		"git pull --rebase"
+	    ]
+	},
+	"staging": {
+	    "commands": [
+		"git pull --rebase"
+	    ]
+	}
+    }
+}

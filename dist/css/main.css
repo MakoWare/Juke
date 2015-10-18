@@ -8609,64 +8609,64 @@ body {
     height: 120px; } }
   .overlay .bar:nth-child(1) {
     left: 10px;
-    -webkit-animation-duration: 513ms;
-            animation-duration: 513ms; }
+    -webkit-animation-duration: 575ms;
+            animation-duration: 575ms; }
   .overlay .bar:nth-child(2) {
     left: 19px;
-    -webkit-animation-duration: 571ms;
-            animation-duration: 571ms; }
+    -webkit-animation-duration: 508ms;
+            animation-duration: 508ms; }
   .overlay .bar:nth-child(3) {
     left: 28px;
-    -webkit-animation-duration: 553ms;
-            animation-duration: 553ms; }
+    -webkit-animation-duration: 587ms;
+            animation-duration: 587ms; }
   .overlay .bar:nth-child(4) {
     left: 37px;
-    -webkit-animation-duration: 600ms;
-            animation-duration: 600ms; }
+    -webkit-animation-duration: 529ms;
+            animation-duration: 529ms; }
   .overlay .bar:nth-child(5) {
     left: 46px;
-    -webkit-animation-duration: 598ms;
-            animation-duration: 598ms; }
+    -webkit-animation-duration: 578ms;
+            animation-duration: 578ms; }
   .overlay .bar:nth-child(6) {
     left: 55px;
-    -webkit-animation-duration: 598ms;
-            animation-duration: 598ms; }
+    -webkit-animation-duration: 590ms;
+            animation-duration: 590ms; }
   .overlay .bar:nth-child(7) {
     left: 64px;
-    -webkit-animation-duration: 592ms;
-            animation-duration: 592ms; }
+    -webkit-animation-duration: 569ms;
+            animation-duration: 569ms; }
   .overlay .bar:nth-child(8) {
     left: 73px;
-    -webkit-animation-duration: 528ms;
-            animation-duration: 528ms; }
+    -webkit-animation-duration: 514ms;
+            animation-duration: 514ms; }
   .overlay .bar:nth-child(9) {
     left: 82px;
-    -webkit-animation-duration: 597ms;
-            animation-duration: 597ms; }
-  .overlay .bar:nth-child(10) {
-    left: 91px;
-    -webkit-animation-duration: 539ms;
-            animation-duration: 539ms; }
-  .overlay .bar:nth-child(11) {
-    left: 100px;
     -webkit-animation-duration: 511ms;
             animation-duration: 511ms; }
+  .overlay .bar:nth-child(10) {
+    left: 91px;
+    -webkit-animation-duration: 570ms;
+            animation-duration: 570ms; }
+  .overlay .bar:nth-child(11) {
+    left: 100px;
+    -webkit-animation-duration: 521ms;
+            animation-duration: 521ms; }
   .overlay .bar:nth-child(12) {
     left: 109px;
-    -webkit-animation-duration: 557ms;
-            animation-duration: 557ms; }
+    -webkit-animation-duration: 598ms;
+            animation-duration: 598ms; }
   .overlay .bar:nth-child(13) {
     left: 118px;
-    -webkit-animation-duration: 547ms;
-            animation-duration: 547ms; }
+    -webkit-animation-duration: 580ms;
+            animation-duration: 580ms; }
   .overlay .bar:nth-child(14) {
     left: 127px;
-    -webkit-animation-duration: 516ms;
-            animation-duration: 516ms; }
+    -webkit-animation-duration: 585ms;
+            animation-duration: 585ms; }
   .overlay .bar:nth-child(15) {
     left: 136px;
-    -webkit-animation-duration: 533ms;
-            animation-duration: 533ms; }
+    -webkit-animation-duration: 532ms;
+            animation-duration: 532ms; }
 
 nav .brand-logo {
   font-family: Orbitron; }

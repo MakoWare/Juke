@@ -1,0 +1,20 @@
+<div id="addSongModal" class="modal bottom-sheet addSongModal">
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s12 m5 l3">
+        <h4>Add Songs</h4>
+      </div>
+      <div class="input-field searchBox col s12 m7 l9">
+        <i class="material-icons prefix">search</i>
+        <input id="queryInput" type="text" class="validate" ng-model="searchParams.text" ng-change="findSongs()"  ng-model-options="{ debounce: 300 }" />
+        <label for="icon_prefix">Search</label>
+      </div>
+    </div>
+    <div class="songListContainer">
+      <song-list></song-list>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action modal-close waves-effect waves-red btn-flat">Cancel</a>
+  </div>
+</div>

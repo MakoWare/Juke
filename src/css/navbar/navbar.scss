@@ -1,0 +1,44 @@
+nav {
+    .brand-logo {
+        font-family: Orbitron;
+    }
+
+    a {
+        cursor: pointer;
+        color: white;
+        &:hover {
+            color: white;
+        }
+    }
+
+    li {
+        &:hover {
+            background-color: #e65100;
+        }
+    }
+
+    .addHubButton {
+        color: white;
+        height: 56px;
+        position: relative;
+        float: right;
+        line-height: 56px;
+        i {
+            font-size: 2.5rem;
+            line-height: 56px;
+            height: 56px;
+        }
+
+        @media #{$medium-and-up} {
+            display: none;
+        }
+    }
+
+    .button-collapse {
+        @media #{$medium-and-up} {
+            display: none;
+        }
+    }
+
+
+}

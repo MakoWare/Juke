@@ -1,0 +1,29 @@
+<div class="container hubPage">
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s4"><a class="active" href="#playlist">PlayList</a></li>
+        <li class="tab col s4"><a href="#userList">Djs</a></li>
+        <li class="tab col s4"><a href="#hubInfo">Hub Info</a></li>
+      </ul>
+    </div>
+    <div id="playerlist" class="col s12">
+      <playlist></playlist>
+      <player ng-if="false"></player>
+    </div>
+    <div id="userList" class="col s12">
+      user list
+      <user-list></user-list>
+    </div>
+    <div id="hubInfo" class="col s12">
+      <hub-info></hub-info>
+    </div>
+  </div>
+</div>
+
+<div class="fixed-action-btn" style="bottom: 45px; right: 24px;" ng-if="currentUser">
+  <a class="btn-floating btn-large green" ng-click="openAddSongModal()">
+    <i class="large material-icons">add</i>
+  </a>
+</div>
+<add-song-modal></add-song-modal>

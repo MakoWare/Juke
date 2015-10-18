@@ -1,5 +1,6 @@
 site/config
-
+node_modules
+bower_components
 #mac shit
 .DS_Store
 

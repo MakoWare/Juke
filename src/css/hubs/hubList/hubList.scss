@@ -1,0 +1,10 @@
+.hubList {
+
+    li {
+
+        &:hover {
+            cursor: pointer;
+            background: darken(#ffffff, 10%);
+        }
+    }
+}

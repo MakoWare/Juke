@@ -2,6 +2,7 @@ site/config
 node_modules
 bower_components
 .sass*
+.sa*
 dist/
 #mac shit
 .DS_Store

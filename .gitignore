@@ -6,5 +6,6 @@ bower_components
 dist/
 #mac shit
 .DS_Store
-
+__py*
+dist
 

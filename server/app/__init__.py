@@ -1,11 +1,16 @@
 from flask import Flask
 from flask_restful import reqparse, abort, Api, Resource
-import app.Hub.hub as hub
-import app.DataBase.database
+
 
 app = Flask(__name__)
 api = Api(app)
 
+taco = "taco"
+
+print(taco)
+
+
+from app.api import api
 
 # from serveryourapplication.database import db_session
 

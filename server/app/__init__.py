@@ -7,10 +7,7 @@ api = Api(app)
 
 taco = "taco"
 
-print(taco)
-
-
-from app.api import api
+from app.routes import *
 
 # from serveryourapplication.database import db_session
 

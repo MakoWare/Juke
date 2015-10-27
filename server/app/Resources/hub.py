@@ -1,7 +1,21 @@
-from flask_restful import reqparse, abort, Api, Resource
+import app.Models.hub as hubModel
+from app.DataBase.db import session
 
-class Hub(Resource):
-    def get(self, hub_id):
+from flask.ext.restful import reqparse, abort, Resource, fields, marshal_with
+
+
+hub_fields = {
+    'id': fields.Integer,
+    'name': fields.String
+}
+
+parser = reqparse.RequestParser()
+parser.add_argument('hub', type=str)
+
+
+class HubResource(Resource):
+    @marshal_with(hub_fields)
+    def get(self, id):
         print("getting hub")
         return "got hub"
 

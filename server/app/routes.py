@@ -1,4 +1,5 @@
-import app.Hub.hub as hub
+from app.Resources.hub import *
 from app import *
 
-api.add_resource(hub.Hub, '/hubs/<hub_id>')
+api.add_resource(HubResource, '/hubs/<id>')
+

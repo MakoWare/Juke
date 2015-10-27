@@ -7,6 +7,8 @@ api = Api(app)
 
 taco = "taco"
 
+import app.Resources.hub as hubResource
+
 from app.routes import *
 
 # from serveryourapplication.database import db_session
@@ -17,7 +19,3 @@ from app.routes import *
 
 
 
-# api.add_resource(hub.Hub, '/hubs/<hub_id>')
-
-# if __name__ == '__main__':
-#     app.run(debug=True)

@@ -1,4 +1,0 @@
-Flask
-flask-restful
-SQLAlchemy
-Flask-SQLAlchemy

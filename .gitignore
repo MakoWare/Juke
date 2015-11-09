@@ -8,5 +8,4 @@ dist/
 .DS_Store
 __py*
 dist
-
 jspm_packages

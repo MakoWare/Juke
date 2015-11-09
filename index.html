@@ -5,7 +5,7 @@
     <title>Juke</title>
   </head>
   <body>
-    <div id="gifs">
+    <div>
       <h1>GIFS GO HERE!!</h1>
     </div>
 
@@ -16,6 +16,7 @@
       System.import('src/main')
       System.import('jspm_packages/npm/webcomponents.js@0.7.2');
     </script>
+    <link rel="import" href="src/components/components.html">
 
     <!-- PRODUCTION MODE -->
     <!-- to generate build.js, run: jspm bundle-sfx --minify lib/main -->
@@ -25,5 +26,6 @@
 	-->
 
     <x-test></x-test>
+    
   </body>
 </html>

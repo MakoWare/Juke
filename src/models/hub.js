@@ -3,7 +3,6 @@ import BaseModel from './baseModel';
 class HubModel extends BaseModel {
     constructor() {
 	super();
-	console.log("Hub.constructor()");
     }
 
     load() {

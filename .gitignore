@@ -9,3 +9,4 @@ dist/
 __py*
 dist
 
+jspm_packages

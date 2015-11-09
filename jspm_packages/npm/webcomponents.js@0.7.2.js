@@ -1,0 +1,1 @@
+module.exports = require("npm:webcomponents.js@0.7.2/webcomponents");
